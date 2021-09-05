@@ -16,8 +16,14 @@ public class Greeting {
         List<String> lowercaseNames = new ArrayList<>();
         List<String> uppercaseNames = new ArrayList<>();
         for (String nam: name) {
-            if (nam.equals(nam.toUpperCase())) uppercaseNames.addAll(Arrays.asList(nam.split(", ")));
-            else lowercaseNames.addAll(Arrays.asList(nam.split(", ")));
+            if (!nam.matches("^\".+\"$")) {
+                if (nam.equals(nam.toUpperCase())) uppercaseNames.addAll(Arrays.asList(nam.split(", ")));
+                else lowercaseNames.addAll(Arrays.asList(nam.split(", ")));
+            } else {
+                nam = nam.replaceAll("\"", "");
+                if (nam.equals(nam.toUpperCase())) uppercaseNames.add(nam);
+                else lowercaseNames.add(nam);
+            }
         }
 
         String greeting = "";
