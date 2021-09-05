@@ -24,6 +24,12 @@ public class GreetingTest {
     @Test   // Requirement 4. The method returns greeting for all persons listed in array of two names.
     public void testTwoNamesArrayHandling() {
         String[] name = new String[] {"Jill", "Jane"};
-        Assert.assertEquals("Hello, Jill and Jane", Greeting.greet(name));
+        Assert.assertEquals("Hello, Jill and Jane.", Greeting.greet(name));
+    }
+
+    @Test   // Requirement 5. The method returns greeting for all persons listed in array of two and more names.
+    public void testTwoNamesOrMoreArrayHandling() {
+        String[] name = new String[] {"Amy", "Brian, Charlotte"};
+        Assert.assertEquals("Hello, Amy, Brian, and Charlotte.", Greeting.greet(name));
     }
 }
