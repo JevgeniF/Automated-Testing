@@ -8,4 +8,10 @@ public class GreetingTest {
         String name = "Bob";
         Assert.assertEquals("Hello, Bob.", Greeting.greet(name));
     }
+
+    @Test   // Requirement 2. The method handles nulls and returns greeting.
+    public void testNullStringHandling() {
+        String name = null;
+        Assert.assertEquals("Hello, my friend.", Greeting.greet(name));
+    }
 }
