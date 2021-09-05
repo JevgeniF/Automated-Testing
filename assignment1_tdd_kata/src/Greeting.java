@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Greeting {
@@ -11,10 +10,45 @@ public class Greeting {
     }
 
     public static String greet(String[] name) {
-        if (name.length == 2) return String.format("Hello, %s and %s.", name[0], name[1]);
-        List<String> allNamesExcLast = new ArrayList<>(Arrays.asList(name).subList(0, name.length - 1));
-        String lastName = name[name.length - 1];
-        String firstNamesInGreeting = String.join(", ", allNamesExcLast);
-        return String.format("Hello, %s, and %s.", firstNamesInGreeting, lastName);
+        List<String> lowercaseNames = new ArrayList<>();
+        List<String> uppercaseNames = new ArrayList<>();
+        for (String nam : name) {
+            if (nam.equals(nam.toUpperCase())) {
+                uppercaseNames.add(nam);
+            } else {
+                lowercaseNames.add(nam);
+            }
+        }
+        String greeting = "";
+
+        switch (lowercaseNames.size()) {
+            case 1 -> greeting += greet(lowercaseNames.get(0));
+            case 2 -> greeting += String.format("Hello, %s and %s.", lowercaseNames.get(0), lowercaseNames.get(1));
+            default -> {
+                if (lowercaseNames.size() >= 3) {
+                    String lastName = lowercaseNames.remove(lowercaseNames.size() - 1);
+                    String firstNamesInGreeting = String.join(", ", lowercaseNames);
+                    greeting += String.format("Hello, %s, and %s.", firstNamesInGreeting, lastName);
+                }
+            }
+        }
+
+        if (!uppercaseNames.isEmpty()) {
+            greeting += " AND ";
+        }
+
+        switch (uppercaseNames.size()) {
+            case 1 -> greeting += greet(uppercaseNames.get(0));
+            case 2 -> greeting += String.format("HELLO, %s AND %s!", uppercaseNames.get(0), uppercaseNames.get(1));
+            default -> {
+                if (lowercaseNames.size() >= 3) {
+                    String lastName = uppercaseNames.remove(uppercaseNames.size() - 1);
+                    String firstNamesInGreeting = String.join(", ", uppercaseNames);
+                    greeting += String.format("HELLO, %s, AND %s.", firstNamesInGreeting, lastName);
+                }
+            }
+        }
+
+        return greeting;
     }
 }
