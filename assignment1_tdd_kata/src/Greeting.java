@@ -1,6 +1,7 @@
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Greeting {
@@ -14,13 +15,14 @@ public class Greeting {
     public static String greet(String @NotNull [] name) {
         List<String> lowercaseNames = new ArrayList<>();
         List<String> uppercaseNames = new ArrayList<>();
-        for (String nam : name) {
+        for (String nam: name) {
             if (nam.equals(nam.toUpperCase())) {
-                uppercaseNames.add(nam);
+                uppercaseNames.addAll(Arrays.asList(nam.split(", ")));
             } else {
-                lowercaseNames.add(nam);
+                lowercaseNames.addAll(Arrays.asList(nam.split(", ")));
             }
         }
+
         String greeting = "";
 
         switch (lowercaseNames.size()) {
