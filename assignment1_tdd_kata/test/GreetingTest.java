@@ -44,4 +44,10 @@ public class GreetingTest {
         String[] name = new String[] {"Bob", "Charlie, Dianne"};
         Assert.assertEquals("Hello, Bob, Charlie, and Dianne.", Greeting.greet(name));
     }
+
+    @Test   // Requirement 8. The method allows escaping intentional quotes in String[] name elements.
+    public void testEscapeIntentionalQuotes() {
+        String[] name = new String[] {"Bob", "\"Charlie, Dianne\""};
+        Assert.assertEquals("Hello, Bob and Charlie, Dianne.", Greeting.greet(name));
+    }
 }
