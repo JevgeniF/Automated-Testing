@@ -13,4 +13,10 @@ public class GreetingTest {
     public void testNullStringHandling() {
         Assert.assertEquals("Hello, my friend.", Greeting.greet(null));
     }
+
+    @Test   // Requirement 3. The method returns greeting all uppercase if name is all uppercase.
+    public void testUppercaseGreetingIfNameUppercase() {
+        String name = "JERRY";
+        Assert.assertEquals("HELLO, JERRY!", Greeting.greet(name));
+    }
 }
