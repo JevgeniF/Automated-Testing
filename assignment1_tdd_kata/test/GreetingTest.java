@@ -32,4 +32,10 @@ public class GreetingTest {
         String[] name = new String[] {"Amy", "Brian", "Charlotte"};
         Assert.assertEquals("Hello, Amy, Brian, and Charlotte.", Greeting.greet(name));
     }
+
+    @Test   // Requirement 6. The method returns normal greeting for normal names and uppercase greeting for uppercase names.
+    public void testMixedGreetingForNormalAndUppercaseNames() {
+        String[] name = new String[] {"Amy", "BRIAN", "Charlotte"};
+        Assert.assertEquals("Hello, Amy and Charlotte. AND HELLO, BRIAN!", Greeting.greet(name));
+    }
 }
