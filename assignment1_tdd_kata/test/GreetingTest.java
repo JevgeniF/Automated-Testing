@@ -11,7 +11,6 @@ public class GreetingTest {
 
     @Test   // Requirement 2. The method handles nulls and returns greeting.
     public void testNullStringHandling() {
-        String name = null;
-        Assert.assertEquals("Hello, my friend.", Greeting.greet(name));
+        Assert.assertEquals("Hello, my friend.", Greeting.greet(null));
     }
 }
