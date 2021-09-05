@@ -16,15 +16,11 @@ public class Greeting {
         List<String> lowercaseNames = new ArrayList<>();
         List<String> uppercaseNames = new ArrayList<>();
         for (String nam: name) {
-            if (nam.equals(nam.toUpperCase())) {
-                uppercaseNames.addAll(Arrays.asList(nam.split(", ")));
-            } else {
-                lowercaseNames.addAll(Arrays.asList(nam.split(", ")));
-            }
+            if (nam.equals(nam.toUpperCase())) uppercaseNames.addAll(Arrays.asList(nam.split(", ")));
+            else lowercaseNames.addAll(Arrays.asList(nam.split(", ")));
         }
 
         String greeting = "";
-
         switch (lowercaseNames.size()) {
             case 1 -> greeting += greet(lowercaseNames.get(0));
             case 2 -> greeting += String.format("Hello, %s and %s.", lowercaseNames.get(0), lowercaseNames.get(1));
@@ -36,11 +32,7 @@ public class Greeting {
                 }
             }
         }
-
-        if (!uppercaseNames.isEmpty()) {
-            greeting += " AND ";
-        }
-
+        if (!uppercaseNames.isEmpty()) greeting += " AND ";
         switch (uppercaseNames.size()) {
             case 1 -> greeting += greet(uppercaseNames.get(0));
             case 2 -> greeting += String.format("HELLO, %s AND %s!", uppercaseNames.get(0), uppercaseNames.get(1));
@@ -52,7 +44,6 @@ public class Greeting {
                 }
             }
         }
-
         return greeting;
     }
 }
