@@ -38,4 +38,10 @@ public class GreetingTest {
         String[] name = new String[] {"Amy", "BRIAN", "Charlotte"};
         Assert.assertEquals("Hello, Amy and Charlotte. AND HELLO, BRIAN!", Greeting.greet(name));
     }
+
+    @Test   // Requirement 7. The method allows escaping intentional commas in String[] name elements.
+    public void testEscapeIntentionalCommas() {
+        String[] name = new String[] {"Bob", "Charlie, Dianne"};
+        Assert.assertEquals("Hello, Bob, Charlie, and Dianne.", Greeting.greet(name));
+    }
 }
