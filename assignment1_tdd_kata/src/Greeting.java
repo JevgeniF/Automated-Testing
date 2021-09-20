@@ -12,17 +12,17 @@ public class Greeting {
         return String.format("Hello, %s.", name);
     }
 
-    public static String greet(String @NotNull [] name) {
+    public static String greet(String @NotNull [] names) {
         List<String> lowercaseNames = new ArrayList<>();
         List<String> uppercaseNames = new ArrayList<>();
-        for (String nam: name) {
-            if (!nam.matches("^\".+\"$")) {
-                if (nam.equals(nam.toUpperCase())) uppercaseNames.addAll(Arrays.asList(nam.split(", ")));
-                else lowercaseNames.addAll(Arrays.asList(nam.split(", ")));
+        for (String name: names) {
+            if (!name.matches("^\".+\"$")) {
+                if (name.equals(name.toUpperCase())) uppercaseNames.addAll(Arrays.asList(name.split(", ")));
+                else lowercaseNames.addAll(Arrays.asList(name.split(", ")));
             } else {
-                nam = nam.replaceAll("\"", "");
-                if (nam.equals(nam.toUpperCase())) uppercaseNames.add(nam);
-                else lowercaseNames.add(nam);
+                name = name.replaceAll("\"", "");
+                if (name.equals(name.toUpperCase())) uppercaseNames.add(name);
+                else lowercaseNames.add(name);
             }
         }
 
