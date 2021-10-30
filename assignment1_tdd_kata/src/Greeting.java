@@ -1,5 +1,3 @@
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +10,7 @@ public class Greeting {
         return String.format("Hello, %s.", name);
     }
 
-    public static String greet(String @NotNull [] names) {
+    public static String greet(String [] names) {
         List<String> lowercaseNames = new ArrayList<>();
         List<String> uppercaseNames = new ArrayList<>();
         for (String name: names) {
