@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class HoverPageTests {
+public class HoversPageTests {
 
     private static List<WebElement> figureClassElementsList;
 
