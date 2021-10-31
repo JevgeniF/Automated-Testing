@@ -4,7 +4,9 @@ import icd0004.pages.HoversPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.$;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,6 +28,11 @@ public class HoversPageTests extends BaseTest {
     @Test //Hovers over first profile picture and checks if text field "name: user1" appears.
     public void shouldDisplayUsersNameWhenHoveringOverFirstProfilePicture() {
         assertThat(hoversPage.getHoveredProfileNameFieldText(0)).isEqualTo("name: user1");
+    }
+
+    @Test //Hovers over first profile picture and checks if "View profile" link shows.
+    public void shouldDisplayLinkNamedViewProfileWhenHoveringOverFirstProfilePicture() {
+        assertThat(hoversPage.getHoveredProfileLinkName(0)).isEqualTo("View profile");
     }
 
     @Test //Hovers over second profile picture and checks if text field "name: user2" appears.
