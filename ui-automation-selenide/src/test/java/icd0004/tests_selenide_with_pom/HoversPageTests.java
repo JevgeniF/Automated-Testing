@@ -20,4 +20,13 @@ public class HoversPageTests extends BaseTest {
     public void canOpenHoverPage() {
         assertThat(hoversPage.getPageTitleText()).isEqualTo("Hovers");
     }
+
+    @Test
+    public void shouldDisplayUsersNameWhenHoveringOverFirstProfilePicture(int index) {
+        hoversPage.selectProfilePicture(1);
+
+        assertThat(hoversPage.getSelectedProfileNameField()
+                .getText())
+                .isEqualTo("name: user1");
+    }
 }
