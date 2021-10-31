@@ -12,7 +12,7 @@ public class HoversPageTests extends BaseTest {
     private HoversPage hoversPage;
 
     @BeforeEach
-    public void goToHomePage() {
+    public void goToHoversPage() {
         hoversPage = new HoversPage();
         hoversPage.goTo();
     }
