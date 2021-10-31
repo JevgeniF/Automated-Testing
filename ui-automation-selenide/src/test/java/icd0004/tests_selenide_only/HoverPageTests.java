@@ -5,7 +5,6 @@ import com.codeborne.selenide.WebDriverRunner;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -35,17 +34,22 @@ public class HoverPageTests {
         $("h3").shouldHave(text("Hovers"));
     }
 
-    @Test //Hovers over first profile picture and checks if page "name" field text matches.
+    @Test //Hovers over first profile picture and checks if text field "name: user1" appears.
     public void shouldDisplayUsersNameWhenHoveringOverFirstProfilePicture() {
         $(hoversOnPage.get(0)).hover().$("h5").shouldHave(text("name: user1"));
     }
 
-    @Test //Hovers over second profile picture and checks if page "name" field text matches.
+    @Test //Hovers over first profile picture and checks if page "View profile" link appears.
+    public void shouldDisplayViewProfileWhenHoveringOverFirstProfilePicture() {
+        $(hoversOnPage.get(0)).hover().$("a").shouldHave(text("View profile"));
+    }
+
+    @Test //Hovers over second profile picture and checks if text field "name: user2" appears.
     public void shouldDisplayUsersNameWhenHoveringOverSecondProfilePicture() {
         $(hoversOnPage.get(1)).hover().$("h5").shouldHave(text("name: user2"));
     }
 
-    @Test //Hovers over third profile picture and checks if page "name" field text matches.
+    @Test //Hovers over third profile picture and checks if text field "name: user3" appears.
     public void shouldDisplayUsersNameWhenHoveringOverThirdProfilePicture() {
         $(hoversOnPage.get(2)).hover().$("h5").shouldHave(text("name: user3"));
     }
