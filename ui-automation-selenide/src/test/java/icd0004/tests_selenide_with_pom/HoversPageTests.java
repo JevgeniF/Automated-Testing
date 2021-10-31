@@ -47,6 +47,11 @@ public class HoversPageTests extends BaseTest {
         assertThat(hoversPage.getHoveredProfileLinkName(1)).isEqualTo("View profile");
     }
 
+    @Test //Hovers over second profile picture and checks that "View profile" link matches the profile.
+    public void shouldMatchViewProfileLinkWithSecondUserWhenHoveringOverSecondProfilePicture() {
+        assertThat(hoversPage.getHoveredProfileLinkUrl(1)).isEqualTo(baseUrl + "/users/2");
+    }
+
     @Test //Hovers over third profile picture and checks if text field "name: user3" appears.
     public void shouldDisplayUsersNameWhenHoveringOverThirdProfilePicture() {
         assertThat(hoversPage.getHoveredProfileNameFieldText(2)).isEqualTo("name: user3");
