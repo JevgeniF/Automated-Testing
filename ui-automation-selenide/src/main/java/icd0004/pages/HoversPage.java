@@ -32,4 +32,8 @@ public class HoversPage {
     public String getHoveredProfileLinkName(int index) {
         return $(figureClassElementsList.get(index)).hover().$("a").getText();
     }
+
+    public String getHoveredProfileLinkUrl(int index) {
+        return $(figureClassElementsList.get(index)).hover().$("a").getAttribute("href");
+    }
 }
