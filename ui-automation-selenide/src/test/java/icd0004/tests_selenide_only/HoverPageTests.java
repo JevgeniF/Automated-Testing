@@ -26,6 +26,7 @@ public class HoverPageTests {
 
         open("/");
         $(By.linkText("Hovers")).click();
+
         hoversOnPage = WebDriverRunner.getWebDriver().findElements(By.className("figure"));
     }
 
@@ -42,5 +43,10 @@ public class HoverPageTests {
     @Test //Hovers over second profile picture and checks if page "name" field text matches.
     public void shouldDisplayUsersNameWhenHoveringOverSecondProfilePicture() {
         $(hoversOnPage.get(1)).hover().$("h5").shouldHave(text("name: user2"));
+    }
+
+    @Test //Hovers over third profile picture and checks if page "name" field text matches.
+    public void shouldDisplayUsersNameWhenHoveringOverThirdProfilePicture() {
+        $(hoversOnPage.get(2)).hover().$("h5").shouldHave(text("name: user3"));
     }
 }
