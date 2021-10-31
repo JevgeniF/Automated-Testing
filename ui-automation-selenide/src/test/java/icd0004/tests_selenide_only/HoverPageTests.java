@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class HoverPageTests {
 
-    private static List<WebElement> hoversOnPage;
+    private static List<WebElement> figureClassElementsList;
 
     @BeforeAll
     public static void setUp() {
@@ -26,7 +26,7 @@ public class HoverPageTests {
         open("/");
         $(By.linkText("Hovers")).click();
 
-        hoversOnPage = WebDriverRunner.getWebDriver().findElements(By.className("figure"));
+        figureClassElementsList = WebDriverRunner.getWebDriver().findElements(By.className("figure"));
     }
 
     @Test //Opens "Hovers" page by click on link and checks if page name matches.
@@ -36,26 +36,26 @@ public class HoverPageTests {
 
     @Test //Hovers over first profile picture and checks if text field "name: user1" appears.
     public void shouldDisplayUsersNameWhenHoveringOverFirstProfilePicture() {
-        $(hoversOnPage.get(0)).hover().$("h5").shouldHave(text("name: user1"));
+        $(figureClassElementsList.get(0)).hover().$("h5").shouldHave(text("name: user1"));
     }
 
     @Test //Hovers over first profile picture and checks if page "View profile" link appears.
     public void shouldDisplayViewProfileWhenHoveringOverFirstProfilePicture() {
-        $(hoversOnPage.get(0)).hover().$("a").shouldHave(text("View profile"));
+        $(figureClassElementsList.get(0)).hover().$("a").shouldHave(text("View profile"));
     }
 
     @Test //Hovers over second profile picture and checks if text field "name: user2" appears.
     public void shouldDisplayUsersNameWhenHoveringOverSecondProfilePicture() {
-        $(hoversOnPage.get(1)).hover().$("h5").shouldHave(text("name: user2"));
+        $(figureClassElementsList.get(1)).hover().$("h5").shouldHave(text("name: user2"));
     }
 
     @Test //Hovers over second profile picture and checks if page "View profile" link appears.
     public void shouldDisplayViewProfileWhenHoveringOverSecondProfilePicture() {
-        $(hoversOnPage.get(1)).hover().$("a").shouldHave(text("View profile"));
+        $(figureClassElementsList.get(1)).hover().$("a").shouldHave(text("View profile"));
     }
 
     @Test //Hovers over third profile picture and checks if text field "name: user3" appears.
     public void shouldDisplayUsersNameWhenHoveringOverThirdProfilePicture() {
-        $(hoversOnPage.get(2)).hover().$("h5").shouldHave(text("name: user3"));
+        $(figureClassElementsList.get(2)).hover().$("h5").shouldHave(text("name: user3"));
     }
 }
