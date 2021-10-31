@@ -38,4 +38,9 @@ public class HoverPageTests {
     public void shouldDisplayUsersNameWhenHoveringOverFirstProfilePicture() {
         $(hoversOnPage.get(0)).hover().$("h5").shouldHave(text("name: user1"));
     }
+
+    @Test //Hovers over second profile picture and checks if page "name" field text matches.
+    public void shouldDisplayUsersNameWhenHoveringOverSecondProfilePicture() {
+        $(hoversOnPage.get(1)).hover().$("h5").shouldHave(text("name: user2"));
+    }
 }
