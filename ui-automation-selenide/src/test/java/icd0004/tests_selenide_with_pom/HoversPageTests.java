@@ -22,11 +22,7 @@ public class HoversPageTests extends BaseTest {
     }
 
     @Test
-    public void shouldDisplayUsersNameWhenHoveringOverFirstProfilePicture(int index) {
-        hoversPage.selectProfilePicture(1);
-
-        assertThat(hoversPage.getSelectedProfileNameField()
-                .getText())
-                .isEqualTo("name: user1");
+    public void shouldDisplayUsersNameWhenHoveringOverFirstProfilePicture() {
+        assertThat(hoversPage.getHoveredProfileNameFieldText(0)).isEqualTo("name: user1");
     }
 }
