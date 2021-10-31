@@ -29,4 +29,7 @@ public class HoversPage {
        return $(figureClassElementsList.get(index)).hover().$("h5").getText();
     }
 
+    public String getHoveredProfileLinkName(int index) {
+        return $(figureClassElementsList.get(index)).hover().$("a").getText();
+    }
 }
