@@ -6,13 +6,11 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class HoversPage {
     private final By hoversPageLink = By.linkText("Hovers");
-    private final By nameField = By.cssSelector("h5");
     private static List<WebElement> figureClassElementsList;
 
     public void goTo() {
