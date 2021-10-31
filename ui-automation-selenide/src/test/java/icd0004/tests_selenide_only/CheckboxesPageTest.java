@@ -44,4 +44,14 @@ public class CheckboxesPageTest {
             Assertions.assertTrue(checkbox.isSelected());
         }
     }
+
+    @Test //Checks if all checkboxes on page can be selected.
+    public void canDeSelectAllCheckboxes() {
+        for (WebElement checkbox : checkboxesList) {
+            if (checkbox.isSelected()) checkbox.click();
+        }
+        for (WebElement checkbox : checkboxesList) {
+            Assertions.assertFalse(checkbox.isSelected());
+        }
+    }
 }
