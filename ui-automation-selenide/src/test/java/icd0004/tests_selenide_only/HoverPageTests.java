@@ -9,7 +9,9 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -19,7 +21,7 @@ public class HoverPageTests {
 
     @BeforeAll
     public static void setUp() {
-        Configuration.baseUrl = "https://the-internet.herokuapp.com";
+        baseUrl = "https://the-internet.herokuapp.com";
         Configuration.browser = "chrome";
         Configuration.startMaximized = true;
 
@@ -39,9 +41,11 @@ public class HoverPageTests {
         $(figureClassElementsList.get(0)).hover().$("h5").shouldHave(text("name: user1"));
     }
 
-    @Test //Hovers over first profile picture and checks if page "View profile" link appears.
-    public void shouldDisplayViewProfileWhenHoveringOverFirstProfilePicture() {
-        $(figureClassElementsList.get(0)).hover().$("a").shouldHave(text("View profile"));
+    @Test //Hovers over first profile picture and checks if page "View profile" link for this profile appears.
+    public void shouldDisplayViewProfileForThisProfileWhenHoveringOverFirstProfilePicture() {
+        $(figureClassElementsList.get(0)).hover().$("a")
+                .shouldHave(attribute("href", baseUrl + "/users/1"))
+                .shouldHave(text("View profile"));
     }
 
     @Test //Hovers over second profile picture and checks if text field "name: user2" appears.
@@ -49,9 +53,11 @@ public class HoverPageTests {
         $(figureClassElementsList.get(1)).hover().$("h5").shouldHave(text("name: user2"));
     }
 
-    @Test //Hovers over second profile picture and checks if page "View profile" link appears.
-    public void shouldDisplayViewProfileWhenHoveringOverSecondProfilePicture() {
-        $(figureClassElementsList.get(1)).hover().$("a").shouldHave(text("View profile"));
+    @Test //Hovers over second profile picture and checks if page "View profile" link for this profile appears.
+    public void shouldDisplayViewProfileForThisProfileWhenHoveringOverSecondProfilePicture() {
+        $(figureClassElementsList.get(1)).hover().$("a")
+                .shouldHave(attribute("href", baseUrl + "/users/2"))
+                .shouldHave(text("View profile"));
     }
 
     @Test //Hovers over third profile picture and checks if text field "name: user3" appears.
@@ -59,8 +65,10 @@ public class HoverPageTests {
         $(figureClassElementsList.get(2)).hover().$("h5").shouldHave(text("name: user3"));
     }
 
-    @Test //Hovers over third profile picture and checks if page "View profile" link appears.
-    public void shouldDisplayViewProfileWhenHoveringOverThirdProfilePicture() {
-        $(figureClassElementsList.get(2)).hover().$("a").shouldHave(text("View profile"));
+    @Test //Hovers over third profile picture and checks if page "View profile" link for this profile appears.
+    public void shouldDisplayViewProfileForThisProfileWhenHoveringOverThirdProfilePicture() {
+        $(figureClassElementsList.get(2)).hover().$("a")
+                .shouldHave(attribute("href", baseUrl + "/users/3"))
+                .shouldHave(text("View profile"));
     }
 }
