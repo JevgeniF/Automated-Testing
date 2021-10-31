@@ -58,4 +58,9 @@ public class HoverPageTests {
     public void shouldDisplayUsersNameWhenHoveringOverThirdProfilePicture() {
         $(figureClassElementsList.get(2)).hover().$("h5").shouldHave(text("name: user3"));
     }
+
+    @Test //Hovers over third profile picture and checks if page "View profile" link appears.
+    public void shouldDisplayViewProfileWhenHoveringOverThirdProfilePicture() {
+        $(figureClassElementsList.get(2)).hover().$("a").shouldHave(text("View profile"));
+    }
 }
