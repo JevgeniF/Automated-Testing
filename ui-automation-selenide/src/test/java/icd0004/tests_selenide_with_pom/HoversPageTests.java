@@ -21,8 +21,13 @@ public class HoversPageTests extends BaseTest {
         assertThat(hoversPage.getPageTitleText()).isEqualTo("Hovers");
     }
 
-    @Test
+    @Test //Hovers over first profile picture and checks if text field "name: user1" appears.
     public void shouldDisplayUsersNameWhenHoveringOverFirstProfilePicture() {
         assertThat(hoversPage.getHoveredProfileNameFieldText(0)).isEqualTo("name: user1");
+    }
+
+    @Test //Hovers over second profile picture and checks if text field "name: user2" appears.
+    public void shouldDisplayUsersNameWhenHoveringOverSecondProfilePicture() {
+        assertThat(hoversPage.getHoveredProfileNameFieldText(1)).isEqualTo("name: user2");
     }
 }
