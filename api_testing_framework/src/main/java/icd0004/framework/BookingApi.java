@@ -3,7 +3,6 @@ package icd0004.framework;
 import icd0004.framework.request.Booking;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.assertj.core.api.Java6BDDSoftAssertionsProvider;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
