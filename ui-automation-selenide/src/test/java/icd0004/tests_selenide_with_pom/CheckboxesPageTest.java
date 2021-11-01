@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CheckboxesPageTest extends BaseTest {
@@ -26,5 +27,11 @@ public class CheckboxesPageTest extends BaseTest {
     public void canSelectAllCheckboxes() {
         checkboxesPage.checkboxesStatusChanger(false);
         assertTrue(checkboxesPage.getCheckBoxesStatus());
+    }
+
+    @Test //Checks if all checkboxes on page can be de-selected.
+    public void canDeSelectAllCheckboxes() {
+       checkboxesPage.checkboxesStatusChanger(true);
+       assertFalse(checkboxesPage.getCheckBoxesStatus());
     }
 }

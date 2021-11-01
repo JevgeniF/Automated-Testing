@@ -45,7 +45,7 @@ public class CheckboxesPageTest {
         }
     }
 
-    @Test //Checks if all checkboxes on page can be selected.
+    @Test //Checks if all checkboxes on page can be de-selected.
     public void canDeSelectAllCheckboxes() {
         checkboxesStatusChanger(true);
         for (WebElement checkbox : checkboxesList) {
