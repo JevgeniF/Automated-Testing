@@ -1,5 +1,6 @@
 package icd0004.raw;
 
+import icd0004.raw.interfaces.IBookingApi;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -7,9 +8,7 @@ import static io.restassured.RestAssured.when;
 import static io.restassured.http.ContentType.JSON;
 import static java.net.HttpURLConnection.HTTP_OK;
 
-public class SmokeTests {
-
-    public static final String API_URL = "https://restful-booker.herokuapp.com/booking";
+public class SmokeTests implements IBookingApi {
 
     @Test
     public void getBookingsShouldReturnHttpOKResponse() {

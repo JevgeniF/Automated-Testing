@@ -1,27 +1,14 @@
 package icd0004.raw;
 
-import io.restassured.RestAssured;
-import io.restassured.authentication.PreemptiveBasicAuthScheme;
-import org.junit.jupiter.api.BeforeAll;
+import icd0004.raw.interfaces.IBookingApi;
+import icd0004.raw.interfaces.IBookingChangeTest;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static java.net.HttpURLConnection.HTTP_OK;
 
-public class UpdateBookingTest {
-
-    public static final String API_URL = "https://restful-booker.herokuapp.com/booking";
-
-    @BeforeAll
-    // Update requires authenticate user and get token.
-    static void authenticate() {
-        RestAssured.baseURI = "https://restful-booker.herokuapp.com/auth";
-        PreemptiveBasicAuthScheme authScheme = new PreemptiveBasicAuthScheme();
-        authScheme.setUserName("admin");
-        authScheme.setPassword("password123");
-        RestAssured.authentication = authScheme;
-    }
+public class UpdateBookingTest implements IBookingApi, IBookingChangeTest {
 
 
     @Test //Updates Booking via "put" message and checks if API returns HTTP_OK(200) status response.

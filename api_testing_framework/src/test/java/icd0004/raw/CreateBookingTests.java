@@ -1,5 +1,6 @@
 package icd0004.raw;
 
+import icd0004.raw.interfaces.IBookingApi;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -8,9 +9,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class CreateBookingTests {
-
-    public static final String API_URL = "https://restful-booker.herokuapp.com/booking";
+public class CreateBookingTests implements IBookingApi {
 
     @Test
     public void postBookingShouldReturnBookingId() {
