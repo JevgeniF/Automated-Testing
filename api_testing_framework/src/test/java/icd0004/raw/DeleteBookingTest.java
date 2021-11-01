@@ -18,7 +18,7 @@ public class DeleteBookingTest implements IBookingApi, IUserAuthenticator {
                 .accept(JSON.toString())
                 .contentType(JSON.toString())
                 .when()
-                .delete(API_URL + "/" + bookingID)
+                .delete(API_URL + bookingID)
                 .then()
                 .statusCode(HTTP_CREATED);
     }

@@ -13,7 +13,7 @@ public class UpdateBookingTest implements IBookingApi, IUserAuthenticator {
 
     @Test //Updates Booking via "put" message and checks if API returns HTTP_OK(200) status response.
     public void putBookingShouldReturnHttpOKResponse() {
-        int bookingID = 10;
+        int bookingId = 10;
 
         String payload = """
                 {
@@ -33,7 +33,7 @@ public class UpdateBookingTest implements IBookingApi, IUserAuthenticator {
                 .contentType(JSON.toString())
                 .body(payload)
                 .when()
-                .put(API_URL + "/" + bookingID)
+                .put(API_URL + bookingId)
                 .then()
                 .statusCode(HTTP_OK);
     }
