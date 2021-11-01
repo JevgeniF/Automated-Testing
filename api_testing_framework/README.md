@@ -20,9 +20,9 @@
 
 ### Tests
 Improve existing framework (if you done it with Java+RestAssured) or develop a new one and implement the following tests:
-- post authentication with correct credentials returns 200
-- post authentication with incorrect credentials returns message "Bad credentials"
-- post authentication returns token
-- post booking with wrong Accept header returns 418
-- put booking should return 200
-- delete booking should return 201
+**done in Raw and Framework :** post authentication with correct credentials returns 200
+**done in Raw and Framework :** post authentication with incorrect credentials returns message "Bad credentials"
+**done in Raw and Framework :** post authentication returns token
+**done in Raw and Framework :** post booking with wrong Accept header returns 418
+**done in Raw and Framework :** put booking should return 200
+**done in Raw and Framework :** delete booking should return 201
