@@ -12,13 +12,13 @@ public class DeleteBookingTest implements IBookingApi, IUserAuthenticator {
 
     @Test //Deletes Booking via "delete" message and checks if API returns HTTP_CREATED(201) status response.
     public void deleteBookingShouldReturnHttpCreatedResponse() {
-        int bookingID = 11;
+        int bookingId = 11;
 
         given()
                 .accept(JSON.toString())
                 .contentType(JSON.toString())
                 .when()
-                .delete(API_URL + bookingID)
+                .delete(API_URL + bookingId)
                 .then()
                 .statusCode(HTTP_CREATED);
     }
