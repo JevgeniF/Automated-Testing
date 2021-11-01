@@ -13,6 +13,8 @@ import java.util.List;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CheckboxesPageTest {
 
@@ -39,7 +41,7 @@ public class CheckboxesPageTest {
     public void canSelectAllCheckboxes() {
         checkboxesStatusChanger(false);
         for (WebElement checkbox : checkboxesList) {
-            Assertions.assertTrue(checkbox.isSelected());
+            assertTrue(checkbox.isSelected());
         }
     }
 
@@ -47,7 +49,7 @@ public class CheckboxesPageTest {
     public void canDeSelectAllCheckboxes() {
         checkboxesStatusChanger(true);
         for (WebElement checkbox : checkboxesList) {
-            Assertions.assertFalse(checkbox.isSelected());
+            assertFalse(checkbox.isSelected());
         }
     }
 
