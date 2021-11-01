@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static java.net.HttpURLConnection.HTTP_OK;
+import static org.hamcrest.Matchers.equalTo;
 
 public class AuthenticationTests {
 
@@ -26,5 +27,24 @@ public class AuthenticationTests {
                 .post(API_URL)
                 .then()
                 .statusCode(HTTP_OK);
+    }
+
+    @Test //Posts wrong credentials and checks if API returns "Bad credentials" message in body.
+    public void postAuthenticationWithWrongCredentialsShouldReturnBadCredentialsMessage() {
+        String payload = """
+                {
+                    "username" : "notAdmin",
+                    "password" : "bruteForce"
+                }""";
+
+        given()
+                .accept(JSON.toString())
+                .contentType(JSON.toString())
+                .body(payload)
+                .when()
+                .post(API_URL)
+                .then()
+                .statusCode(HTTP_OK)
+                .body("reason", equalTo("Bad credentials"));
     }
 }
