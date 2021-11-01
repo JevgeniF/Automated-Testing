@@ -34,4 +34,9 @@ public class CurrentWeatherIntegrationTests {
     public void ShouldHaveCoordinatesInWeatherReportDetails() {
         assertThat(currentWeatherData.getCoord()).isNotNull();
     }
+
+    @Test
+    public void ShouldHaveMainDataBlockInWeatherReportDetails() {
+        assertThat(currentWeatherData.getMain()).isNotNull();
+    }
 }
