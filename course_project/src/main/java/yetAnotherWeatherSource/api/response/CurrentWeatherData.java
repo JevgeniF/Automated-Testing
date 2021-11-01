@@ -1,7 +1,7 @@
 package yetAnotherWeatherSource.api.response;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import lombok.Data;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import yetAnotherWeatherSource.api.model.CoordinatesModel;
 
 @Data
