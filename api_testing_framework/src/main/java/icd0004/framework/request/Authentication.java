@@ -23,7 +23,7 @@ public class Authentication {
                 .build();
     }
 
-    public static Authentication getGeneratedCredentials() {
+    public static Authentication getFakeCredentials() {
         Faker faker = new Faker();
         return Authentication.builder()
                 .username(faker.name().username())
