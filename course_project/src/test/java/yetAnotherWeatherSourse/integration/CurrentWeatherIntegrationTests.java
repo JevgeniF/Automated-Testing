@@ -6,7 +6,7 @@ import yetAnotherWeatherSource.api.WeatherApi;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class IntegrationTests {
+public class CurrentWeatherIntegrationTests {
 
     @Test
     public void ShouldReturnHttpOkWhenCityNameIsGiven() {
@@ -15,5 +15,4 @@ public class IntegrationTests {
         int RequestStatus = WeatherApi.getCurrentWeatherResponse(city).getStatus();
         assertThat(RequestStatus).isEqualTo(HTTP_OK);
     }
-
 }
