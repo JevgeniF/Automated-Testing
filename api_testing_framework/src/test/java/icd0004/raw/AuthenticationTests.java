@@ -6,6 +6,7 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class AuthenticationTests {
 
@@ -46,5 +47,24 @@ public class AuthenticationTests {
                 .then()
                 .statusCode(HTTP_OK)
                 .body("reason", equalTo("Bad credentials"));
+    }
+
+    @Test //Posts right credentials and checks if API returns token in body.
+    public void postAuthenticationWithRightCredentialsShouldReturnToken() {
+        String payload = """
+                {
+                    "username" : "admin",
+                    "password" : "password123"
+                }""";
+
+        given()
+                .accept(JSON.toString())
+                .contentType(JSON.toString())
+                .body(payload)
+                .when()
+                .post(API_URL)
+                .then()
+                .statusCode(HTTP_OK)
+                .body("token", notNullValue());
     }
 }
