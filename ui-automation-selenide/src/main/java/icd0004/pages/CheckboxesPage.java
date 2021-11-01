@@ -10,8 +10,8 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class CheckboxesPage {
-    private final By checkboxesPageLink = By.linkText("Checkboxes");
     private static List<WebElement> checkboxesList;
+    private final By checkboxesPageLink = By.linkText("Checkboxes");
 
     public void goTo() {
         open("/");
@@ -20,7 +20,9 @@ public class CheckboxesPage {
         checkboxesList = WebDriverRunner.getWebDriver().findElements(By.xpath("//input"));
     }
 
-    public String getPageTitleText() { return $("h3").getText(); }
+    public String getPageTitleText() {
+        return $("h3").getText();
+    }
 
     public void checkboxesStatusChanger(boolean selected) {
         for (WebElement checkbox : checkboxesList) {
