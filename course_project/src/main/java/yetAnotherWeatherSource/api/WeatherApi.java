@@ -18,7 +18,7 @@ public class WeatherApi {
 
     private static final Client client = getConfiguredClient();
 
-    public static CurrentWeatherData getCurrentWeatherData(String city) {
+    public CurrentWeatherData getCurrentWeatherData(String city) {
         return getCurrentWeatherResponse(city).getEntity(CurrentWeatherData.class);
     }
 

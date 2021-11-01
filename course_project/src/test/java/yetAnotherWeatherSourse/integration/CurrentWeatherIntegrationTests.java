@@ -10,12 +10,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CurrentWeatherIntegrationTests {
     static String city;
+    static WeatherApi weatherApi;
     static CurrentWeatherData currentWeatherData;
 
     @BeforeAll
-    static void getCurrentWeatherDataForCity() {
+    static void SetUp() {
         city = "Haabneeme";
-        currentWeatherData = WeatherApi.getCurrentWeatherData(city);
+        weatherApi = new WeatherApi();
+        currentWeatherData = weatherApi.getCurrentWeatherData(city);
     }
 
     @Test
