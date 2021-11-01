@@ -2,13 +2,15 @@ package icd0004.raw.interfaces;
 
 import io.restassured.RestAssured;
 import io.restassured.authentication.PreemptiveBasicAuthScheme;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
-public interface IBookingChangeTest {
 
-    @BeforeAll
+//RestAssured authentication with scheme for tests where user authentication required.
+public interface IUserAuthenticator {
+
+    @BeforeEach
     // Update requires authenticate user and get token.
-    static void authenticate() {
+    default void authenticate() {
         RestAssured.baseURI = "https://restful-booker.herokuapp.com/auth";
         PreemptiveBasicAuthScheme authScheme = new PreemptiveBasicAuthScheme();
         authScheme.setUserName("admin");
