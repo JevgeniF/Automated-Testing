@@ -2,6 +2,7 @@ package icd0004.tests_selenide_only;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
@@ -16,7 +17,10 @@ public class FormAuthenticationPageTests {
         Configuration.baseUrl = "https://the-internet.herokuapp.com";
         Configuration.browser = "chrome";
         Configuration.startMaximized = true;
+    }
 
+    @BeforeEach
+    public void goTo() {
         open("/");
         $(By.linkText("Form Authentication")).click();
     }
