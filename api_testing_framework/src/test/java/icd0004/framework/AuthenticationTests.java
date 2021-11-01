@@ -20,6 +20,17 @@ public class AuthenticationTests {
         assertThat(statusCode).isEqualTo(HTTP_OK);
     }
 
+    @Test //Posts right credentials and checks if API returns token in body.
+    public void postAuthenticationWithRightCredentialsShouldReturnToken() {
+        Authentication authenticationCredentials = Authentication.getRealCredentials();
+
+        AuthenticationResponse authenticationResponse = AuthenticationApi
+                .postAuthentication(authenticationCredentials)
+                .as(AuthenticationResponse.class);
+
+        assertThat(authenticationResponse.getToken()).isNotNull();
+    }
+
     @Test //Posts wrong credentials and checks if API returns "Bad credentials" message in body.
     public void postAuthenticationWithWrongCredentialsShouldReturnBadCredentialsMessage() {
         Authentication authenticationCredentials = Authentication.getGeneratedCredentials();
