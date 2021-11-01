@@ -44,4 +44,13 @@ public class BookingApi {
                 .when()
                 .post(BOOKING_API);
     }
+
+    public static Response putBooking(Booking bookingPayload, int bookingId) {
+        return given()
+                .accept(JSON.toString())
+                .contentType(JSON.toString())
+                .body(bookingPayload)
+                .when()
+                .put(BOOKING_API + bookingId);
+    }
 }
