@@ -34,4 +34,14 @@ public class BookingApi {
                 .when()
                 .post(BOOKING_API);
     }
+
+    public static Response postBooking(Booking bookingPayload, String acceptHeader) {
+        return given()
+                .contentType(JSON.toString())
+                .accept(JSON.toString())
+                .header("Accept", acceptHeader)
+                .body(bookingPayload)
+                .when()
+                .post(BOOKING_API);
+    }
 }
