@@ -24,4 +24,12 @@ public class CurrentWeatherIntegrationTests {
 
         assertThat(currentWeatherData.getName()).isEqualTo(city);
     }
+
+    @Test
+    public void ShouldHaveCoordinatesInWeatherReportDetails() {
+        String city = "Haabneeme";
+        CurrentWeatherData currentWeatherData = WeatherApi.getCurrentWeatherData(city);
+
+        assertThat(currentWeatherData.getCoordinates()).isNotNull();
+    }
 }
