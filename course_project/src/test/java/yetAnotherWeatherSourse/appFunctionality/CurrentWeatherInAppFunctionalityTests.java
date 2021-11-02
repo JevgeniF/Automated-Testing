@@ -26,19 +26,26 @@ public class CurrentWeatherInAppFunctionalityTests {
     }
 
     @Test
-    public void inAppWeatherReportDetaisShouldHaveSameCityAsInRequest() throws CityNotFoundException {
+    public void InAppWeatherReportShouldHaveSectionWeatherReportDetails() throws CityNotFoundException {
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getReportDetails()).isNotNull(
+        );
+    }
+
+    @Test
+    public void inAppWeatherReportDetailsShouldHaveSameCityAsInRequest() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getReportDetails().getCity()).isEqualTo(city);
     }
 
     @Test
-    public void inAppWeatherReportDetaisShouldHaveCoordinates() throws CityNotFoundException {
+    public void inAppWeatherReportDetailsShouldHaveCoordinates() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getReportDetails().getCoordinates()).isNotNull();
     }
 
     @Test
-    public void inAppWeatherReportDetaisShouldHaveTemperatureUnits() throws CityNotFoundException {
+    public void inAppWeatherReportDetailsShouldHaveTemperatureUnits() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isNotNull();
     }
