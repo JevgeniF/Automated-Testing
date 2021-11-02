@@ -1,6 +1,7 @@
 package yetAnotherWeatherSource;
 
 import yetAnotherWeatherSource.api.WeatherApi;
+import yetAnotherWeatherSource.api.exception.CityNotFoundException;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 
 public class YetAnotherWeatherSource {
@@ -9,7 +10,7 @@ public class YetAnotherWeatherSource {
 
     public YetAnotherWeatherSource(WeatherApi weatherApi) { this.weatherApi = weatherApi; }
 
-    public WeatherReport getWeatherReport(String city) {
+    public WeatherReport getWeatherReport(String city) throws CityNotFoundException {
         WeatherReport weatherReport = new WeatherReport();
         CurrentWeatherData currentWeatherData = weatherApi.getCurrentWeatherData(city);
 

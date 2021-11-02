@@ -7,6 +7,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import yetAnotherWeatherSource.WeatherReport;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
+import yetAnotherWeatherSource.api.exception.CityNotFoundException;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,7 +21,7 @@ public class CurrentWeatherMockIntegrationTests {
     static WeatherApi weatherApi;
 
     @Test
-    public void shouldHaveCityNameInWeatherReport() {
+    public void shouldHaveCityNameInWeatherReport() throws CityNotFoundException {
         String city = "Pärnu";
 
         CurrentWeatherData currentWeatherData = new CurrentWeatherData();
