@@ -7,6 +7,7 @@ import yetAnotherWeatherSource.model.CurrentWeather;
 import yetAnotherWeatherSource.model.ReportDetails;
 import yetAnotherWeatherSource.model.WeatherReport;
 
+@SuppressWarnings("ClassCanBeRecord")
 public class YetAnotherWeatherSource {
 
     private final WeatherApi weatherApi;
@@ -32,17 +33,26 @@ public class YetAnotherWeatherSource {
 
     private CurrentWeather getCurrentWeather(CurrentWeatherData data) {
         CurrentWeather currentWeather = new CurrentWeather();
+
         currentWeather.setDate(data.getDt());
         currentWeather.setTemperature(data.getMain().getTemp());
         currentWeather.setHumidity(data.getMain().getHumidity());
         currentWeather.setPressure(data.getMain().getPressure());
+
         return currentWeather;
     }
 
     private ReportDetails getReportDetails(CurrentWeatherData data) {
         ReportDetails reportDetails = new ReportDetails();
+
         reportDetails.setCity(data.getName());
         reportDetails.setCoordinates(data.getCoord());
+        if (weatherApi.getUnits().equals("metric")) {
+            reportDetails.setTemperatureUnit("Celsius");
+        } else if (weatherApi.getUnits().equals("imperial")) {
+            reportDetails.setTemperatureUnit("Fahrenheit");
+        }
+
         return reportDetails;
     }
 }

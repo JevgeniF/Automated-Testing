@@ -20,10 +20,6 @@ public class WeatherApi {
 
     private static final Client client = getConfiguredClient();
 
-    public String getUnits() {
-        return UNITS;
-    }
-
     public static ClientResponse getCurrentWeatherResponse(String city) {
         return client.resource(CURRENT_WEATHER_URL)
                 .queryParam("q", city)
@@ -37,6 +33,10 @@ public class WeatherApi {
         configuration.getClasses().add(JacksonJaxbJsonProvider.class);
         configuration.getFeatures().put(FEATURE_POJO_MAPPING, true);
         return create(configuration);
+    }
+
+    public String getUnits() {
+        return UNITS;
     }
 
     public CurrentWeatherData getCurrentWeatherData(String city) throws CityNotFoundException {
