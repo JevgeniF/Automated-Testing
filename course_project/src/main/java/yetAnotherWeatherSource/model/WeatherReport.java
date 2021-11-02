@@ -5,6 +5,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Class for generation of entity from application output (JSON object).
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class WeatherReport {
     private WeatherReportDetails weatherReportDetails;
     private CurrentWeatherReport currentWeatherReport;
+    private ArrayList<ForecastReport> forecastReport;
 
     /**
      * Method saves class entity as .json file

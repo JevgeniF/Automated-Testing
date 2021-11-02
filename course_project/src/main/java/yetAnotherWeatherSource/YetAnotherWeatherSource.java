@@ -3,9 +3,13 @@ package yetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
+import yetAnotherWeatherSource.api.response.ForecastData;
 import yetAnotherWeatherSource.model.CurrentWeatherReport;
+import yetAnotherWeatherSource.model.ForecastReport;
 import yetAnotherWeatherSource.model.WeatherReport;
 import yetAnotherWeatherSource.model.WeatherReportDetails;
+
+import java.util.ArrayList;
 
 /**
  * Class with main methods of application.
@@ -37,15 +41,23 @@ public class YetAnotherWeatherSource {
     public WeatherReport getWeatherReport(String city) throws CityNotFoundException {
         WeatherReport weatherReport = new WeatherReport();
         CurrentWeatherData currentWeatherData = weatherApi.getCurrentWeatherData(city);
+        ForecastData forecastData = weatherApi.getForecastData(city);
 
         WeatherReportDetails weatherReportDetails = getReportDetails(currentWeatherData);
-
         CurrentWeatherReport currentWeatherReport = getCurrentWeather(currentWeatherData);
+        ArrayList<ForecastReport> forecastReport = getForecastReport(forecastData);
 
         weatherReport.setWeatherReportDetails(weatherReportDetails);
         weatherReport.setCurrentWeatherReport(currentWeatherReport);
+        weatherReport.setForecastReport(forecastReport);
 
         return weatherReport;
+    }
+
+    private ArrayList<ForecastReport> getForecastReport(ForecastData data) {
+        ArrayList<ForecastReport> forecastReport = new ArrayList<>();
+
+        return forecastReport;
     }
 
     /**

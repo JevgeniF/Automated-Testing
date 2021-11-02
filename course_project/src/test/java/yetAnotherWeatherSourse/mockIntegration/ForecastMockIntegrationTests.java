@@ -23,6 +23,6 @@ public class ForecastMockIntegrationTests extends MockIntegrationTests {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
-        assertThat(weatherReport.getForecast()).isNotNull;
+        assertThat(weatherReport.getForecastReport()).isNotNull();
     }
 }
