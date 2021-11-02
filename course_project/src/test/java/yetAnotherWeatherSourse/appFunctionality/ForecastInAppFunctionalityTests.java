@@ -7,6 +7,11 @@ import yetAnotherWeatherSource.api.WeatherApi;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
 import yetAnotherWeatherSource.model.WeatherReport;
 
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Date;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ForecastInAppFunctionalityTests {
@@ -36,17 +41,28 @@ public class ForecastInAppFunctionalityTests {
         assertThat(weatherReport.getForecastReport().get(0)).isNotNull();
     }
 
+    //----------------------- ITEMS EXISTENCE TESTS -----------------------//
+
     @Test //Checks if forecast report section has date
-    public void inAppForecastReportSectionShouldHaveMinOneDayWithDate()
-            throws CityNotFoundException {
+    public void inAppForecastReportSectionShouldHaveMinOneDayWithDate() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getForecastReport().get(0).getDate()).isNotNull();
     }
+
+    //----------------------- ITEMS FORMAT AND CONTENT TESTS -----------------------//
 
     @Test //Checks if dates in forecast report "days" formatted like "yyyy-MM-dd"
     public void inAppDaysInForecastReportSectionHaveDatesInFormat_yyyy_MM_dd()
             throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getForecastReport().get(0).getDate()).matches("\\d{4}-\\d{2}-\\d{2}");
+    }
+
+    @Test //Checks if first "day" in Forecast Report is tomorrow day
+    public void inAppForecastReportSectionFirstDayShouldBeTomorrow() throws CityNotFoundException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String tomorrow = dateFormat.format(Date.from(Instant.now().plus(Duration.ofDays(1))));
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getForecastReport().get(0).getDate()).matches(tomorrow);
     }
 }
