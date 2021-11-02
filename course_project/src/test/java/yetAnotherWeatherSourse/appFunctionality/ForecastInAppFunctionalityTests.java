@@ -42,4 +42,11 @@ public class ForecastInAppFunctionalityTests {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getForecastReport().get(0).getDate()).isNotNull();
     }
+
+    @Test //Checks if dates in forecast report "days" formatted like "yyyy-MM-dd"
+    public void inAppDaysInForecastReportSectionHaveDatesInFormat_yyyy_MM_dd()
+            throws CityNotFoundException {
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getForecastReport().get(0).getDate()).matches("\\d{4}-\\d{2}-\\d{2}");
+    }
 }
