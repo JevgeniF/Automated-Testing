@@ -8,6 +8,7 @@ import yetAnotherWeatherSource.WeatherReport;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
+import yetAnotherWeatherSource.api.model.CoordinatesModel;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,7 +23,7 @@ public class CurrentWeatherMockIntegrationTests {
 
     @Test
     public void shouldHaveCityNameInWeatherReport() throws CityNotFoundException {
-        String city = "Pärnu";
+        String city = "Haabneeme";
 
         CurrentWeatherData currentWeatherData = new CurrentWeatherData();
         currentWeatherData.setName(city);
@@ -32,5 +33,21 @@ public class CurrentWeatherMockIntegrationTests {
         WeatherReport weatherReport = weatherSource.getWeatherReport(city);
 
         assertThat(weatherReport.getWeatherReportDetails().getCity()).isEqualTo(city);
+    }
+
+    @Test
+    public void ShouldHaveCoordinatesInWeatherData() throws CityNotFoundException {
+        String city = "Haabneeme";
+        CoordinatesModel coordinates = new CoordinatesModel(24.8211, 59.5114);
+
+        CurrentWeatherData currentWeatherData = new CurrentWeatherData();
+        currentWeatherData.setName(city);
+        currentWeatherData.setCoord(coordinates);
+        YetAnotherWeatherSource weatherSource = new YetAnotherWeatherSource(weatherApi);
+
+        when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
+        WeatherReport weatherReport = weatherSource.getWeatherReport(city);
+
+        assertThat(weatherReport.getWeatherReportDetails().getCoordinates()).isNotNull();
     }
 }
