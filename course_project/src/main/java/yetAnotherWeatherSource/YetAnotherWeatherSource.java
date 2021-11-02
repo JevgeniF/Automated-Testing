@@ -64,6 +64,11 @@ public class YetAnotherWeatherSource {
         forecastWeatherMap.forEach((key, value) -> {
            ForecastReport forecastReport = new ForecastReport();
            forecastReport.setDate(key);
+           ForecastWeather forecastWeather = new ForecastWeather();
+           forecastWeather.setTemperature(value.get(0).getTemp());
+           forecastWeather.setHumidity(value.get(0).getHumidity());
+           forecastWeather.setPressure(value.get(0).getPressure());
+           forecastReport.setForecastWeather(forecastWeather);
            forecastReportList.add(forecastReport);
         });
 
