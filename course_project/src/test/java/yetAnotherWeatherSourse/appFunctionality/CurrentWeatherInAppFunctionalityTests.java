@@ -28,8 +28,13 @@ public class CurrentWeatherInAppFunctionalityTests {
     @Test
     public void InAppWeatherReportShouldHaveSectionWeatherReportDetails() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getReportDetails()).isNotNull(
-        );
+        assertThat(weatherReport.getReportDetails()).isNotNull();
+    }
+
+    @Test
+    public void InAppWeatherReportShouldHaveSectionCurrentWeatherReport() throws CityNotFoundException {
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getCurrentWeather()).isNotNull();
     }
 
     @Test
