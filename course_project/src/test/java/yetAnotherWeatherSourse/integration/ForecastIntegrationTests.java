@@ -4,9 +4,12 @@ import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import yetAnotherWeatherSource.api.WeatherApi;
+import yetAnotherWeatherSource.api.exception.CityNotFoundException;
+import yetAnotherWeatherSource.api.response.ForecastData;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Tests for integration of Forecast API.
@@ -16,14 +19,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ForecastIntegrationTests {
     static String city;
     static WeatherApi weatherApi;
-    //static ForecastData forecastData;
+    static ForecastData forecastData;
 
     @SneakyThrows
     @BeforeAll // initial setup for all tests
     static void SetUp() {
         city = "London";
         weatherApi = new WeatherApi();
-        //forecastData = weatherApi.getForecastData(city);
+        forecastData = weatherApi.getForecastData(city);
     }
 
     @Test //Test checks if response status is HTTP_OK(200), if request with city name sent and such city exists in API
@@ -32,5 +35,16 @@ public class ForecastIntegrationTests {
 
         assertThat(RequestStatus).isEqualTo(HTTP_OK);
     }
+
+    @Test //Tests that API returns error message "City not found." if response was HTTP_NOT_FOUND(404)
+    public void ShouldReturnCityNotFoundErrorMessageWhenHttpNotFound() {
+        String wrongCity = "Winterfell";
+        String exceptionErrorMessage = "City not found.";
+        Exception exception = assertThrows(CityNotFoundException.class, () ->
+                weatherApi.getForecastData(wrongCity));
+
+        assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
+    }
+
 
 }
