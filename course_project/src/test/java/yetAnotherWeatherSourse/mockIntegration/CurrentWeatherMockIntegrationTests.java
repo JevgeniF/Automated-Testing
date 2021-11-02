@@ -5,13 +5,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import yetAnotherWeatherSource.model.WeatherReport;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
 import yetAnotherWeatherSource.api.model.CoordinatesModel;
 import yetAnotherWeatherSource.api.model.MainModel;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
+import yetAnotherWeatherSource.model.WeatherReport;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -19,18 +19,16 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CurrentWeatherMockIntegrationTests {
+    @Mock
+    static WeatherApi weatherApi;
     private String city;
     private CurrentWeatherData currentWeatherData;
     private YetAnotherWeatherSource yetAnotherWeatherSource;
 
-    @Mock
-    static WeatherApi weatherApi;
-
-
     @Before
     public void setUp() {
         city = "Haabneeme";
-        Integer date =  1635846093;
+        Integer date = 1635846093;
         Integer timezone = 7200;
         CoordinatesModel coordinates = new CoordinatesModel(24.8211, 59.5114);
         MainModel currentWeather = new MainModel(8.74, 1010, 75);
@@ -51,7 +49,7 @@ public class CurrentWeatherMockIntegrationTests {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
-        assertThat(weatherReport.getWeatherReportDetails().getCity()).isEqualTo(city);
+        assertThat(weatherReport.getReportDetails().getCity()).isEqualTo(city);
     }
 
     @Test
@@ -59,11 +57,11 @@ public class CurrentWeatherMockIntegrationTests {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
-        assertThat(weatherReport.getWeatherReportDetails().getCoordinates()).isNotNull();
+        assertThat(weatherReport.getReportDetails().getCoordinates()).isNotNull();
     }
 
     @Test
-    public void ShouldHaveCurrentWeatherBlockInWeatherReport() throws CityNotFoundException{
+    public void ShouldHaveCurrentWeatherBlockInWeatherReport() throws CityNotFoundException {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 

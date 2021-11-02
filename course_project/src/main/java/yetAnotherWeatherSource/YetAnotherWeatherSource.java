@@ -4,10 +4,8 @@ import yetAnotherWeatherSource.api.WeatherApi;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 import yetAnotherWeatherSource.model.CurrentWeather;
+import yetAnotherWeatherSource.model.ReportDetails;
 import yetAnotherWeatherSource.model.WeatherReport;
-import yetAnotherWeatherSource.model.WeatherReportDetails;
-
-import java.util.Date;
 
 public class YetAnotherWeatherSource {
 
@@ -21,20 +19,30 @@ public class YetAnotherWeatherSource {
         WeatherReport weatherReport = new WeatherReport();
         CurrentWeatherData currentWeatherData = weatherApi.getCurrentWeatherData(city);
 
-        WeatherReportDetails weatherReportDetails = new WeatherReportDetails();
-        weatherReportDetails.setCity(currentWeatherData.getName());
-        weatherReportDetails.setCoordinates(currentWeatherData.getCoord().getLat() + ", "
-                + currentWeatherData.getCoord().getLon());
+        ReportDetails reportDetails = getReportDetails(currentWeatherData);
 
-        CurrentWeather currentWeather = new CurrentWeather();
-        currentWeather.setDate(new Date(currentWeatherData.getDt() * 1000L));
-        currentWeather.setTemperature(currentWeatherData.getMain().getTemp());
-        currentWeather.setHumidity(currentWeatherData.getMain().getHumidity());
-        currentWeather.setPressure(currentWeatherData.getMain().getPressure());
+        CurrentWeather currentWeather = getCurrentWeather(currentWeatherData);
 
-        weatherReport.setWeatherReportDetails(weatherReportDetails);
+        weatherReport.setReportDetails(reportDetails);
         weatherReport.setCurrentWeather(currentWeather);
 
+        System.out.println(weatherReport);
         return weatherReport;
+    }
+
+    private CurrentWeather getCurrentWeather(CurrentWeatherData data) {
+        CurrentWeather currentWeather = new CurrentWeather();
+        currentWeather.setDate(data.getDt());
+        currentWeather.setTemperature(data.getMain().getTemp());
+        currentWeather.setHumidity(data.getMain().getHumidity());
+        currentWeather.setPressure(data.getMain().getPressure());
+        return currentWeather;
+    }
+
+    private ReportDetails getReportDetails(CurrentWeatherData data) {
+        ReportDetails reportDetails = new ReportDetails();
+        reportDetails.setCity(data.getName());
+        reportDetails.setCoordinates(data.getCoord());
+        return reportDetails;
     }
 }

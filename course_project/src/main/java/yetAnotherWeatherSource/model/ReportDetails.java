@@ -1,0 +1,15 @@
+package yetAnotherWeatherSource.model;
+
+import lombok.Data;
+import yetAnotherWeatherSource.api.model.CoordinatesModel;
+
+@Data
+public class ReportDetails {
+    private String city;
+    private String coordinates;
+    private String temperatureUnit = "Celsius";
+
+    public void setCoordinates(CoordinatesModel coord) {
+        this.coordinates = coord.getLat() + ", " + coord.getLon();
+    }
+}
