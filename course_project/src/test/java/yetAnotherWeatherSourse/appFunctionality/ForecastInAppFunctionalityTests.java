@@ -34,14 +34,14 @@ public class ForecastInAppFunctionalityTests {
         assertThat(weatherReport.getForecastReport()).isNotNull();
     }
 
-    @Test //Checks if forecast report section in weather report has at least one forecast weather block
+    @Test //Checks if forecast report section in weather report has at least one "day"
     public void inAppWeatherReportShouldHaveSectionForecastReportWithMinOneDay()
             throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getForecastReport().get(0)).isNotNull();
     }
 
-    @Test //Checks if forecast report section in weather report has at least one forecast weather block
+    @Test //Checks if forecast report section has at least one "day" with weather forecast
     public void inAppForecastReportSectionShouldHaveMinOneDayWithWeatherForecast()
             throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
@@ -50,10 +50,16 @@ public class ForecastInAppFunctionalityTests {
 
     //----------------------- ITEMS EXISTENCE TESTS -----------------------//
 
-    @Test //Checks if forecast report section has date
+    @Test //Checks if forecast report section "day" has date
     public void inAppForecastReportSectionShouldHaveMinOneDayWithDate() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getForecastReport().get(0).getDate()).isNotNull();
+    }
+
+    @Test //Checks if forecast report section "day" weather forecast has temperature
+    public void inAppForecastReportDayShouldHaveWeatherForecastWithTemperature() throws CityNotFoundException {
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getForecastReport().get(0).getForecastWeather().getTemperature()).isNotNull();
     }
 
     //----------------------- ITEMS FORMAT AND CONTENT TESTS -----------------------//
