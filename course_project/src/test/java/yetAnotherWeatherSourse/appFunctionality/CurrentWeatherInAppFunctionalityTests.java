@@ -26,43 +26,43 @@ public class CurrentWeatherInAppFunctionalityTests {
     }
 
     @Test
-    public void inAppWeatherReportShouldHaveSameCityAsInRequest() throws CityNotFoundException {
+    public void inAppWeatherReportDetaisShouldHaveSameCityAsInRequest() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getReportDetails().getCity()).isEqualTo(city);
     }
 
     @Test
-    public void inAppWeatherReportShouldHaveCoordinates() throws CityNotFoundException {
+    public void inAppWeatherReportDetaisShouldHaveCoordinates() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getReportDetails().getCoordinates()).isNotNull();
     }
 
     @Test
-    public void inAppWeatherReportShouldHaveTemperatureUnits() throws CityNotFoundException {
+    public void inAppWeatherReportDetaisShouldHaveTemperatureUnits() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isNotNull();
     }
 
     @Test
-    public void inAppWeatherReportShouldHaveDate() throws CityNotFoundException {
+    public void inAppCurrentWeatherReportShouldHaveDate() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getCurrentWeather().getDate()).isNotNull();
     }
 
     @Test
-    public void inAppWeatherReportShouldHaveTemperature() throws CityNotFoundException {
+    public void inAppCurrentWeatherReportShouldHaveTemperature() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getCurrentWeather().getTemperature()).isNotNull();
     }
 
     @Test
-    public void inAppWeatherReportShouldHaveHumidity() throws CityNotFoundException {
+    public void inAppCurrentWeatherReportShouldHaveHumidity() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getCurrentWeather().getHumidity()).isNotNull();
     }
 
     @Test
-    public void inAppWeatherReportShouldHavePressure() throws CityNotFoundException {
+    public void inAppCurrentWeatherReportShouldHavePressure() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getCurrentWeather().getPressure()).isNotNull();
     }
