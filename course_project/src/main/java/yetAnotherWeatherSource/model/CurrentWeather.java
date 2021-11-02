@@ -13,7 +13,7 @@ public class CurrentWeather {
     private Integer pressure;
 
     public void setDate(Integer unixDate) {
-        Date date = new Date(unixDate);
+        Date date = new Date(unixDate * 1000L);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         this.date = dateFormat.format(date);
