@@ -7,6 +7,7 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
+import yetAnotherWeatherSource.api.response.ForecastData;
 
 import static com.sun.jersey.api.client.Client.create;
 import static com.sun.jersey.api.json.JSONConfiguration.FEATURE_POJO_MAPPING;
@@ -96,5 +97,23 @@ public class WeatherApi {
         }
 
         return response.getEntity(CurrentWeatherData.class);
+    }
+
+    /**
+     * Method uses getForecastResponse method, gets response from API and returns ForecastData class
+     * entity from the response.
+     *
+     * @param city Name of city
+     * @return ForecastData class entity
+     * @throws CityNotFoundException in case if city not found in API
+     */
+    public ForecastData getForecastData(String city) throws CityNotFoundException {
+        ClientResponse response = getForecastResponse(city);
+
+        if (response.getStatus() == HTTP_NOT_FOUND) {
+            throw new CityNotFoundException();
+        }
+
+        return response.getEntity(ForecastData.class);
     }
 }
