@@ -105,8 +105,8 @@ COMPLETED: OWM integration is covered by integration tests for the main details 
 - part 1 acceptance criteria apply as well
 
 ### ACCEPTANCE CRITERIA
-- City name can be provided as a string input
-- The output is a weather report with main details and current weather data AND forecast report
+COMPLETED: City name can be provided as a string input
+COMPLETED: The output is a weather report with main details and current weather data AND forecast report
 - Forecast report part has date, temperature, humidity and pressure for each day
 - Forecast calculates average of temperature, humidity and pressure
 - Forecast is in ascending order (2020-10-01, 2020-10-02, 2020-10-03)

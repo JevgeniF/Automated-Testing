@@ -21,6 +21,7 @@ public class CurrentWeatherMockIntegrationTests extends MockIntegrationTests {
     @Test //Mock test that weather report has city
     public void shouldHaveCityNameInWeatherReport() throws CityNotFoundException {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
+        when(weatherApi.getForecastData(anyString())).thenReturn(forecastData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
         assertThat(weatherReport.getWeatherReportDetails().getCity()).isEqualTo(city);
@@ -29,6 +30,7 @@ public class CurrentWeatherMockIntegrationTests extends MockIntegrationTests {
     @Test //Mock test that weather report has coordinates
     public void shouldHaveCoordinatesInWeatherReport() throws CityNotFoundException {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
+        when(weatherApi.getForecastData(anyString())).thenReturn(forecastData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
         assertThat(weatherReport.getWeatherReportDetails().getCoordinates()).isNotNull();
@@ -37,6 +39,7 @@ public class CurrentWeatherMockIntegrationTests extends MockIntegrationTests {
     @Test //Mock test that weather report has current weather
     public void shouldHaveCurrentWeatherBlockInWeatherReport() throws CityNotFoundException {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
+        when(weatherApi.getForecastData(anyString())).thenReturn(forecastData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
         assertThat(weatherReport.getCurrentWeatherReport()).isNotNull();
