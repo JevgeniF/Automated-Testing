@@ -5,18 +5,20 @@ import org.junit.jupiter.api.Test;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
+import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 import yetAnotherWeatherSource.model.WeatherReport;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CurrentWeatherInAppTests {
     private static String city;
+    private static WeatherApi weatherApi;
     private static YetAnotherWeatherSource yetAnotherWeatherSource;
 
     @BeforeAll
     static void SetUp() {
         city = "Berlin";
-        WeatherApi weatherApi = new WeatherApi();
+        weatherApi = new WeatherApi();
         yetAnotherWeatherSource = new YetAnotherWeatherSource(weatherApi);
     }
 
@@ -24,5 +26,19 @@ public class CurrentWeatherInAppTests {
     public void inAppWeatherReportShouldHaveSameCityAsInRequest() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getReportDetails().getCity()).isEqualTo(city);
+    }
+
+    @Test
+    public void inAppWeatherReportShouldHaveCoordinates() throws CityNotFoundException {
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getReportDetails().getCoordinates()).isNotNull();
+    }
+
+    @Test
+    public void inAppWeatherReportShouldHaveCoordinatesInFormatLatLon() throws CityNotFoundException {
+        CurrentWeatherData currentWeatherData = weatherApi.getCurrentWeatherData(city);
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getReportDetails().getCoordinates()).
+                isEqualTo(currentWeatherData.getCoord().getLat() + ", " + currentWeatherData.getCoord().getLon());
     }
 }
