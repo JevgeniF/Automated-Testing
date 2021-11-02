@@ -10,7 +10,7 @@ import yetAnotherWeatherSource.api.model.MainModel;
 public class CurrentWeatherData {
     private String name;
     private CoordinatesModel coord;
-    private Long dt;
+    private Integer dt;
     private Integer timezone;
     private MainModel main;
 }

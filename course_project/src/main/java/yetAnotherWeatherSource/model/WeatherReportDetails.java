@@ -1,4 +1,4 @@
-package yetAnotherWeatherSource;
+package yetAnotherWeatherSource.model;
 
 import lombok.Data;
 
