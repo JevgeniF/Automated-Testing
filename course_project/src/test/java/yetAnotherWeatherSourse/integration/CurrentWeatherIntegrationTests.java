@@ -23,36 +23,36 @@ public class CurrentWeatherIntegrationTests {
 
     @SneakyThrows
     @BeforeAll // initial setup for all tests
-    static void SetUp() {
+    static void setUp() {
         city = "London";
         weatherApi = new WeatherApi();
         currentWeatherData = weatherApi.getCurrentWeatherData(city);
     }
 
     @Test //Test checks if response status is HTTP_OK(200), if request with city name sent and such city exists in API
-    public void ShouldReturnHttpOkWhenCityNameIsGivenAndCityExistsInApi() {
+    public void shouldReturnHttpOkWhenCityNameIsGivenAndCityExistsInApi() {
         int RequestStatus = WeatherApi.getCurrentWeatherResponse(city).getStatus();
 
         assertThat(RequestStatus).isEqualTo(HTTP_OK);
     }
 
     @Test //Tests if API returns response with city name and city name is the same as in request.
-    public void ShouldReturnSameCityNameInWeatherData() {
+    public void shouldReturnSameCityNameInWeatherData() {
         assertThat(currentWeatherData.getName()).isEqualTo(city);
     }
 
     @Test //Tests if API returns response with coordinates
-    public void ShouldHaveCoordinatesInWeatherData() {
+    public void shouldHaveCoordinatesInWeatherData() {
         assertThat(currentWeatherData.getCoord()).isNotNull();
     }
 
     @Test //Tests if API returns response with main weather block
-    public void ShouldHaveMainDataBlockInWeatherData() {
+    public void shouldHaveMainDataBlockInWeatherData() {
         assertThat(currentWeatherData.getMain()).isNotNull();
     }
 
     @Test //Tests that API returns error message "City not found." if response was HTTP_NOT_FOUND(404)
-    public void ShouldReturnCityNotFoundErrorMessageWhenHttpNotFound() {
+    public void shouldReturnCityNotFoundErrorMessageWhenHttpNotFound() {
         String wrongCity = "Winterfell";
         String exceptionErrorMessage = "City not found.";
         Exception exception = assertThrows(CityNotFoundException.class, () ->

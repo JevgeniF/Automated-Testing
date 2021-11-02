@@ -27,7 +27,7 @@ public class CurrentWeatherInAppFunctionalityTests {
 
 
     @BeforeAll // initial setup for all tests
-    static void SetUp() {
+    static void setUp() {
         city = "Berlin";
         weatherApi = new WeatherApi();
         yetAnotherWeatherSource = new YetAnotherWeatherSource(weatherApi);
@@ -36,13 +36,13 @@ public class CurrentWeatherInAppFunctionalityTests {
     //----------------------- STRUCTURE TESTS -----------------------//
 
     @Test //Checks if weather report has section with weather report details
-    public void InAppWeatherReportShouldHaveSectionWeatherReportDetails() throws CityNotFoundException {
+    public void inAppWeatherReportShouldHaveSectionWeatherReportDetails() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getWeatherReportDetails()).isNotNull();
     }
 
     @Test //Checks if weather report has section with current weather report
-    public void InAppWeatherReportShouldHaveSectionCurrentWeatherReport() throws CityNotFoundException {
+    public void inAppWeatherReportShouldHaveSectionCurrentWeatherReport() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getCurrentWeatherReport()).isNotNull();
     }

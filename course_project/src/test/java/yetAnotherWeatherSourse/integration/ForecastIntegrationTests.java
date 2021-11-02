@@ -30,14 +30,14 @@ public class ForecastIntegrationTests {
     }
 
     @Test //Test checks if response status is HTTP_OK(200), if request with city name sent and such city exists in API
-    public void ShouldReturnHttpOkWhenCityNameIsGivenAndCityExistsInApi() {
+    public void shouldReturnHttpOkWhenCityNameIsGivenAndCityExistsInApi() {
         int RequestStatus = WeatherApi.getForecastResponse(city).getStatus();
 
         assertThat(RequestStatus).isEqualTo(HTTP_OK);
     }
 
     @Test //Tests that API returns error message "City not found." if response was HTTP_NOT_FOUND(404)
-    public void ShouldReturnCityNotFoundErrorMessageWhenHttpNotFound() {
+    public void shouldReturnCityNotFoundErrorMessageWhenHttpNotFound() {
         String wrongCity = "Winterfell";
         String exceptionErrorMessage = "City not found.";
         Exception exception = assertThrows(CityNotFoundException.class, () ->
@@ -45,6 +45,5 @@ public class ForecastIntegrationTests {
 
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
     }
-
 
 }

@@ -57,7 +57,7 @@ public class CurrentWeatherMockIntegrationTests {
     }
 
     @Test //Mock test that weather report has coordinates
-    public void ShouldHaveCoordinatesInWeatherReport() throws CityNotFoundException {
+    public void shouldHaveCoordinatesInWeatherReport() throws CityNotFoundException {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
@@ -65,7 +65,7 @@ public class CurrentWeatherMockIntegrationTests {
     }
 
     @Test //Mock test that weather report has current weather
-    public void ShouldHaveCurrentWeatherBlockInWeatherReport() throws CityNotFoundException {
+    public void shouldHaveCurrentWeatherBlockInWeatherReport() throws CityNotFoundException {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
