@@ -4,8 +4,8 @@ import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import yetAnotherWeatherSource.api.WeatherApi;
-import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
+import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,7 +43,8 @@ public class CurrentWeatherIntegrationTests {
 
     @Test
     public void ShouldHaveMainDataBlockInWeatherData() {
-        assertThat(currentWeatherData.getMain()).isNotNull(); }
+        assertThat(currentWeatherData.getMain()).isNotNull();
+    }
 
     @Test
     public void ShouldReturnCityNotFoundErrorMessageWhenCityNotFound() {
