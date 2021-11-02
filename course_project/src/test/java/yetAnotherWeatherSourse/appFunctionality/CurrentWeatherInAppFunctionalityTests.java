@@ -47,7 +47,7 @@ public class CurrentWeatherInAppFunctionalityTests {
     }
 
     @Test
-    public void inAppWeatherReportShouldHaveCoordinatesInFormatLatLon() throws CityNotFoundException {
+    public void inAppWeatherReportCoordinatesInFormat_LatLon() throws CityNotFoundException {
         CurrentWeatherData currentWeatherData = weatherApi.getCurrentWeatherData(city);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getReportDetails().getCoordinates()).
@@ -62,6 +62,12 @@ public class CurrentWeatherInAppFunctionalityTests {
         } else if (weatherApi.getUnits().equals("imperial")) {
             assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isEqualTo("Fahrenheit");
         }
+    }
+
+    @Test
+    public void inAppWeatherReportDateInFormat_yy_MM_dd() throws CityNotFoundException {
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getCurrentWeather().getDate()).matches("\\d{4}-\\d{2}-\\d{2}");
     }
 
 
