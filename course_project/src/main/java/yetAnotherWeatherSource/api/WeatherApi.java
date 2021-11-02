@@ -19,6 +19,7 @@ import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
  * Attributes:
  * BASE_URL    an url giving the base location of APIs
  * CURRENT_WEATHER_URL an url giving location of Current Weather API
+ * FORECAST_URL an url giving location of Forecast API
  * API_KEY     a unique key of subscribed user, gives access to API functionality
  * UNITS       setting for API, changing measurement Units in API response
  * client      jersey client, configured to instantiate JAX-RS and map PlainOldJavaObjects
@@ -26,19 +27,34 @@ import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 public class WeatherApi {
     private static final String BASE_URL = "https://api.openweathermap.org/data/2.5";
     private static final String CURRENT_WEATHER_URL = BASE_URL + "/weather";
+    private static final String FORECAST_URL = BASE_URL + "/forecast";
     private static final String API_KEY = "8e648a10ee12b0e82dd59dab605e8db4";
     private static final String UNITS = "metric";
 
     private static final Client client = getConfiguredClient();
 
     /**
-     * Method receives response from API for city, provided as string.
+     * Method receives response from CurrentWeather API for city, provided as string.
      *
      * @param city Name of city
-     * @return response from API containing required weather data
+     * @return response from API containing required current weather data
      */
     public static ClientResponse getCurrentWeatherResponse(String city) {
         return client.resource(CURRENT_WEATHER_URL)
+                .queryParam("q", city)
+                .queryParam("appid", API_KEY)
+                .queryParam("units", UNITS)
+                .get(ClientResponse.class);
+    }
+
+    /**
+     * Method receives response from Forecast API for city, provided as string.
+     *
+     * @param city Name of city
+     * @return response from API containing required forecast data
+     */
+    public static ClientResponse getForecastResponse(String city) {
+        return client.resource(FORECAST_URL)
                 .queryParam("q", city)
                 .queryParam("appid", API_KEY)
                 .queryParam("units", UNITS)
