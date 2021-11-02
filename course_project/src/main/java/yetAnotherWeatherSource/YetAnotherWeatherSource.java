@@ -18,6 +18,8 @@ public class YetAnotherWeatherSource {
 
         WeatherReportDetails weatherReportDetails = new WeatherReportDetails();
         weatherReportDetails.setCity(currentWeatherData.getName());
+        weatherReportDetails.setCoordinates(currentWeatherData.getCoord().getLat() + ", "
+                + currentWeatherData.getCoord().getLon());
         weatherReport.setWeatherReportDetails(weatherReportDetails);
 
         return weatherReport;

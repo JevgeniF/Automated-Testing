@@ -13,5 +13,4 @@ public class CurrentWeatherData {
     private Long dt;
     private Integer timezone;
     private MainModel main;
-
 }
