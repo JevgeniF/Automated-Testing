@@ -62,10 +62,16 @@ public class ForecastInAppFunctionalityTests {
         assertThat(weatherReport.getForecastReport().get(0).getForecastWeather().getTemperature()).isNotNull();
     }
 
-    @Test //Checks if forecast report section "day" weather forecast has Humidity
+    @Test //Checks if forecast report section "day" weather forecast has humidity
     public void inAppForecastReportDayShouldHaveWeatherForecastWithHumidity() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getForecastReport().get(0).getForecastWeather().getHumidity()).isNotNull();
+    }
+
+    @Test //Checks if forecast report section "day" weather forecast has pressure
+    public void inAppForecastReportDayShouldHaveWeatherForecastWithPressure() throws CityNotFoundException {
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getForecastReport().get(0).getForecastWeather().getPressure()).isNotNull();
     }
 
     //----------------------- ITEMS FORMAT AND CONTENT TESTS -----------------------//
