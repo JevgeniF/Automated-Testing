@@ -30,7 +30,7 @@ public class ForecastInAppFunctionalityTests {
     }
 
     @Test //Checks if forecast report section in weather report has at least one forecast weather block
-    public void inAppWeatherReportShouldHaveSectionForecastReportWithMinOneForecastWeather()
+    public void inAppWeatherReportShouldHaveSectionForecastReportWithMinOneDay()
             throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getForecastReport().get(0)).isNotNull();
