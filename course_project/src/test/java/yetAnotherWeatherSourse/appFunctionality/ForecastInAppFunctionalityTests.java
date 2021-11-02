@@ -35,4 +35,11 @@ public class ForecastInAppFunctionalityTests {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getForecastReport().get(0)).isNotNull();
     }
+
+    @Test //Checks if forecast report section has date
+    public void inAppForecastReportSectionShouldHaveMinOneDayWithDate()
+            throws CityNotFoundException {
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getForecastReport().get(0).getDate()).isNotNull();
+    }
 }
