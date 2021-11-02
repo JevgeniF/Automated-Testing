@@ -21,16 +21,20 @@ public class ForecastMockIntegrationTests extends MockIntegrationTests {
     @Test //Mock test that weather report has Forecast Report list block
     public void shouldHaveForecastReportListInWeatherReport() throws CityNotFoundException {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
+        when(weatherApi.getForecastData(anyString())).thenReturn(forecastData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
         assertThat(weatherReport.getForecastReport()).isNotNull();
     }
 
     @Test //Mock test that weather report has Forecast Report List with at least one Forecast Report with Date
-    public void shouldHaveForecastWithTemperatureInWeatherReport() throws CityNotFoundException {
+    public void shouldHaveForecastWithDateInWeatherReport() throws CityNotFoundException {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
+        when(weatherApi.getForecastData(anyString())).thenReturn(forecastData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
         assertThat(weatherReport.getForecastReport().get(0).getDate()).isNotNull();
     }
+
+
 }
