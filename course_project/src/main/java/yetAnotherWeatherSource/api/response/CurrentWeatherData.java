@@ -2,15 +2,22 @@ package yetAnotherWeatherSource.api.response;
 
 import lombok.Data;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import yetAnotherWeatherSource.api.model.CoordinatesModel;
-import yetAnotherWeatherSource.api.model.MainModel;
+import yetAnotherWeatherSource.api.dto.CoordDto;
+import yetAnotherWeatherSource.api.dto.MainDto;
 
+/**
+ * Class for generation of entities from API response with required data only.
+ * Attributes:
+ * name - city name
+ * coord - entity of CoordDto, coord section of response with coordinates
+ * dt - date, Unix
+ * main - entity of MainDto, main section of response with main weather data
+ */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CurrentWeatherData {
     private String name;
-    private CoordinatesModel coord;
+    private CoordDto coord;
     private Integer dt;
-    private Integer timezone;
-    private MainModel main;
+    private MainDto main;
 }

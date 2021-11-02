@@ -88,15 +88,15 @@ Use the [OpenWeatherMap API](https://openweathermap.org/api):
 **Note**: Application reads input as string parameter and outputs result to stdout.
 
 ### ACCEPTANCE CRITERIA
-- City name can be provided as a string input
-- The output is a weather report with main details and current weather data
-- Main details part has city, coordinates and temperatureUnit properties
-- Coordinates are in the format lat, log. Example: "59.44,24.75"
-- Current weather part has date, temperature, humidity and pressure properties
-- Output is a JSON object
-- At least 3 unit tests exists
-- Mock integration test exists for OWM for the main details data
-- OWM integration is covered by integration tests for the main details data
+COMPLETED: City name can be provided as a string input
+COMPLETED: The output is a weather report with main details and current weather data
+COMPLETED: Main details part has city, coordinates and temperatureUnit properties
+COMPLETED: Coordinates are in the format lat, log. Example: "59.44,24.75"
+COMPLETED: Current weather part has date, temperature, humidity and pressure properties
+COMPLETED: Output is a JSON object
+COMPLETED: At least 3 unit tests exists
+COMPLETED: Mock integration test exists for OWM for the main details data
+COMPLETED: OWM integration is covered by integration tests for the main details data
 
 ## 2. Forecast - 15p
 

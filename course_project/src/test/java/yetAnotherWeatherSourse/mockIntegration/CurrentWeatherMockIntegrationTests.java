@@ -7,9 +7,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
+import yetAnotherWeatherSource.api.dto.CoordDto;
+import yetAnotherWeatherSource.api.dto.MainDto;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
-import yetAnotherWeatherSource.api.model.CoordinatesModel;
-import yetAnotherWeatherSource.api.model.MainModel;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 import yetAnotherWeatherSource.model.WeatherReport;
 
@@ -17,6 +17,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
+/**
+ * Mock tests for integration of CurrentWeather API in app.
+ * Check if Weather Report has data, as from Weather API.
+ * 3 tests.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class CurrentWeatherMockIntegrationTests {
     @Mock
@@ -26,26 +31,24 @@ public class CurrentWeatherMockIntegrationTests {
     private CurrentWeatherData currentWeatherData;
     private YetAnotherWeatherSource yetAnotherWeatherSource;
 
-    @Before
+    @Before //initial setup to avoid code repeats, as used in all tests.
     public void setUp() {
         city = "Haabneeme";
         Integer date = 1635846093;
-        Integer timezone = 7200;
-        CoordinatesModel coordinates = new CoordinatesModel(24.8211, 59.5114);
-        MainModel currentWeather = new MainModel(8.74, 1010, 75);
+        CoordDto coordinates = new CoordDto(24.8211, 59.5114);
+        MainDto currentWeather = new MainDto(8.74, 1010, 75);
 
         currentWeatherData = new CurrentWeatherData();
         currentWeatherData.setName(city);
         currentWeatherData.setCoord(coordinates);
         currentWeatherData.setDt(date);
-        currentWeatherData.setTimezone(timezone);
         currentWeatherData.setMain(currentWeather);
 
         yetAnotherWeatherSource = new YetAnotherWeatherSource(weatherApi);
     }
 
 
-    @Test
+    @Test //Mock test that weather report has city
     public void shouldHaveCityNameInWeatherReport() throws CityNotFoundException {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
@@ -53,7 +56,7 @@ public class CurrentWeatherMockIntegrationTests {
         assertThat(weatherReport.getWeatherReportDetails().getCity()).isEqualTo(city);
     }
 
-    @Test
+    @Test //Mock test that weather report has coordinates
     public void ShouldHaveCoordinatesInWeatherReport() throws CityNotFoundException {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
@@ -61,7 +64,7 @@ public class CurrentWeatherMockIntegrationTests {
         assertThat(weatherReport.getWeatherReportDetails().getCoordinates()).isNotNull();
     }
 
-    @Test
+    @Test //Mock test that weather report has current weather
     public void ShouldHaveCurrentWeatherBlockInWeatherReport() throws CityNotFoundException {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
