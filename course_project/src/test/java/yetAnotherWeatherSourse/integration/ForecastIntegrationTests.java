@@ -46,4 +46,11 @@ public class ForecastIntegrationTests {
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
     }
 
+    @Test //Tests that API returns at least one Forecast from list with temperature.
+    public void shouldHaveTemperatureInAtLeastInOneBlockForecastData() {
+        Double temperature = forecastData.getList().get(0).getMain().getTemp();
+
+        assertThat(temperature).isNotNull();
+    }
+
 }
