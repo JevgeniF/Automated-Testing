@@ -1,15 +1,18 @@
 package yetAnotherWeatherSource;
 
 import yetAnotherWeatherSource.api.WeatherApi;
+import yetAnotherWeatherSource.api.dto.ListDto;
+import yetAnotherWeatherSource.api.dto.MainDto;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 import yetAnotherWeatherSource.api.response.ForecastData;
-import yetAnotherWeatherSource.model.CurrentWeatherReport;
-import yetAnotherWeatherSource.model.ForecastReport;
-import yetAnotherWeatherSource.model.WeatherReport;
-import yetAnotherWeatherSource.model.WeatherReportDetails;
+import yetAnotherWeatherSource.model.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Class with main methods of application.
@@ -45,19 +48,40 @@ public class YetAnotherWeatherSource {
 
         WeatherReportDetails weatherReportDetails = getReportDetails(currentWeatherData);
         CurrentWeatherReport currentWeatherReport = getCurrentWeather(currentWeatherData);
-        ArrayList<ForecastReport> forecastReport = getForecastReport(forecastData);
+        ArrayList<ForecastReport> forecastReportList = getForecastReport(forecastData);
 
         weatherReport.setWeatherReportDetails(weatherReportDetails);
         weatherReport.setCurrentWeatherReport(currentWeatherReport);
-        weatherReport.setForecastReport(forecastReport);
+        weatherReport.setForecastReport(forecastReportList);
 
         return weatherReport;
     }
 
     private ArrayList<ForecastReport> getForecastReport(ForecastData data) {
-        ArrayList<ForecastReport> forecastReport = new ArrayList<>();
+        ArrayList<ForecastReport> forecastReportList = new ArrayList<>();
+        Map<Integer,ArrayList<MainDto>> forecastWeatherMap = new LinkedHashMap<>();
 
-        return forecastReport;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date todayTimeStamp = new Date(System.currentTimeMillis() * 1000L);
+        String todayDate = dateFormat.format(todayTimeStamp);
+
+        for (ListDto list: data.getList()) {
+            Date forecastTimeStamp = new Date(list.getDt() * 1000L);
+            String forecastDate = dateFormat.format(forecastTimeStamp);
+            if (!forecastDate.equals(todayDate)) {
+                if (!forecastWeatherMap.containsKey(list.getDt()))
+                    forecastWeatherMap.put(list.getDt(), new ArrayList<>());
+                forecastWeatherMap.get(list.getDt()).add(list.getMain());
+            }
+        }
+
+        forecastWeatherMap.forEach((key, value) -> {
+           ForecastReport forecastReport = new ForecastReport();
+           forecastReport.setDate(key);
+           forecastReportList.add(forecastReport);
+        });
+
+        return forecastReportList;
     }
 
     /**
