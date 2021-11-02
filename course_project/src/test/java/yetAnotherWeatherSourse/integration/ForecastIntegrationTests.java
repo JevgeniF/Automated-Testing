@@ -60,4 +60,11 @@ public class ForecastIntegrationTests {
         assertThat(humidity).isNotNull();
     }
 
+    @Test //Tests that API returns at least one Forecast from list in Forecast Data with pressure.
+    public void shouldHavePressureInAtLeastInOneBlockForecastData() {
+        int pressure = forecastData.getList().get(0).getMain().getPressure();
+
+        assertThat(pressure).isNotNull();
+    }
+
 }
