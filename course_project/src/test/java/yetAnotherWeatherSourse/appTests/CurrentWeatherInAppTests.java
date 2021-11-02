@@ -49,9 +49,14 @@ public class CurrentWeatherInAppTests {
     }
 
     @Test
-    public void inAppWeatherReportTemperatureUnitsCorrespondsToApiSettings_MetricIsCelsius() throws CityNotFoundException {
+    public void inAppWeatherReportTemperatureUnitsCorrespondToApiSettings() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherApi.getUnits()).isEqualTo("metric");
-        assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isEqualTo("Celsius");
+        if (weatherApi.getUnits().equals("metric")) {
+            assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isEqualTo("Celsius");
+        }
+        else if (weatherApi.getUnits().equals("imperial")) {
+            assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isEqualTo("Fahrenheit");
+        }
     }
+
 }
