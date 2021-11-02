@@ -8,6 +8,9 @@ import yetAnotherWeatherSource.api.exception.CityNotFoundException;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 import yetAnotherWeatherSource.model.WeatherReport;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CurrentWeatherInAppFunctionalityTests {
@@ -68,6 +71,14 @@ public class CurrentWeatherInAppFunctionalityTests {
     public void inAppWeatherReportDateInFormat_yy_MM_dd() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getCurrentWeather().getDate()).matches("\\d{4}-\\d{2}-\\d{2}");
+    }
+
+    @Test
+    public void inAppWeatherReportDateIsCurrentDate() throws CityNotFoundException {
+        Date currentDate = new Date(System.currentTimeMillis());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getCurrentWeather().getDate()).matches(dateFormat.format(currentDate));
     }
 
 
