@@ -62,6 +62,12 @@ public class ForecastInAppFunctionalityTests {
         assertThat(weatherReport.getForecastReport().get(0).getForecastWeather().getTemperature()).isNotNull();
     }
 
+    @Test //Checks if forecast report section "day" weather forecast has Humidity
+    public void inAppForecastReportDayShouldHaveWeatherForecastWithHumidity() throws CityNotFoundException {
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getForecastReport().get(0).getForecastWeather().getHumidity()).isNotNull();
+    }
+
     //----------------------- ITEMS FORMAT AND CONTENT TESTS -----------------------//
 
     @Test //Checks if dates in forecast report "days" formatted like "yyyy-MM-dd"
