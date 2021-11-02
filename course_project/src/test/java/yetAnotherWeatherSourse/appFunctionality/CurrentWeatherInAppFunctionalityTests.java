@@ -10,7 +10,7 @@ import yetAnotherWeatherSource.model.WeatherReport;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CurrentWeatherInAppFunctionality {
+public class CurrentWeatherInAppFunctionalityTests {
     private static String city;
     private static WeatherApi weatherApi;
     private static YetAnotherWeatherSource yetAnotherWeatherSource;
@@ -35,17 +35,23 @@ public class CurrentWeatherInAppFunctionality {
     }
 
     @Test
+    public void inAppWeatherReportShouldHaveTemperatureUnits() throws CityNotFoundException {
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isNotNull();
+    }
+
+    @Test
+    public void inAppWeatherReportShouldHaveDate() throws CityNotFoundException {
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getCurrentWeather().getDate()).isNotNull();
+    }
+
+    @Test
     public void inAppWeatherReportShouldHaveCoordinatesInFormatLatLon() throws CityNotFoundException {
         CurrentWeatherData currentWeatherData = weatherApi.getCurrentWeatherData(city);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getReportDetails().getCoordinates()).
                 isEqualTo(currentWeatherData.getCoord().getLat() + ", " + currentWeatherData.getCoord().getLon());
-    }
-
-    @Test
-    public void inAppWeatherReportShouldHaveTemperatureUnits() throws CityNotFoundException {
-        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isNotNull();
     }
 
     @Test
@@ -57,5 +63,7 @@ public class CurrentWeatherInAppFunctionality {
             assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isEqualTo("Fahrenheit");
         }
     }
+
+
 
 }
