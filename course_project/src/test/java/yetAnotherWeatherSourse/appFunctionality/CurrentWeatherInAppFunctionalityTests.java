@@ -50,6 +50,12 @@ public class CurrentWeatherInAppFunctionalityTests {
     }
 
     @Test
+    public void inAppWeatherReportShouldHaveTemperature() throws CityNotFoundException {
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertThat(weatherReport.getCurrentWeather().getTemperature()).isNotNull();
+    }
+
+    @Test
     public void inAppWeatherReportCoordinatesInFormat_LatLon() throws CityNotFoundException {
         CurrentWeatherData currentWeatherData = weatherApi.getCurrentWeatherData(city);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
