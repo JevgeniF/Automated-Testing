@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
-public class CurrentWeather {
+public class CurrentWeatherReport {
     private String date;
     private Double temperature;
     private Integer humidity;

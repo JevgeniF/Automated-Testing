@@ -28,62 +28,62 @@ public class CurrentWeatherInAppFunctionalityTests {
     @Test
     public void InAppWeatherReportShouldHaveSectionWeatherReportDetails() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getReportDetails()).isNotNull();
+        assertThat(weatherReport.getWeatherReportDetails()).isNotNull();
     }
 
     @Test
     public void InAppWeatherReportShouldHaveSectionCurrentWeatherReport() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getCurrentWeather()).isNotNull();
+        assertThat(weatherReport.getCurrentWeatherReport()).isNotNull();
     }
 
     @Test
     public void inAppWeatherReportDetailsShouldHaveSameCityAsInRequest() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getReportDetails().getCity()).isEqualTo(city);
+        assertThat(weatherReport.getWeatherReportDetails().getCity()).isEqualTo(city);
     }
 
     @Test
     public void inAppWeatherReportDetailsShouldHaveCoordinates() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getReportDetails().getCoordinates()).isNotNull();
+        assertThat(weatherReport.getWeatherReportDetails().getCoordinates()).isNotNull();
     }
 
     @Test
     public void inAppWeatherReportDetailsShouldHaveTemperatureUnits() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isNotNull();
+        assertThat(weatherReport.getWeatherReportDetails().getTemperatureUnit()).isNotNull();
     }
 
     @Test
     public void inAppCurrentWeatherReportShouldHaveDate() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getCurrentWeather().getDate()).isNotNull();
+        assertThat(weatherReport.getCurrentWeatherReport().getDate()).isNotNull();
     }
 
     @Test
     public void inAppCurrentWeatherReportShouldHaveTemperature() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getCurrentWeather().getTemperature()).isNotNull();
+        assertThat(weatherReport.getCurrentWeatherReport().getTemperature()).isNotNull();
     }
 
     @Test
     public void inAppCurrentWeatherReportShouldHaveHumidity() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getCurrentWeather().getHumidity()).isNotNull();
+        assertThat(weatherReport.getCurrentWeatherReport().getHumidity()).isNotNull();
     }
 
     @Test
     public void inAppCurrentWeatherReportShouldHavePressure() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getCurrentWeather().getPressure()).isNotNull();
+        assertThat(weatherReport.getCurrentWeatherReport().getPressure()).isNotNull();
     }
 
     @Test
     public void inAppWeatherReportCoordinatesInFormat_LatLon() throws CityNotFoundException {
         CurrentWeatherData currentWeatherData = weatherApi.getCurrentWeatherData(city);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getReportDetails().getCoordinates()).
+        assertThat(weatherReport.getWeatherReportDetails().getCoordinates()).
                 isEqualTo(currentWeatherData.getCoord().getLat() + ", " + currentWeatherData.getCoord().getLon());
     }
 
@@ -91,16 +91,16 @@ public class CurrentWeatherInAppFunctionalityTests {
     public void inAppWeatherReportTemperatureUnitsCorrespondToApiSettings() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         if (weatherApi.getUnits().equals("metric")) {
-            assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isEqualTo("Celsius");
+            assertThat(weatherReport.getWeatherReportDetails().getTemperatureUnit()).isEqualTo("Celsius");
         } else if (weatherApi.getUnits().equals("imperial")) {
-            assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isEqualTo("Fahrenheit");
+            assertThat(weatherReport.getWeatherReportDetails().getTemperatureUnit()).isEqualTo("Fahrenheit");
         }
     }
 
     @Test
     public void inAppWeatherReportDateInFormat_yy_MM_dd() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getCurrentWeather().getDate()).matches("\\d{4}-\\d{2}-\\d{2}");
+        assertThat(weatherReport.getCurrentWeatherReport().getDate()).matches("\\d{4}-\\d{2}-\\d{2}");
     }
 
     @Test
@@ -108,9 +108,8 @@ public class CurrentWeatherInAppFunctionalityTests {
         Date currentDate = new Date(System.currentTimeMillis());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getCurrentWeather().getDate()).matches(dateFormat.format(currentDate));
+        assertThat(weatherReport.getCurrentWeatherReport().getDate()).matches(dateFormat.format(currentDate));
     }
-
 
 
 }

@@ -16,7 +16,7 @@ public class WeatherApi {
     private static final String BASE_URL = "https://api.openweathermap.org/data/2.5";
     private static final String CURRENT_WEATHER_URL = BASE_URL + "/weather";
     private static final String API_KEY = "8e648a10ee12b0e82dd59dab605e8db4";
-    private static String UNITS = "metric";
+    private static final String UNITS = "metric";
 
     private static final Client client = getConfiguredClient();
 
@@ -37,10 +37,6 @@ public class WeatherApi {
 
     public String getUnits() {
         return UNITS;
-    }
-
-    public void setUnits(String measureUnits) {
-        UNITS = measureUnits;
     }
 
     public CurrentWeatherData getCurrentWeatherData(String city) throws CityNotFoundException {

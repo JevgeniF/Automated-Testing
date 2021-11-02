@@ -50,7 +50,7 @@ public class CurrentWeatherMockIntegrationTests {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
-        assertThat(weatherReport.getReportDetails().getCity()).isEqualTo(city);
+        assertThat(weatherReport.getWeatherReportDetails().getCity()).isEqualTo(city);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class CurrentWeatherMockIntegrationTests {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
-        assertThat(weatherReport.getReportDetails().getCoordinates()).isNotNull();
+        assertThat(weatherReport.getWeatherReportDetails().getCoordinates()).isNotNull();
     }
 
     @Test
@@ -66,6 +66,6 @@ public class CurrentWeatherMockIntegrationTests {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
-        assertThat(weatherReport.getCurrentWeather()).isNotNull();
+        assertThat(weatherReport.getCurrentWeatherReport()).isNotNull();
     }
 }

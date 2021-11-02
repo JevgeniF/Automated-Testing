@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class WeatherReport {
-    private ReportDetails reportDetails;
-    private CurrentWeather currentWeather;
+    private WeatherReportDetails weatherReportDetails;
+    private CurrentWeatherReport currentWeatherReport;
 }

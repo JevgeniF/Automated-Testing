@@ -4,7 +4,7 @@ import lombok.Data;
 import yetAnotherWeatherSource.api.model.CoordinatesModel;
 
 @Data
-public class ReportDetails {
+public class WeatherReportDetails {
     private String city;
     private String coordinates;
     private String temperatureUnit = "Celsius";
