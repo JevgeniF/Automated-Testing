@@ -18,4 +18,8 @@ public class CurrentWeather {
 
         this.date = dateFormat.format(date);
     }
+
+    public void setTemperature(Double temperature) {
+        this.temperature = Math.round(temperature * 2) / 2.0;
+    }
 }
