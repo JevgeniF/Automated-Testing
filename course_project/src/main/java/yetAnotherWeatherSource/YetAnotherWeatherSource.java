@@ -47,12 +47,8 @@ public class YetAnotherWeatherSource {
 
         reportDetails.setCity(data.getName());
         reportDetails.setCoordinates(data.getCoord());
-        if (weatherApi.getUnits() != null) {
-            switch (weatherApi.getUnits()) {
-                case "metric" -> reportDetails.setTemperatureUnit("Celsius");
-                case "imperial" -> reportDetails.setTemperatureUnit("Fahrenheit");
-            }
-        }
+        reportDetails.setTemperatureUnit(weatherApi.getUnits());
+
         return reportDetails;
     }
 }

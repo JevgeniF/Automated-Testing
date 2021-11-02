@@ -12,4 +12,10 @@ public class ReportDetails {
     public void setCoordinates(CoordinatesModel coord) {
         this.coordinates = coord.getLat() + ", " + coord.getLon();
     }
+
+    public void setTemperatureUnit(String apiUnits) {
+        if (apiUnits != null) {
+            if (apiUnits.equals("imperial")) this.temperatureUnit = "Fahrenheit";
+        }
+    }
 }
