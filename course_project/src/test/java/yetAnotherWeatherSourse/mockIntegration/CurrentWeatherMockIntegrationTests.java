@@ -21,6 +21,7 @@ import static org.mockito.Mockito.when;
 public class CurrentWeatherMockIntegrationTests {
     @Mock
     static WeatherApi weatherApi;
+
     private String city;
     private CurrentWeatherData currentWeatherData;
     private YetAnotherWeatherSource yetAnotherWeatherSource;

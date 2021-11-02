@@ -1,4 +1,4 @@
-package yetAnotherWeatherSourse.appTests;
+package yetAnotherWeatherSourse.appFunctionality;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import yetAnotherWeatherSource.model.WeatherReport;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CurrentWeatherInAppTests {
+public class CurrentWeatherInAppFunctionality {
     private static String city;
     private static WeatherApi weatherApi;
     private static YetAnotherWeatherSource yetAnotherWeatherSource;
@@ -53,8 +53,7 @@ public class CurrentWeatherInAppTests {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         if (weatherApi.getUnits().equals("metric")) {
             assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isEqualTo("Celsius");
-        }
-        else if (weatherApi.getUnits().equals("imperial")) {
+        } else if (weatherApi.getUnits().equals("imperial")) {
             assertThat(weatherReport.getReportDetails().getTemperatureUnit()).isEqualTo("Fahrenheit");
         }
     }
