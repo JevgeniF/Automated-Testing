@@ -48,7 +48,7 @@ public class YetAnotherWeatherSource {
 
         WeatherReportDetails weatherReportDetails = getReportDetails(currentWeatherData);
         CurrentWeatherReport currentWeatherReport = getCurrentWeather(currentWeatherData);
-        ArrayList<ForecastReport> forecastReportList = getForecastReport(forecastData);
+        ArrayList<ForecastReport> forecastReportList = getForecastReportList(forecastData);
 
         weatherReport.setWeatherReportDetails(weatherReportDetails);
         weatherReport.setCurrentWeatherReport(currentWeatherReport);
@@ -57,23 +57,9 @@ public class YetAnotherWeatherSource {
         return weatherReport;
     }
 
-    private ArrayList<ForecastReport> getForecastReport(ForecastData data) {
+    private ArrayList<ForecastReport> getForecastReportList(ForecastData data) {
         ArrayList<ForecastReport> forecastReportList = new ArrayList<>();
-        Map<Integer,ArrayList<MainDto>> forecastWeatherMap = new LinkedHashMap<>();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date todayTimeStamp = new Date(System.currentTimeMillis() * 1000L);
-        String todayDate = dateFormat.format(todayTimeStamp);
-
-        for (ListDto list: data.getList()) {
-            Date forecastTimeStamp = new Date(list.getDt() * 1000L);
-            String forecastDate = dateFormat.format(forecastTimeStamp);
-            if (!forecastDate.equals(todayDate)) {
-                if (!forecastWeatherMap.containsKey(list.getDt()))
-                    forecastWeatherMap.put(list.getDt(), new ArrayList<>());
-                forecastWeatherMap.get(list.getDt()).add(list.getMain());
-            }
-        }
+        Map<Integer, ArrayList<MainDto>> forecastWeatherMap = getForecastWeatherMap(data);
 
         forecastWeatherMap.forEach((key, value) -> {
            ForecastReport forecastReport = new ForecastReport();
@@ -84,6 +70,26 @@ public class YetAnotherWeatherSource {
         return forecastReportList;
     }
 
+    private Map<Integer, ArrayList<MainDto>> getForecastWeatherMap(ForecastData data) {
+        Map<Integer,ArrayList<MainDto>> forecastWeatherMap = new LinkedHashMap<>();
+
+        for (ListDto list: data.getList()) {
+            if (checkDifferenceInDates(System.currentTimeMillis(), list.getDt())) {
+                if (!forecastWeatherMap.containsKey(list.getDt()))
+                    forecastWeatherMap.put(list.getDt(), new ArrayList<>());
+                forecastWeatherMap.get(list.getDt()).add(list.getMain());
+            }
+        }
+        return forecastWeatherMap;
+    }
+
+    private boolean checkDifferenceInDates(Long currentTimeStamp, Integer forecastTimeStamp) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String todayDate = dateFormat.format(new Date(currentTimeStamp * 1000L));
+        String forecastDate = dateFormat.format(new Date(forecastTimeStamp * 1000L));
+
+        return !todayDate.equals(forecastDate);
+    }
     /**
      * Method creates CurrentWeatherReport class entity, which used as attribute of Weather Report class.
      *
