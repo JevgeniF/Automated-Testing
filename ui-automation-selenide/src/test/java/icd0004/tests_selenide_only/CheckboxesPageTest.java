@@ -38,7 +38,7 @@ public class CheckboxesPageTest {
 
     @Test //Checks if all checkboxes on page can be selected.
     public void canSelectAllCheckboxes() {
-        checkboxesStatusChanger(false);
+        selectCheckBoxes();
         for (WebElement checkbox : checkboxesList) {
             assertTrue(checkbox.isSelected());
         }
@@ -46,16 +46,21 @@ public class CheckboxesPageTest {
 
     @Test //Checks if all checkboxes on page can be de-selected.
     public void canDeSelectAllCheckboxes() {
-        checkboxesStatusChanger(true);
+        deSelectCheckBoxes();
         for (WebElement checkbox : checkboxesList) {
             assertFalse(checkbox.isSelected());
         }
     }
 
-    //Helper to check current checkboxes status and change it.
-    private void checkboxesStatusChanger(boolean selected) {
+    public void selectCheckBoxes() {
         for (WebElement checkbox : checkboxesList) {
-            if (checkbox.isSelected() == selected) checkbox.click();
+            if (!checkbox.isSelected()) checkbox.click();
+        }
+    }
+
+    public void deSelectCheckBoxes() {
+        for (WebElement checkbox : checkboxesList) {
+            if (checkbox.isSelected()) checkbox.click();
         }
     }
 }

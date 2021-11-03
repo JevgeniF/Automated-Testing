@@ -25,13 +25,13 @@ public class CheckboxesPageTest extends BaseTest {
 
     @Test //Checks if all checkboxes on page can be selected.
     public void canSelectAllCheckboxes() {
-        checkboxesPage.checkboxesStatusChanger(false);
-        assertTrue(checkboxesPage.getCheckBoxesStatus());
+        checkboxesPage.selectCheckBoxes();
+        assertTrue(checkboxesPage.isCheckBoxSelected());
     }
 
     @Test //Checks if all checkboxes on page can be de-selected.
     public void canDeSelectAllCheckboxes() {
-        checkboxesPage.checkboxesStatusChanger(true);
-        assertFalse(checkboxesPage.getCheckBoxesStatus());
+        checkboxesPage.deSelectCheckBoxes();
+        assertFalse(checkboxesPage.isCheckBoxSelected());
     }
 }

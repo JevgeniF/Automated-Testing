@@ -24,13 +24,20 @@ public class CheckboxesPage {
         return $("h3").getText();
     }
 
-    public void checkboxesStatusChanger(boolean selected) {
+    public void selectCheckBoxes() {
         for (WebElement checkbox : checkboxesList) {
-            if (checkbox.isSelected() == selected) checkbox.click();
+            if (!checkbox.isSelected()) checkbox.click();
         }
     }
 
-    public boolean getCheckBoxesStatus() {
+    public void deSelectCheckBoxes() {
+        for (WebElement checkbox : checkboxesList) {
+            if (checkbox.isSelected()) checkbox.click();
+        }
+    }
+
+
+    public boolean isCheckBoxSelected() {
         for (WebElement checkbox : checkboxesList) {
             if (checkbox.isSelected()) {
                 return true;
