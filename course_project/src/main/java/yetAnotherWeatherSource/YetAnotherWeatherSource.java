@@ -46,11 +46,14 @@ public class YetAnotherWeatherSource {
     }
 
     //overloaded method for batch reports generation
-    public ArrayList<WeatherReport> getWeatherReport(ArrayList<String> cityList) throws CityNotFoundException {
+    public ArrayList<WeatherReport> getWeatherReport(ArrayList<String> cityList) {
         ArrayList<WeatherReport> weatherReportList = new ArrayList<>();
         for (String city : cityList) {
-            WeatherReport weatherReport = getWeatherReport(city);
-            weatherReportList.add(weatherReport);
+            try {
+                WeatherReport weatherReport = getWeatherReport(city);
+                weatherReportList.add(weatherReport);
+            } catch (CityNotFoundException ignored) {
+            }
         }
         return weatherReportList;
     }
