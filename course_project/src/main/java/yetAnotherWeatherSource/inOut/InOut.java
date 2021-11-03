@@ -2,6 +2,7 @@ package yetAnotherWeatherSource.inOut;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import yetAnotherWeatherSource.exception.FileInputMissingException;
+import yetAnotherWeatherSource.exception.FileIsEmptyException;
 import yetAnotherWeatherSource.exception.FileNotFoundException;
 import yetAnotherWeatherSource.exception.WrongInputFormatException;
 import yetAnotherWeatherSource.model.WeatherReport;
@@ -19,15 +20,22 @@ import java.util.stream.Stream;
 public class InOut {
 
     public static String getCityFromFile(String fileName)
-            throws WrongInputFormatException, FileNotFoundException, FileInputMissingException {
+            throws WrongInputFormatException, FileNotFoundException, FileInputMissingException, FileIsEmptyException {
 
         Path validFilePath = Path.of(fileValidation(fileName));
 
+        String city;
         try {
-            return Files.readString(validFilePath).trim();
+            city = Files.readString(validFilePath).trim();
         } catch (IOException e) {
             throw new FileNotFoundException();
         }
+
+        if (city.isEmpty()) {
+            throw new FileIsEmptyException();
+        }
+
+        return city;
     }
 
     public static ArrayList<String> getCitiesFromFile(String fileName)
