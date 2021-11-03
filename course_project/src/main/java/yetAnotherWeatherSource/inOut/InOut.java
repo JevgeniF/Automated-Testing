@@ -39,7 +39,7 @@ public class InOut {
     }
 
     public static ArrayList<String> getCitiesFromFile(String fileName)
-            throws WrongInputFormatException, FileNotFoundException, FileInputMissingException {
+            throws WrongInputFormatException, FileNotFoundException, FileInputMissingException, FileIsEmptyException {
 
         Path validFilePath = Path.of(fileValidation(fileName));
 
@@ -49,6 +49,11 @@ public class InOut {
         } catch (IOException e) {
             throw new FileNotFoundException();
         }
+
+        if (cityList.isEmpty()) {
+            throw new FileIsEmptyException();
+        }
+
         return cityList;
     }
 
