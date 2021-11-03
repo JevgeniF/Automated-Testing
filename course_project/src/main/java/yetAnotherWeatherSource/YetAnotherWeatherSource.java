@@ -25,22 +25,10 @@ public class YetAnotherWeatherSource {
 
     private final WeatherApi weatherApi;
 
-    /**
-     * Class constructor
-     *
-     * @param weatherApi - entity of WeatherApi class with main attributes and methods of API
-     */
     public YetAnotherWeatherSource(WeatherApi weatherApi) {
         this.weatherApi = weatherApi;
     }
 
-    /**
-     * Method creates WeatherReport class entity, which is main class in app output.
-     *
-     * @param city - name of city
-     * @return WeatherReport class entity
-     * @throws CityNotFoundException in case if city name not found in API
-     */
     public WeatherReport getWeatherReport(String city) throws CityNotFoundException {
         WeatherReport weatherReport = new WeatherReport();
         CurrentWeatherData currentWeatherData = weatherApi.getCurrentWeatherData(city);
@@ -57,12 +45,27 @@ public class YetAnotherWeatherSource {
         return weatherReport;
     }
 
-    /**
-     * Method gets Array List of ForecastReport class entity, which used as attribute of WeatherReport Class.
-     *
-     * @param data - ForecastData class entity created from API response
-     * @return Array List of ForecastReport entities
-     */
+    private WeatherReportDetails getWeatherReportDetails(CurrentWeatherData data) {
+        WeatherReportDetails weatherReportDetails = new WeatherReportDetails();
+
+        weatherReportDetails.setCity(data.getName());
+        weatherReportDetails.setCoordinates(data.getCoord());
+        weatherReportDetails.setTemperatureUnit(weatherApi.getUnits());
+
+        return weatherReportDetails;
+    }
+
+    private CurrentWeatherReport getCurrentWeatherReport(CurrentWeatherData data) {
+        CurrentWeatherReport currentWeatherReport = new CurrentWeatherReport();
+
+        currentWeatherReport.setDate(data.getDt());
+        currentWeatherReport.setTemperature(data.getMain().getTemp());
+        currentWeatherReport.setHumidity(data.getMain().getHumidity());
+        currentWeatherReport.setPressure(data.getMain().getPressure());
+
+        return currentWeatherReport;
+    }
+
     private ArrayList<ForecastReport> getForecastReportList(ForecastData data) {
         ArrayList<ForecastReport> forecastReportList = new ArrayList<>();
         Map<String, ArrayList<MainDto>> forecastWeatherMap = Helpers.getForecastWeatherMap(data);
@@ -75,38 +78,5 @@ public class YetAnotherWeatherSource {
         });
 
         return forecastReportList;
-    }
-
-    /**
-     * Method creates CurrentWeatherReport class entity, which used as attribute of Weather Report class.
-     *
-     * @param data - CurrentWeatherData class entity created from API response
-     * @return CurrentWeatherReport class entity
-     */
-    private CurrentWeatherReport getCurrentWeatherReport(CurrentWeatherData data) {
-        CurrentWeatherReport currentWeatherReport = new CurrentWeatherReport();
-
-        currentWeatherReport.setDate(data.getDt());
-        currentWeatherReport.setTemperature(data.getMain().getTemp());
-        currentWeatherReport.setHumidity(data.getMain().getHumidity());
-        currentWeatherReport.setPressure(data.getMain().getPressure());
-
-        return currentWeatherReport;
-    }
-
-    /**
-     * Method creates WeatherReportDetails class entity, which used as attribute of Weather Report class.
-     *
-     * @param data - CurrentWeatherData class entity created from API response
-     * @return WeatherReportDetails class entity
-     */
-    private WeatherReportDetails getWeatherReportDetails(CurrentWeatherData data) {
-        WeatherReportDetails weatherReportDetails = new WeatherReportDetails();
-
-        weatherReportDetails.setCity(data.getName());
-        weatherReportDetails.setCoordinates(data.getCoord());
-        weatherReportDetails.setTemperatureUnit(weatherApi.getUnits());
-
-        return weatherReportDetails;
     }
 }

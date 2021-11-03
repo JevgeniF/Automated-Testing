@@ -33,12 +33,6 @@ public class WeatherApi {
     private static final Client client = getConfiguredClient();
     private static String UNITS = "metric";
 
-    /**
-     * Method receives response from CurrentWeather API for city, provided as string.
-     *
-     * @param city Name of city
-     * @return response from API containing required current weather data
-     */
     public static ClientResponse getCurrentWeatherResponse(String city) {
         return client.resource(CURRENT_WEATHER_URL)
                 .queryParam("q", city)
@@ -47,12 +41,6 @@ public class WeatherApi {
                 .get(ClientResponse.class);
     }
 
-    /**
-     * Method receives response from Forecast API for city, provided as string.
-     *
-     * @param city Name of city
-     * @return response from API containing required to be forecast data
-     */
     public static ClientResponse getForecastResponse(String city) {
         return client.resource(FORECAST_URL)
                 .queryParam("q", city)
@@ -61,11 +49,6 @@ public class WeatherApi {
                 .get(ClientResponse.class);
     }
 
-    /**
-     * Method generates configured Jersey Client.
-     *
-     * @return Jersey Client with instantiated JAX-RS and PlainOldJavaObject mapping feature.
-     */
     private static Client getConfiguredClient() {
         ClientConfig configuration = new DefaultClientConfig();
         configuration.getClasses().add(JacksonJaxbJsonProvider.class);
@@ -73,31 +56,15 @@ public class WeatherApi {
         return create(configuration);
     }
 
-    /**
-     * Getter for class attribute UNITS
-     */
     public String getUnits() {
         return UNITS;
     }
 
-    /**
-     * Setter for class attribute UNITS
-     *
-     * @param measurementSystem name of required measurement system: metric or imperial
-     */
     @SuppressWarnings("unused")
     public static void setUnits(String measurementSystem) {
         UNITS = measurementSystem;
     }
 
-    /**
-     * Method uses getCurrentWeatherResponse method, gets response from API and returns CurrentWeatherData class
-     * entity from the response.
-     *
-     * @param city Name of city
-     * @return CurrentWeatherData class entity
-     * @throws CityNotFoundException in case if city not found in API
-     */
     public CurrentWeatherData getCurrentWeatherData(String city) throws CityNotFoundException {
         ClientResponse response = getCurrentWeatherResponse(city);
 
@@ -108,14 +75,6 @@ public class WeatherApi {
         return response.getEntity(CurrentWeatherData.class);
     }
 
-    /**
-     * Method uses getForecastResponse method, gets response from API and returns ForecastData class
-     * entity from the response.
-     *
-     * @param city Name of city
-     * @return ForecastData class entity
-     * @throws CityNotFoundException in case if city not found in API
-     */
     public ForecastData getForecastData(String city) throws CityNotFoundException {
         ClientResponse response = getForecastResponse(city);
 

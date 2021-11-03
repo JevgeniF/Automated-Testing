@@ -21,38 +21,21 @@ public class CurrentWeatherIntegrationTests {
     static WeatherApi weatherApi;
     static CurrentWeatherData currentWeatherData;
 
-    @SneakyThrows
-    @BeforeAll // initial setup for all tests
+    @BeforeAll
     static void setUp() {
         city = "London";
         weatherApi = new WeatherApi();
-        currentWeatherData = weatherApi.getCurrentWeatherData(city);
     }
 
-    @Test //Test checks if response status is HTTP_OK(200), if request with city name sent and such city exists in API
-    public void shouldReturnHttpOkWhenCityNameIsGivenAndCityExistsInApi() {
+    @Test
+    public void apiShouldReturnHttpOkWhenCityNameIsGivenAndCityExistsInApi() {
         int RequestStatus = WeatherApi.getCurrentWeatherResponse(city).getStatus();
 
         assertThat(RequestStatus).isEqualTo(HTTP_OK);
     }
 
-    @Test //Tests if API returns response with city name and city name is the same as in request.
-    public void shouldReturnSameCityNameInWeatherData() {
-        assertThat(currentWeatherData.getName()).isEqualTo(city);
-    }
-
-    @Test //Tests if API returns response with coordinates
-    public void shouldHaveCoordinatesInWeatherData() {
-        assertThat(currentWeatherData.getCoord()).isNotNull();
-    }
-
-    @Test //Tests if API returns response with main weather block
-    public void shouldHaveMainDataBlockInWeatherData() {
-        assertThat(currentWeatherData.getMain()).isNotNull();
-    }
-
-    @Test //Tests that API returns error message "City not found." if response was HTTP_NOT_FOUND(404)
-    public void shouldReturnCityNotFoundErrorMessageWhenHttpNotFound() {
+    @Test
+    public void apiShouldReturnCityNotFoundErrorMessageWhenCityNotFoundAndStatusHttpNotFound() {
         String wrongCity = "Winterfell";
         String exceptionErrorMessage = "City not found.";
         Exception exception = assertThrows(CityNotFoundException.class, () ->
@@ -60,5 +43,27 @@ public class CurrentWeatherIntegrationTests {
 
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
     }
+
+    @Test
+    @SneakyThrows
+    public void apiShouldReturnSameCityNameInCurrentWeatherDataAsInRequest() {
+        currentWeatherData = weatherApi.getCurrentWeatherData(city);
+        assertThat(currentWeatherData.getName()).isEqualTo(city);
+    }
+
+    @Test
+    @SneakyThrows
+    public void fetchedCurrentWeatherDataShouldHaveCoordinates() {
+        currentWeatherData = weatherApi.getCurrentWeatherData(city);
+        assertThat(currentWeatherData.getCoord()).isNotNull();
+    }
+
+    @Test
+    @SneakyThrows
+    public void fetchedCurrentWeatherDataShouldHaveMainData() {
+        currentWeatherData = weatherApi.getCurrentWeatherData(city);
+        assertThat(currentWeatherData.getMain()).isNotNull();
+    }
+
 
 }

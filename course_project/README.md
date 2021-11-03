@@ -121,10 +121,10 @@ Use the [OpenWeatherMap API](https://openweathermap.org/api):
 - Refactor your existing tests if need be.
 
 ### ACCEPTANCE CRITERIA
-- Only specific file format is allowed (you choose which: txt, csv, json, plain, docx)
-- Display error message if an unsupported file is provided
-- Display error message when file is missing
-- Write 3 integration tests to test integrations between the weather report application and file reader and writer
+- COMPLETED: Only specific file format is allowed (you choose which: txt, csv, json, plain, docx)
+- COMPLETED: Display error message if an unsupported file is provided
+- COMPLETED: Display error message when file is missing
+- COMPLETED: Write 3 integration tests to test integrations between the weather report application and file reader and writer
 
 ## 4. Read multiple city names from file and produce a JSON output file for each city - 15p
 

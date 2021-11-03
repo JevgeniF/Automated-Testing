@@ -26,7 +26,7 @@ public class MockIntegrationTests {
     protected ForecastData forecastData;
     protected YetAnotherWeatherSource yetAnotherWeatherSource;
 
-    @Before //initial setup to avoid code repeats, as used in all tests.
+    @Before
     public void setUp() {
         city = "Haabneeme";
 

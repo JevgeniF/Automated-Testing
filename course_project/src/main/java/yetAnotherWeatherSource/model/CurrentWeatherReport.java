@@ -20,11 +20,6 @@ public class CurrentWeatherReport {
     private Integer humidity;
     private Integer pressure;
 
-    /**
-     * Setter method for attribute date, converts date from UnixMills to String in format yyyy-MM-dd.
-     *
-     * @param unixDate - date in UnixMills as Integer
-     */
     public void setDate(Long unixDate) {
         Date date = new Date(unixDate * 1000L);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -32,11 +27,8 @@ public class CurrentWeatherReport {
         this.date = dateFormat.format(date);
     }
 
-    /**
-     * Setter method for attribute temperature, rounds parameter temperature to every half of unit.
-     *
-     * @param temperature - raw unformatted temperature as Double
-     */
+
+    // Setter method for attribute temperature, rounds parameter temperature to every half of unit.
     public void setTemperature(Double temperature) {
         this.temperature = Math.round(temperature * 2) / 2.0;
     }

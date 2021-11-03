@@ -16,13 +16,6 @@ import java.util.Map;
  */
 public class Helpers {
 
-    /**
-     * Method gets average meanings for temperature, humidity, pressure from Array List of MainDto entities and
-     * returns Weather class entity with calculated meaning, required for Forecast Report in app.
-     *
-     * @param mainDtoList - Array List of MainDto entities from ForecastData received from API
-     * @return Weather class entity
-     */
     public static Weather getAverageForecastWeather(ArrayList<MainDto> mainDtoList) {
         Weather averageWeather = new Weather();
         averageWeather.setTemperature(mainDtoList.stream().mapToDouble(MainDto::getTemp).average().orElseThrow());
@@ -31,13 +24,6 @@ public class Helpers {
         return averageWeather;
     }
 
-    /**
-     * Method returns Map with date as String and Array List of MainDto entities from ForecastData entity.
-     * Uses 3 next dates as keys, and collects MainDto entities as value for these days(keys) only
-     *
-     * @param data - ForecastData entity, received by request from API
-     * @return Map with dates as keys, and MainDto entities as values
-     */
     public static Map<String, ArrayList<MainDto>> getForecastWeatherMap(ForecastData data) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Map<String, ArrayList<MainDto>> forecastWeatherMap = new LinkedHashMap<>();

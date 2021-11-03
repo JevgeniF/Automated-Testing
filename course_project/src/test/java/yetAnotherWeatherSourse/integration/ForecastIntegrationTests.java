@@ -21,23 +21,21 @@ public class ForecastIntegrationTests {
     static WeatherApi weatherApi;
     static ForecastData forecastData;
 
-    @SneakyThrows
-    @BeforeAll // initial setup for all tests
+    @BeforeAll
     static void SetUp() {
         city = "London";
         weatherApi = new WeatherApi();
-        forecastData = weatherApi.getForecastData(city);
     }
 
-    @Test //Test checks if response status is HTTP_OK(200), if request with city name sent and such city exists in API
-    public void shouldReturnHttpOkWhenCityNameIsGivenAndCityExistsInApi() {
+    @Test
+    public void apiShouldReturnHttpOkWhenCityNameIsGivenAndCityExistsInApi() {
         int RequestStatus = WeatherApi.getForecastResponse(city).getStatus();
 
         assertThat(RequestStatus).isEqualTo(HTTP_OK);
     }
 
-    @Test //Tests that API returns error message "City not found." if response was HTTP_NOT_FOUND(404)
-    public void shouldReturnCityNotFoundErrorMessageWhenHttpNotFound() {
+    @Test
+    public void apiShouldReturnCityNotFoundErrorMessageWhenCityNotFoundAndStatusHttpNotFound() {
         String wrongCity = "Winterfell";
         String exceptionErrorMessage = "City not found.";
         Exception exception = assertThrows(CityNotFoundException.class, () ->
@@ -46,22 +44,28 @@ public class ForecastIntegrationTests {
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
     }
 
-    @Test //Tests that API returns at least one Forecast from list in Forecast Data with temperature.
-    public void shouldHaveTemperatureInAtLeastInOneBlockForecastData() {
+    @Test
+    @SneakyThrows
+    public void fetchedForecastDataShouldHaveTemperatureInMainData() {
+        forecastData = weatherApi.getForecastData(city);
         Double temperature = forecastData.getList().get(0).getMain().getTemp();
 
         assertThat(temperature).isNotNull();
     }
 
-    @Test //Tests that API returns at least one Forecast from list in Forecast Data with humidity.
-    public void shouldHaveHumidityInAtLeastInOneBlockForecastData() {
+    @Test
+    @SneakyThrows
+    public void fetchedForecastDataShouldHaveHumidityInMainData() {
+        forecastData = weatherApi.getForecastData(city);
         int humidity = forecastData.getList().get(0).getMain().getHumidity();
 
         assertThat(humidity).isNotNull();
     }
 
-    @Test //Tests that API returns at least one Forecast from list in Forecast Data with pressure.
-    public void shouldHavePressureInAtLeastInOneBlockForecastData() {
+    @Test
+    @SneakyThrows
+    public void fetchedForecastDataShouldHavePressureInMainData() {
+        forecastData = weatherApi.getForecastData(city);
         int pressure = forecastData.getList().get(0).getMain().getPressure();
 
         assertThat(pressure).isNotNull();

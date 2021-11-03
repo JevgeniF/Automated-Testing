@@ -1,9 +1,9 @@
 package yetAnotherWeatherSourse.mockIntegration;
 
+import lombok.SneakyThrows;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-import yetAnotherWeatherSource.exception.CityNotFoundException;
 import yetAnotherWeatherSource.model.WeatherReport;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,8 +18,9 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ForecastMockIntegrationTests extends MockIntegrationTests {
 
-    @Test //Mock test that weather report has Forecast Report list block
-    public void shouldHaveForecastReportListInWeatherReport() throws CityNotFoundException {
+    @Test
+    @SneakyThrows
+    public void appWeatherReportShouldHaveForecastReportListFromMockData() {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         when(weatherApi.getForecastData(anyString())).thenReturn(forecastData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
@@ -27,17 +28,19 @@ public class ForecastMockIntegrationTests extends MockIntegrationTests {
         assertThat(weatherReport.getForecastReport()).isNotNull();
     }
 
-    @Test //Mock test that weather report has Forecast Report List with at least one Forecast Report with Date
-    public void shouldHaveForecastWithDateInWeatherReport() throws CityNotFoundException {
+    @Test
+    @SneakyThrows
+    public void appForecastReportListShouldHaveForecastWithData() {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         when(weatherApi.getForecastData(anyString())).thenReturn(forecastData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        System.out.println(weatherReport.getForecastReport());
+
         assertThat(weatherReport.getForecastReport().get(0).getDate()).isNotNull();
     }
 
-    @Test //Mock test that weather report has Forecast Report List with at least one Forecast Report with Weather Data
-    public void shouldHaveWeatherDataInForecastReportInWeatherReport() throws CityNotFoundException {
+    @Test
+    @SneakyThrows
+    public void appForecastReportListShouldHaveForecastWithWeather() {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         when(weatherApi.getForecastData(anyString())).thenReturn(forecastData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);

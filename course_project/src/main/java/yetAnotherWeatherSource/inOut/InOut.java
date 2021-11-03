@@ -11,11 +11,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Class holds methods requiter for File Read and File Write.
+ */
 public class InOut {
+
     public static String getCityFromFile(String fileName)
             throws WrongInputFormatException, FileNotFoundException, FileInputMissingException {
 
-        if(fileName.trim().isEmpty()) {
+        if (fileName.trim().isEmpty()) {
             throw new FileInputMissingException();
         }
 

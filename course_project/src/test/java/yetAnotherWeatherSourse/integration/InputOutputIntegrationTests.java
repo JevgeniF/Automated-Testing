@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
-import yetAnotherWeatherSource.exception.CityNotFoundException;
 import yetAnotherWeatherSource.exception.FileInputMissingException;
 import yetAnotherWeatherSource.exception.FileNotFoundException;
 import yetAnotherWeatherSource.exception.WrongInputFormatException;
@@ -18,7 +17,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class InputOutputTests {
+/**
+ * Tests for integration of FileReader and FileWriter from InOut Class with app.
+ * 7 tests.
+ */
+public class InputOutputIntegrationTests {
     private static final String INPUT_DATA_FOLDER = "./src/main/resources/test_data/input/";
     private static final String OUTPUT_DATA_FOLDER = "./src/main/resources/test_data/output/";
     private static YetAnotherWeatherSource yetAnotherWeatherSource;
@@ -41,8 +44,9 @@ public class InputOutputTests {
     }
 
     @Test
-    public void FileReaderThrowsWrongInputFormatExceptionIfFileHasWrongFormat() {
+    public void fileReaderThrowsWrongInputFormatExceptionForInputIfFileNotTxt() {
         String exceptionErrorMessage = "Wrong file format. Should be txt file.";
+
         Exception exception = assertThrows(WrongInputFormatException.class, () ->
                 InOut.getCityFromFile(INPUT_DATA_FOLDER + "wrong_format.pdf"));
 
@@ -51,8 +55,9 @@ public class InputOutputTests {
     }
 
     @Test
-    public void FileReaderThrowsFileNotFoundExceptionIfNoFileWithThisPathOrName() {
+    public void fileReaderThrowsFileNotFoundExceptionIfForInputIfFileNotFound() {
         String exceptionErrorMessage = "File not found.";
+
         Exception exception = assertThrows(FileNotFoundException.class, () ->
                 InOut.getCityFromFile(INPUT_DATA_FOLDER + "no_such_file.txt"));
 
@@ -61,33 +66,40 @@ public class InputOutputTests {
     }
 
     @Test
-    public void FileReaderThrowsFileInputMissingExceptionIfFileNameIsNullOrEmptyString() {
+    public void fileReaderThrowsFileInputMissingExceptionForInputIfFileNameIsEmptyString() {
         String exceptionErrorMessage = "No file specified for File Reader.";
+
         Exception exception = assertThrows(FileInputMissingException.class, () ->
-                InOut.getCityFromFile(" "));
+                InOut.getCityFromFile("   "));
 
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
 
     }
 
     @Test
-    public void FileWriterSavesJsonFile()
-            throws WrongInputFormatException, FileNotFoundException, FileInputMissingException, CityNotFoundException {
+    @SneakyThrows
+    public void fileWriterSavesJsonFile() {
         String city = InOut.getCityFromFile(INPUT_DATA_FOLDER + "city.txt");
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+
         InOut.saveToJson(OUTPUT_DATA_FOLDER, weatherReport);
+
         File outputFile = new File(OUTPUT_DATA_FOLDER + "Weather in Plymouth.json");
+
         assertTrue(outputFile.exists() && outputFile.getName().endsWith(".json"));
 
     }
 
     @Test
-    public void FileWriterSavesJsonFileWithCityNameInNameOfFile()
-            throws WrongInputFormatException, FileNotFoundException, FileInputMissingException, CityNotFoundException {
+    @SneakyThrows
+    public void fileWriterSavesJsonFileWithCityNameInNameOfFile() {
         String city = InOut.getCityFromFile(INPUT_DATA_FOLDER + "city.txt");
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+
         InOut.saveToJson(OUTPUT_DATA_FOLDER, weatherReport);
+
         File outputFile = new File(OUTPUT_DATA_FOLDER + "Weather in Plymouth.json");
+
         assertTrue(outputFile.exists() && outputFile.getName().contains("Plymouth"));
 
     }
