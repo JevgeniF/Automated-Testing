@@ -1,5 +1,7 @@
 package yetAnotherWeatherSource;
 
+import ch.qos.logback.classic.Logger;
+import org.slf4j.LoggerFactory;
 import yetAnotherWeatherSource.api.WeatherApi;
 import yetAnotherWeatherSource.api.dto.MainDto;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
@@ -22,6 +24,8 @@ import java.util.Map;
  */
 @SuppressWarnings("ClassCanBeRecord")
 public class YetAnotherWeatherSource {
+
+    static Logger yawsLogger = (Logger) LoggerFactory.getLogger("yetAnotherWeatherSource");
 
     private final WeatherApi weatherApi;
 
@@ -52,9 +56,11 @@ public class YetAnotherWeatherSource {
             try {
                 WeatherReport weatherReport = getWeatherReport(city);
                 weatherReportList.add(weatherReport);
-            } catch (CityNotFoundException ignored) {
+            } catch (CityNotFoundException e) {
+                yawsLogger.error("{}", new CityNotFoundException().getMessage());
             }
         }
+        yawsLogger.info("Overloaded method used to get Weather Report List");
         return weatherReportList;
     }
 

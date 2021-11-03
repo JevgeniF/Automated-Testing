@@ -1,10 +1,12 @@
 package yetAnotherWeatherSource.api;
 
+import ch.qos.logback.classic.Logger;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
+import org.slf4j.LoggerFactory;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 import yetAnotherWeatherSource.api.response.ForecastData;
 import yetAnotherWeatherSource.exception.CityNotFoundException;
@@ -26,6 +28,9 @@ import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
  * client      jersey client, configured to instantiate JAX-RS and map PlainOldJavaObjects
  */
 public class WeatherApi {
+
+    static Logger apiLogger = (Logger) LoggerFactory.getLogger("api.weatherApi");
+
     private static final String BASE_URL = "https://api.openweathermap.org/data/2.5";
     private static final String CURRENT_WEATHER_URL = BASE_URL + "/weather";
     private static final String FORECAST_URL = BASE_URL + "/forecast";
@@ -63,15 +68,17 @@ public class WeatherApi {
     @SuppressWarnings("unused")
     public static void setUnits(String measurementSystem) {
         UNITS = measurementSystem;
+        apiLogger.info("API UNIT setting changed now: {}", measurementSystem);
     }
 
     public CurrentWeatherData getCurrentWeatherData(String city) throws CityNotFoundException {
         ClientResponse response = getCurrentWeatherResponse(city);
 
         if (response.getStatus() == HTTP_NOT_FOUND) {
+
+            apiLogger.error("API returned error to current weather request: {}", new CityNotFoundException().getMessage());
             throw new CityNotFoundException();
         }
-
         return response.getEntity(CurrentWeatherData.class);
     }
 
@@ -79,9 +86,10 @@ public class WeatherApi {
         ClientResponse response = getForecastResponse(city);
 
         if (response.getStatus() == HTTP_NOT_FOUND) {
+            apiLogger.error("API returned error to current weather request.", new CityNotFoundException());
+
             throw new CityNotFoundException();
         }
-
         return response.getEntity(ForecastData.class);
     }
 }
