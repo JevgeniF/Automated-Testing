@@ -2,6 +2,8 @@ package icd0004.pages;
 
 import org.openqa.selenium.By;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -36,6 +38,6 @@ public class DynamicLoadingPage {
     }
 
     public String getGreetingText() {
-        return $(greetingField).waitUntil(visible, 7000).getText();
+        return $(greetingField).shouldBe(visible, Duration.ofMillis(7000)).getText(); // waitUntil() is deprecated
     }
 }
