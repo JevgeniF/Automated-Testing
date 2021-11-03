@@ -19,32 +19,19 @@ import java.util.stream.Stream;
  */
 public class InOut {
 
-    public static String getCityFromFile(String fileName)
-            throws WrongInputFormatException, FileNotFoundException, FileInputMissingException, FileIsEmptyException {
-
-        Path validFilePath = Path.of(fileValidation(fileName));
-
-        String city;
-        try {
-            city = Files.readString(validFilePath).trim();
-        } catch (IOException e) {
-            throw new FileNotFoundException();
-        }
-
-        if (city.isEmpty()) {
-            throw new FileIsEmptyException();
-        }
-
-        return city;
-    }
-
     public static ArrayList<String> getCitiesFromFile(String fileName)
             throws WrongInputFormatException, FileNotFoundException, FileInputMissingException, FileIsEmptyException {
 
-        Path validFilePath = Path.of(fileValidation(fileName));
+        if (fileName.trim().isEmpty()) {
+            throw new FileInputMissingException();
+        }
+
+        if (!fileName.endsWith(".txt")) {
+            throw new WrongInputFormatException();
+        }
 
         ArrayList<String> cityList = new ArrayList<>();
-        try (Stream <String> stream = Files.lines(validFilePath)) {
+        try (Stream <String> stream = Files.lines(Path.of(fileName))) {
             stream.forEach(city -> cityList.add(city.trim()));
         } catch (IOException e) {
             throw new FileNotFoundException();
@@ -69,21 +56,10 @@ public class InOut {
         }
     }
 
-    public static void saveToJsonBatch(String fileLocationPath, ArrayList<WeatherReport> weatherReportList) {
+    //overloaded method for batch save
+    public static void saveToJson(String fileLocationPath, ArrayList<WeatherReport> weatherReportList) {
         for (WeatherReport weatherReport: weatherReportList) {
             saveToJson(fileLocationPath, weatherReport);
         }
-    }
-
-    private static String fileValidation(String fileName) throws FileInputMissingException, WrongInputFormatException {
-        if (fileName.trim().isEmpty()) {
-            throw new FileInputMissingException();
-        }
-
-        if (!fileName.endsWith(".txt")) {
-            throw new WrongInputFormatException();
-        }
-
-        return fileName;
     }
 }

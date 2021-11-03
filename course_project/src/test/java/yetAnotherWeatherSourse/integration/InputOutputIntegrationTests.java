@@ -38,11 +38,21 @@ public class InputOutputIntegrationTests {
     @Test
     @SneakyThrows
     public void appGeneratesWeatherReportForCityFromFileReader() {
-        String city = InOut.getCityFromFile(INPUT_DATA_FOLDER + "city.txt");
-        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        ArrayList<String> cityList = InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "city.txt");
+        ArrayList<WeatherReport> weatherReportList = yetAnotherWeatherSource.getWeatherReport(cityList);
 
-        assertThat(weatherReport.getWeatherReportDetails().getCity()).isEqualTo("Plymouth");
+        assertThat(weatherReportList.get(0).getWeatherReportDetails().getCity()).isEqualTo("Plymouth");
 
+    }
+
+    @Test
+    @SneakyThrows
+    public void appGeneratesWeatherReportsForMultipleCitiesFromFileReader() {
+        ArrayList<String> cityList = InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "cities.txt");
+
+        ArrayList<WeatherReport> weatherReportList = yetAnotherWeatherSource.getWeatherReport(cityList);
+
+        assertThat(weatherReportList.size()).isEqualTo(13);
     }
 
     @Test
@@ -50,7 +60,7 @@ public class InputOutputIntegrationTests {
         String exceptionErrorMessage = "Wrong file format. Should be txt file.";
 
         Exception exception = assertThrows(WrongInputFormatException.class, () ->
-                InOut.getCityFromFile(INPUT_DATA_FOLDER + "wrong_format.pdf"));
+                InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "wrong_format.pdf"));
 
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
 
@@ -61,7 +71,7 @@ public class InputOutputIntegrationTests {
         String exceptionErrorMessage = "File not found.";
 
         Exception exception = assertThrows(FileNotFoundException.class, () ->
-                InOut.getCityFromFile(INPUT_DATA_FOLDER + "no_such_file.txt"));
+                InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "no_such_file.txt"));
 
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
     }
@@ -71,7 +81,7 @@ public class InputOutputIntegrationTests {
         String exceptionErrorMessage = "File is empty.";
 
         Exception exception = assertThrows(FileIsEmptyException.class, () ->
-                InOut.getCityFromFile(INPUT_DATA_FOLDER + "empty_file.txt"));
+                InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "empty_file.txt"));
 
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
     }
@@ -81,7 +91,7 @@ public class InputOutputIntegrationTests {
         String exceptionErrorMessage = "No file specified for File Reader.";
 
         Exception exception = assertThrows(FileInputMissingException.class, () ->
-                InOut.getCityFromFile("   "));
+                InOut.getCitiesFromFile("   "));
 
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
     }
@@ -89,7 +99,7 @@ public class InputOutputIntegrationTests {
     @Test
     @SneakyThrows
     public void fileWriterSavesJsonFile() {
-        String city = InOut.getCityFromFile(INPUT_DATA_FOLDER + "city.txt");
+        String city = InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "city.txt").get(0);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
         InOut.saveToJson(OUTPUT_DATA_FOLDER, weatherReport);
@@ -103,7 +113,7 @@ public class InputOutputIntegrationTests {
     @Test
     @SneakyThrows
     public void fileWriterSavesJsonFileWithCityNameInNameOfFile() {
-        String city = InOut.getCityFromFile(INPUT_DATA_FOLDER + "city.txt");
+        String city = InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "city.txt").get(0);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
         InOut.saveToJson(OUTPUT_DATA_FOLDER, weatherReport);
@@ -116,65 +126,12 @@ public class InputOutputIntegrationTests {
 
     @Test
     @SneakyThrows
-    public void appGeneratesWeatherReportsForMultipleCitiesFromFileReader() {
-        ArrayList<String> cityList = InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "cities.txt");
-
-        ArrayList<WeatherReport> weatherReportList = yetAnotherWeatherSource.getWeatherReportBatch(cityList);
-
-        assertThat(weatherReportList.size()).isEqualTo(13);
-    }
-
-    @Test
-    public void multipleLineFileReaderThrowsWrongInputFormatExceptionForInputIfFileNotTxtWhile() {
-        String exceptionErrorMessage = "Wrong file format. Should be txt file.";
-
-        Exception exception = assertThrows(WrongInputFormatException.class, () ->
-                InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "wrong_format.pdf"));
-
-        assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
-
-    }
-
-    @Test
-    public void multipleLineFileReaderThrowsFileNotFoundExceptionIfForInputIfFileNotFound() {
-        String exceptionErrorMessage = "File not found.";
-
-        Exception exception = assertThrows(FileNotFoundException.class, () ->
-                InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "no_such_file.txt"));
-
-        assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
-
-    }
-
-    @Test
-    public void multipleLineFileReaderThrowsFileInputMissingExceptionForInputIfFileNameIsEmptyString() {
-        String exceptionErrorMessage = "No file specified for File Reader.";
-
-        Exception exception = assertThrows(FileInputMissingException.class, () ->
-                InOut.getCitiesFromFile("   "));
-
-        assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
-
-    }
-
-    @Test
-    public void multipleLineReaderThrowsFileIsMissingExceptionForInputIfFileWasEmpty() {
-        String exceptionErrorMessage = "File is empty.";
-
-        Exception exception = assertThrows(FileIsEmptyException.class, () ->
-                InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "empty_file.txt"));
-
-        assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
-    }
-
-    @Test
-    @SneakyThrows
     public void batchFileWriterSavesSeparateJsonFileForEveryCityWeatherReport() {
         ArrayList<String> cityList = InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "cities.txt");
 
-        ArrayList<WeatherReport> weatherReportList = yetAnotherWeatherSource.getWeatherReportBatch(cityList);
+        ArrayList<WeatherReport> weatherReportList = yetAnotherWeatherSource.getWeatherReport(cityList);
 
-        InOut.saveToJsonBatch(OUTPUT_DATA_FOLDER + "batch/", weatherReportList);
+        InOut.saveToJson(OUTPUT_DATA_FOLDER + "batch/", weatherReportList);
 
         int jsonFileCount = Objects.requireNonNull(new File(OUTPUT_DATA_FOLDER + "batch/").listFiles()).length;
 
