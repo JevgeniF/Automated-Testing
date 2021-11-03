@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
 import yetAnotherWeatherSource.exception.FileInputMissingException;
+import yetAnotherWeatherSource.exception.FileIsEmptyException;
 import yetAnotherWeatherSource.exception.FileNotFoundException;
 import yetAnotherWeatherSource.exception.WrongInputFormatException;
 import yetAnotherWeatherSource.inOut.InOut;
@@ -37,7 +38,6 @@ public class InputOutputIntegrationTests {
     @SneakyThrows
     public void appGeneratesWeatherReportForCityFromFileReader() {
         String city = InOut.getCityFromFile(INPUT_DATA_FOLDER + "city.txt");
-
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
         assertThat(weatherReport.getWeatherReportDetails().getCity()).isEqualTo("Plymouth");
@@ -63,7 +63,16 @@ public class InputOutputIntegrationTests {
                 InOut.getCityFromFile(INPUT_DATA_FOLDER + "no_such_file.txt"));
 
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
+    }
 
+    @Test
+    public void fileReaderThrowsFileIsMissingExceptionForInputIfFileWasEmpty() {
+        String exceptionErrorMessage = "File is empty.";
+
+        Exception exception = assertThrows(FileIsEmptyException.class, () ->
+                InOut.getCityFromFile(INPUT_DATA_FOLDER + "empty_file.txt"));
+
+        assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
     }
 
     @Test
@@ -74,7 +83,6 @@ public class InputOutputIntegrationTests {
                 InOut.getCityFromFile("   "));
 
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
-
     }
 
     @Test
