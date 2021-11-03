@@ -1,4 +1,4 @@
-package yetAnotherWeatherSourse.appFunctionality;
+package yetAnotherWeatherSourse.integration;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class inputOutputTests {
     }
 
     @Test
-    public void inAppGetWeatherReportForCityFromFile()
+    public void appGeneratesWeatherReportForCityFromFileReader()
             throws IOException, CityNotFoundException, WrongInputFormatException {
         String city = InOut.getCityFromFile(INPUT_DATA_FOLDER + "city.txt");
 
@@ -36,10 +36,20 @@ public class inputOutputTests {
     }
 
     @Test
-    public void inAppThrowsWrongInputFormatExceptionIfFileHasWrongFormat() {
+    public void FileReaderThrowsWrongInputFormatExceptionIfFileHasWrongFormat() {
         String exceptionErrorMessage = "Wrong file format. Should be txt file.";
         Exception exception = assertThrows(WrongInputFormatException.class, () ->
                 InOut.getCityFromFile(INPUT_DATA_FOLDER + "wrong_format.pdf"));
+
+        assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
+
+    }
+
+    @Test
+    public void FileReaderThrowsFileNotFoundExceptionIfNoFileWithThisPathOrName() {
+        String exceptionErrorMessage = "File Not Found.";
+        Exception exception = assertThrows(FileNotFoundException.class, () ->
+                InOut.getCityFromFile(INPUT_DATA_FOLDER + "no_such_file.txt"));
 
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
 
