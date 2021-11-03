@@ -103,10 +103,18 @@ public class ForecastInAppFunctionalityTests {
         assertThat(forecastWeather.getTemperature()).isEqualTo(0.5);
     }
 
+    @Test /* Checks if main app class calculates average pressure for each date in forecast properly.
+          Test checks purely getAverageWeather method of YetAnotherWeatherSource class without data fetched from API. */
+    public void inAppMethodCalculatesAveragePressureForEachDayInForecast() {
+        ArrayList<MainDto> artificialMainDtoList = getArtificialMainDtoList();
+        ForecastWeather forecastWeather = yetAnotherWeatherSource.getAverageForecastWeather(artificialMainDtoList);
+        assertThat(forecastWeather.getPressure()).isEqualTo(200);
+    }
+
     private ArrayList<MainDto> getArtificialMainDtoList() {
         return new ArrayList<>(Arrays.asList(
                 new MainDto(0.0, 100, 1000),
                 new MainDto(0.5, 200, 1100),
-                new MainDto(1.0, 300, 1300)));
+                new MainDto(1.0, 300, 1200)));
     }
 }
