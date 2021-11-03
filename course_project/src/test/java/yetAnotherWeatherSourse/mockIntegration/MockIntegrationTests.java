@@ -10,7 +10,10 @@ import yetAnotherWeatherSource.api.dto.MainDto;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 import yetAnotherWeatherSource.api.response.ForecastData;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MockIntegrationTests {
     @Mock
@@ -23,11 +26,13 @@ public class MockIntegrationTests {
     @Before //initial setup to avoid code repeats, as used in all tests.
     public void setUp() {
         city = "Haabneeme";
-        Integer currentDate = 1635889059;
+
+        Integer currentDate = Math.toIntExact(System.currentTimeMillis() / 1000L);
         CoordDto coordinates = new CoordDto(24.8211, 59.5114);
         MainDto currentWeather = new MainDto(8.74, 1010, 75);
 
-        Integer forecastDate = 1635930000;
+        Date tomorrow = Date.from(Instant.now().plus(Duration.ofDays(1)));
+        int tomorrowInUnix = Math.toIntExact(tomorrow.getTime() / 1000);
         MainDto forecastWeather = new MainDto(5.56, 1007, 92);
 
         currentWeatherData = new CurrentWeatherData();
@@ -40,7 +45,7 @@ public class MockIntegrationTests {
 
         ArrayList<ListDto> listList = new ArrayList<>();
         ListDto list = new ListDto();
-        list.setDt(forecastDate);
+        list.setDt(Math.toIntExact(tomorrowInUnix));
         list.setMain(forecastWeather);
         listList.add(list);
 

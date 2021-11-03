@@ -32,7 +32,7 @@ public class ForecastMockIntegrationTests extends MockIntegrationTests {
         when(weatherApi.getCurrentWeatherData(anyString())).thenReturn(currentWeatherData);
         when(weatherApi.getForecastData(anyString())).thenReturn(forecastData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-
+        System.out.println(weatherReport.getForecastReport());
         assertThat(weatherReport.getForecastReport().get(0).getDate()).isNotNull();
     }
 
@@ -42,7 +42,7 @@ public class ForecastMockIntegrationTests extends MockIntegrationTests {
         when(weatherApi.getForecastData(anyString())).thenReturn(forecastData);
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
 
-        assertThat(weatherReport.getForecastReport().get(0).getForecastWeather()).isNotNull();
+        assertThat(weatherReport.getForecastReport().get(0).getWeather()).isNotNull();
     }
 
 
