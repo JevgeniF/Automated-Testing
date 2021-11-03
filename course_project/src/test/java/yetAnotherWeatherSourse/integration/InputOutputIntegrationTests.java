@@ -137,4 +137,15 @@ public class InputOutputIntegrationTests {
 
     }
 
+    @Test
+    public void multipleLineFileReaderThrowsFileInputMissingExceptionForInputIfFileNameIsEmptyString() {
+        String exceptionErrorMessage = "No file specified for File Reader.";
+
+        Exception exception = assertThrows(FileInputMissingException.class, () ->
+                InOut.getCitiesFromFile("   "));
+
+        assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
+
+    }
+
 }
