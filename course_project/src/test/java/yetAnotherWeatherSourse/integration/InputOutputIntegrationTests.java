@@ -113,6 +113,17 @@ public class InputOutputIntegrationTests {
         ArrayList<WeatherReport> weatherReportList = yetAnotherWeatherSource.getWeatherReportBatch(cityList);
 
         assertThat(weatherReportList.size()).isEqualTo(13);
+    }
+
+    @Test
+    public void multipleLineFileReaderThrowsWrongInputFormatExceptionForInputIfFileNotTxtWhile() {
+        String exceptionErrorMessage = "Wrong file format. Should be txt file.";
+
+        Exception exception = assertThrows(WrongInputFormatException.class, () ->
+                InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "wrong_format.pdf"));
+
+        assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
 
     }
+
 }
