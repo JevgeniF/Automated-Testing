@@ -14,6 +14,7 @@ import yetAnotherWeatherSource.model.WeatherReport;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -164,6 +165,21 @@ public class InputOutputIntegrationTests {
                 InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "empty_file.txt"));
 
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
+    }
+
+    @Test
+    @SneakyThrows
+    public void batchFileWriterSavesSeparateJsonFileForEveryCityWeatherReport() {
+        ArrayList<String> cityList = InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "cities.txt");
+
+        ArrayList<WeatherReport> weatherReportList = yetAnotherWeatherSource.getWeatherReportBatch(cityList);
+
+        InOut.saveToJsonBatch(OUTPUT_DATA_FOLDER + "batch/", weatherReportList);
+
+        int jsonFileCount = Objects.requireNonNull(new File(OUTPUT_DATA_FOLDER + "batch/").listFiles()).length;
+
+        assertThat(jsonFileCount).isEqualTo(13);
+
     }
 
 }
