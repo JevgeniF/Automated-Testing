@@ -53,4 +53,14 @@ public class inputOutputTests {
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
 
     }
+
+    @Test
+    public void FileReaderThrowsFileInputMissingExceptionIfFileNameIsNullOrEmptyString() {
+        String exceptionErrorMessage = "No file specified for File Reader.";
+        Exception exception = assertThrows(FileInputMissingException.class, () ->
+                InOut.getCityFromFile(INPUT_DATA_FOLDER + " "));
+
+        assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
+
+    }
 }
