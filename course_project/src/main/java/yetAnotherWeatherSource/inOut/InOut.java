@@ -69,6 +69,12 @@ public class InOut {
         }
     }
 
+    public static void saveToJsonBatch(String fileLocationPath, ArrayList<WeatherReport> weatherReportList) {
+        for (WeatherReport weatherReport: weatherReportList) {
+            saveToJson(fileLocationPath, weatherReport);
+        }
+    }
+
     private static String fileValidation(String fileName) throws FileInputMissingException, WrongInputFormatException {
         if (fileName.trim().isEmpty()) {
             throw new FileInputMissingException();
