@@ -156,4 +156,14 @@ public class InputOutputIntegrationTests {
 
     }
 
+    @Test
+    public void multipleLineReaderThrowsFileIsMissingExceptionForInputIfFileWasEmpty() {
+        String exceptionErrorMessage = "File is empty.";
+
+        Exception exception = assertThrows(FileIsEmptyException.class, () ->
+                InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "empty_file.txt"));
+
+        assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
+    }
+
 }
