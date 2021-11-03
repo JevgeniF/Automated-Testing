@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class UpdateBookingTest {
 
-    @Test //Updates Booking via "put" message and checks if API returns HTTP_OK(200) status response.
+    @Test
     public void putBookingShouldReturnHttpOKResponse() {
         AuthenticationApi.authenticate();
         int bookingId = 10;

@@ -61,7 +61,7 @@ public class CreateBookingTests implements IBookingApi {
                 .body("booking.lastname", equalTo("Fenko"));
     }
 
-    @Test //Posts booking with wrong "Accept" header and checks if API returns status code 418
+    @Test
     public void postBookingWithWrongAcceptHeaderShouldReturnImATeapotError() {
         String acceptHeader = "application/pdf";
 

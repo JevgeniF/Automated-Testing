@@ -11,7 +11,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 public class UpdateBookingTest implements IBookingApi, IUserAuthenticator {
 
 
-    @Test //Updates Booking via "put" message and checks if API returns HTTP_OK(200) status response.
+    @Test
     public void putBookingShouldReturnHttpOKResponse() {
         int bookingId = 10;
 

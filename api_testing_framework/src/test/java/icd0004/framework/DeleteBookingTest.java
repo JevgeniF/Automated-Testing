@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DeleteBookingTest {
 
-    @Test //Deletes Booking via "delete" message and checks if API returns HTTP_CREATED(201) status response.
+    @Test
     public void deleteBookingShouldReturnHttpCreatedResponse() {
         AuthenticationApi.authenticate();
         int bookingId = 11;

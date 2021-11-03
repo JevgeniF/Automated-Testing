@@ -53,7 +53,7 @@ public class CreateBookingTests {
                 .contains("Jevgeni", "Fenko");
     }
 
-    @Test //Posts booking with wrong "Accept" header and checks if API returns status code 418
+    @Test
     public void postBookingWithWrongAcceptHeaderShouldReturnImATeapotError() {
         String acceptHeader = "application/pdf";
 

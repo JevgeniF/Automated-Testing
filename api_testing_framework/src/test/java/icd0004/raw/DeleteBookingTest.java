@@ -10,7 +10,7 @@ import static java.net.HttpURLConnection.HTTP_CREATED;
 
 public class DeleteBookingTest implements IBookingApi, IUserAuthenticator {
 
-    @Test //Deletes Booking via "delete" message and checks if API returns HTTP_CREATED(201) status response.
+    @Test
     public void deleteBookingShouldReturnHttpCreatedResponse() {
         int bookingId = 11;
 

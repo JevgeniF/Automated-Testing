@@ -12,7 +12,7 @@ public class AuthenticationTests {
 
     public static final String API_URL = "https://restful-booker.herokuapp.com/auth";
 
-    @Test //Posts right credentials and checks if API returns HTTP OK(200) status code.
+    @Test
     public void postAuthenticationWithRightCredentialsShouldReturnHttpOk() {
         String payload = """
                 {
@@ -30,7 +30,7 @@ public class AuthenticationTests {
                 .statusCode(HTTP_OK);
     }
 
-    @Test //Posts wrong credentials and checks if API returns "Bad credentials" message in body.
+    @Test
     public void postAuthenticationWithWrongCredentialsShouldReturnBadCredentialsMessage() {
         String payload = """
                 {
@@ -49,7 +49,7 @@ public class AuthenticationTests {
                 .body("reason", equalTo("Bad credentials"));
     }
 
-    @Test //Posts right credentials and checks if API returns token in body.
+    @Test
     public void postAuthenticationWithRightCredentialsShouldReturnToken() {
         String payload = """
                 {
