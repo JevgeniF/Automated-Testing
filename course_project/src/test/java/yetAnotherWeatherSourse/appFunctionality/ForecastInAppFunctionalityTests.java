@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ForecastInAppFunctionalityTests {
     private static String city;
@@ -80,6 +81,12 @@ public class ForecastInAppFunctionalityTests {
 
     //----------------------- ITEMS FORMAT AND CONTENT TESTS -----------------------//
 
+    @Test //Checks if forecast has 3 days
+    public void inAppDaysInForecastReportShouldHave3Days() throws CityNotFoundException {
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        assertEquals(weatherReport.getForecastReport().size(), 3);
+    }
+
     @Test //Checks if dates in forecast report "days" formatted like "yyyy-MM-dd"
     public void inAppDaysInForecastReportSectionHaveDatesInFormat_yyyy_MM_dd()
             throws CityNotFoundException {
@@ -118,6 +125,8 @@ public class ForecastInAppFunctionalityTests {
         ForecastWeather forecastWeather = yetAnotherWeatherSource.getAverageForecastWeather(artificialMainDtoList);
         assertThat(forecastWeather.getHumidity()).isEqualTo(1100);
     }
+
+    //----------------------- HELPER METHODS -----------------------//
 
     private ArrayList<MainDto> getArtificialMainDtoList() {
         return new ArrayList<>(Arrays.asList(
