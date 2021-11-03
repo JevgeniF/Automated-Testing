@@ -80,4 +80,15 @@ public class InputOutputTests {
         assertTrue(outputFile.exists() && outputFile.getName().endsWith(".json"));
 
     }
+
+    @Test
+    public void FileWriterSavesJsonFileWithCityNameInNameOfFile()
+            throws WrongInputFormatException, FileNotFoundException, FileInputMissingException, CityNotFoundException {
+        String city = InOut.getCityFromFile(INPUT_DATA_FOLDER + "city.txt");
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        InOut.saveToJson(OUTPUT_DATA_FOLDER, weatherReport);
+        File outputFile = new File(OUTPUT_DATA_FOLDER + "Weather in Plymouth.json");
+        assertTrue(outputFile.exists() && outputFile.getName().contains("Plymouth"));
+
+    }
 }
