@@ -111,6 +111,14 @@ public class ForecastInAppFunctionalityTests {
         assertThat(forecastWeather.getPressure()).isEqualTo(200);
     }
 
+    @Test /* Checks if main app class calculates average humidity for each date in forecast properly.
+          Test checks purely getAverageWeather method of YetAnotherWeatherSource class without data fetched from API. */
+    public void inAppMethodCalculatesAverageHumidityForEachDayInForecast() {
+        ArrayList<MainDto> artificialMainDtoList = getArtificialMainDtoList();
+        ForecastWeather forecastWeather = yetAnotherWeatherSource.getAverageForecastWeather(artificialMainDtoList);
+        assertThat(forecastWeather.getHumidity()).isEqualTo(1100);
+    }
+
     private ArrayList<MainDto> getArtificialMainDtoList() {
         return new ArrayList<>(Arrays.asList(
                 new MainDto(0.0, 100, 1000),
