@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests for integration of FileReader and FileWriter from InOut Class with app.
- * 7 tests.
+ * 10 tests.
  */
 public class InputOutputIntegrationTests {
     private static final String INPUT_DATA_FOLDER = "./src/main/resources/test_data/input/";
@@ -53,6 +53,21 @@ public class InputOutputIntegrationTests {
         ArrayList<WeatherReport> weatherReportList = yetAnotherWeatherSource.getWeatherReport(cityList);
 
         assertThat(weatherReportList.size()).isEqualTo(13);
+    }
+
+    @Test
+    @SneakyThrows
+    public void appGeneratesWeatherReportsForMultipleValidCitiesFromFileReaderEvenIfInvalidCityInFile(){
+        ArrayList<String> cityList = InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "cities_with_error.txt");
+
+        ArrayList<WeatherReport> weatherReportList = yetAnotherWeatherSource.getWeatherReport(cityList);
+
+        InOut.saveToJson(OUTPUT_DATA_FOLDER + "batch_error/", weatherReportList);
+
+        int jsonFileCount = Objects.requireNonNull(new File(OUTPUT_DATA_FOLDER + "batch_error/")
+                .listFiles(file -> !file.isHidden())).length;
+
+        assertThat(jsonFileCount).isEqualTo(13);
     }
 
     @Test
@@ -133,7 +148,8 @@ public class InputOutputIntegrationTests {
 
         InOut.saveToJson(OUTPUT_DATA_FOLDER + "batch/", weatherReportList);
 
-        int jsonFileCount = Objects.requireNonNull(new File(OUTPUT_DATA_FOLDER + "batch/").listFiles()).length;
+        int jsonFileCount = Objects.requireNonNull(new File(OUTPUT_DATA_FOLDER + "batch/")
+                .listFiles(file -> !file.isHidden())).length;
 
         assertThat(jsonFileCount).isEqualTo(13);
 
