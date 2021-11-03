@@ -36,6 +36,7 @@ public class WeatherApi {
     private static final String FORECAST_URL = BASE_URL + "/forecast";
     private static final String API_KEY = "8e648a10ee12b0e82dd59dab605e8db4";
     private static final Client client = getConfiguredClient();
+
     private static String UNITS = "metric";
 
     public static ClientResponse getCurrentWeatherResponse(String city) {
@@ -76,7 +77,7 @@ public class WeatherApi {
 
         if (response.getStatus() == HTTP_NOT_FOUND) {
 
-            apiLogger.error("API returned error to current weather request: {}", new CityNotFoundException().getMessage());
+            apiLogger.error("Error occurred on sending current weather request to API: {}", HTTP_NOT_FOUND);
             throw new CityNotFoundException();
         }
         return response.getEntity(CurrentWeatherData.class);
@@ -86,7 +87,7 @@ public class WeatherApi {
         ClientResponse response = getForecastResponse(city);
 
         if (response.getStatus() == HTTP_NOT_FOUND) {
-            apiLogger.error("API returned error to current weather request.", new CityNotFoundException());
+            apiLogger.error("Error occurred on sending forecast request to API: {}", HTTP_NOT_FOUND);
 
             throw new CityNotFoundException();
         }

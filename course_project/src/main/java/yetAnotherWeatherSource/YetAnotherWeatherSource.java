@@ -57,7 +57,7 @@ public class YetAnotherWeatherSource {
                 WeatherReport weatherReport = getWeatherReport(city);
                 weatherReportList.add(weatherReport);
             } catch (CityNotFoundException e) {
-                yawsLogger.error("{}", new CityNotFoundException().getMessage());
+                yawsLogger.error("Exception occurred when tried to get weather report for all cities:\n{}", new CityNotFoundException().getMessage());
             }
         }
         yawsLogger.info("Overloaded method used to get Weather Report List");

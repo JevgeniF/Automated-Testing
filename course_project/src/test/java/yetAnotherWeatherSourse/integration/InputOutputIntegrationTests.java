@@ -57,7 +57,7 @@ public class InputOutputIntegrationTests {
 
     @Test
     @SneakyThrows
-    public void appGeneratesWeatherReportsForMultipleValidCitiesFromFileReaderEvenIfInvalidCityInFile(){
+    public void appGeneratesWeatherReportsForMultipleValidCitiesFromFileReaderEvenIfInvalidCityInFile() {
         ArrayList<String> cityList = InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "cities_with_error.txt");
 
         ArrayList<WeatherReport> weatherReportList = yetAnotherWeatherSource.getWeatherReport(cityList);

@@ -2,7 +2,7 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-        <level>INFO</level>
+            <level>INFO</level>
         </filter>
         <withJansi>true</withJansi>
         <encoder>
@@ -11,7 +11,7 @@
     </appender>
 
     <root level="debug">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
     </root>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -25,13 +25,13 @@
     </appender>
 
     <root level="debug">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
     </root>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>LogFile.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>LogFile.%d{yyyy-MM-dd, EET}.log</fileNamePattern>
+            <fileNamePattern>LogFile.%d{yyyy-MM-dd, EET}.log</fileNamePattern>
             <maxHistory>2</maxHistory>
             <totalSizeCap>1MB</totalSizeCap>
         </rollingPolicy>
@@ -41,6 +41,6 @@
     </appender>
 
     <root level="debug">
-        <appender-ref ref="FILE" />
+        <appender-ref ref="FILE"/>
     </root>
 </configuration>
