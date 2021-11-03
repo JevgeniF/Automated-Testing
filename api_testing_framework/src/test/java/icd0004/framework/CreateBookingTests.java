@@ -2,6 +2,7 @@ package icd0004.framework;
 
 import icd0004.framework.request.Booking;
 import icd0004.framework.response.BookingResponse;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -10,10 +11,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateBookingTests {
 
+    static Booking bookingPayload;
+
+    @BeforeAll
+    static void getBookingPayload() {
+        bookingPayload = Booking.getFullPayload();
+    }
+
     @Test
     public void postBookingShouldReturnBookingId() {
-        Booking bookingPayload = Booking.getFullPayload();
-
         BookingResponse bookingResponse = BookingApi
                 .postBooking(bookingPayload)
                 .as(BookingResponse.class);
@@ -23,7 +29,6 @@ public class CreateBookingTests {
 
     @Test
     public void postBookingShouldReturnCorrectBookingPerson() {
-        Booking bookingPayload = Booking.getFullPayload();
         bookingPayload.setFirstname("Maili");
         bookingPayload.setLastname("Hodorkovsky");
 
@@ -37,7 +42,7 @@ public class CreateBookingTests {
 
     @Test
     public void createBookingFromFile() throws IOException {
-        Booking bookingPayload = Booking.buildWithResource("./test_data/jira_54.json");
+        bookingPayload = Booking.buildWithResource("./test_data/jira_54.json");
 
         BookingResponse bookingResponse = BookingApi
                 .postBooking(bookingPayload)
@@ -46,5 +51,14 @@ public class CreateBookingTests {
         assertThat(bookingResponse.getBooking())
                 .extracting("firstname", "lastname")
                 .contains("Jevgeni", "Fenko");
+    }
+
+    @Test //Posts booking with wrong "Accept" header and checks if API returns status code 418
+    public void postBookingWithWrongAcceptHeaderShouldReturnImATeapotError() {
+        String acceptHeader = "application/pdf";
+
+        int statusCode = BookingApi.postBooking(bookingPayload, acceptHeader).getStatusCode();
+
+        assertThat(statusCode).isEqualTo(418);
     }
 }

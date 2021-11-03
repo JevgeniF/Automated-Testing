@@ -34,4 +34,31 @@ public class BookingApi {
                 .when()
                 .post(BOOKING_API);
     }
+
+    public static Response postBooking(Booking bookingPayload, String acceptHeader) {
+        return given()
+                .contentType(JSON.toString())
+                .accept(JSON.toString())
+                .header("Accept", acceptHeader)
+                .body(bookingPayload)
+                .when()
+                .post(BOOKING_API);
+    }
+
+    public static Response putBooking(Booking bookingPayload, int bookingId) {
+        return given()
+                .accept(JSON.toString())
+                .contentType(JSON.toString())
+                .body(bookingPayload)
+                .when()
+                .put(BOOKING_API + bookingId);
+    }
+
+    public static Response deleteBooking(int bookingId) {
+        return given()
+                .accept(JSON.toString())
+                .contentType(JSON.toString())
+                .when()
+                .delete(BOOKING_API + bookingId);
+    }
 }
