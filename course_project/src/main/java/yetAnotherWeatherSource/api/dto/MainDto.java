@@ -7,7 +7,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * DataTransferObject Class for "main" section of API response, which holds main weather data.
- * Has AllArgsConstructor and NoArgsConstructor annotations required for use in Integration Mock tests.
  * Attributes:
  * temp - temperature
  * pressure - atmosphere pressure

@@ -6,7 +6,7 @@ import yetAnotherWeatherSource.api.dto.CoordDto;
 import yetAnotherWeatherSource.api.dto.MainDto;
 
 /**
- * Class for generation of entities from API response with required data only.
+ * Class for generation of entities from API response with required current weather data only.
  * Attributes:
  * name - city name
  * coord - entity of CoordDto, coord section of response with coordinates

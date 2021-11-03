@@ -15,6 +15,9 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * SuperClass for Mock Integration Tests. Holds required attributes and initial setup used in all mock tests.
+ */
 public class MockIntegrationTests {
     @Mock
     static WeatherApi weatherApi;

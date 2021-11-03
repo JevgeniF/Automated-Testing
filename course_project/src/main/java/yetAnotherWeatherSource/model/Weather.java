@@ -2,6 +2,13 @@ package yetAnotherWeatherSource.model;
 
 import lombok.Data;
 
+/**
+ * Class holds current weather data used for attribute weather in ForecastReport class.
+ * Attributes:
+ * temperature - current temperature
+ * humidity - current humidity
+ * pressure - current atmosphere pressure
+ */
 @Data
 public class Weather {
     private Double temperature;

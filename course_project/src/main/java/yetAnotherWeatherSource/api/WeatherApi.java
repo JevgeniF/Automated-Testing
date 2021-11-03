@@ -30,9 +30,8 @@ public class WeatherApi {
     private static final String CURRENT_WEATHER_URL = BASE_URL + "/weather";
     private static final String FORECAST_URL = BASE_URL + "/forecast";
     private static final String API_KEY = "8e648a10ee12b0e82dd59dab605e8db4";
-    private static final String UNITS = "metric";
-
     private static final Client client = getConfiguredClient();
+    private static String UNITS = "metric";
 
     /**
      * Method receives response from CurrentWeather API for city, provided as string.
@@ -79,6 +78,16 @@ public class WeatherApi {
      */
     public String getUnits() {
         return UNITS;
+    }
+
+    /**
+     * Setter for class attribute UNITS
+     *
+     * @param measurementSystem name of required measurement system: metric or imperial
+     */
+    @SuppressWarnings("unused")
+    public static void setUnits(String measurementSystem) {
+        UNITS = measurementSystem;
     }
 
     /**

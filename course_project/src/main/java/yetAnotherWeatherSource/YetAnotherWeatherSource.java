@@ -1,17 +1,17 @@
 package yetAnotherWeatherSource;
 
 import yetAnotherWeatherSource.api.WeatherApi;
-import yetAnotherWeatherSource.api.dto.ListDto;
 import yetAnotherWeatherSource.api.dto.MainDto;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 import yetAnotherWeatherSource.api.response.ForecastData;
-import yetAnotherWeatherSource.model.*;
+import yetAnotherWeatherSource.helpers.Helpers;
+import yetAnotherWeatherSource.model.CurrentWeatherReport;
+import yetAnotherWeatherSource.model.ForecastReport;
+import yetAnotherWeatherSource.model.WeatherReport;
+import yetAnotherWeatherSource.model.WeatherReportDetails;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -46,56 +46,35 @@ public class YetAnotherWeatherSource {
         CurrentWeatherData currentWeatherData = weatherApi.getCurrentWeatherData(city);
         ForecastData forecastData = weatherApi.getForecastData(city);
 
-        WeatherReportDetails weatherReportDetails = getReportDetails(currentWeatherData);
-        CurrentWeatherReport currentWeatherReport = getCurrentWeather(currentWeatherData);
+        WeatherReportDetails weatherReportDetails = getWeatherReportDetails(currentWeatherData);
+        CurrentWeatherReport currentWeatherReport = getCurrentWeatherReport(currentWeatherData);
         ArrayList<ForecastReport> forecastReportList = getForecastReportList(forecastData);
 
         weatherReport.setWeatherReportDetails(weatherReportDetails);
         weatherReport.setCurrentWeatherReport(currentWeatherReport);
         weatherReport.setForecastReport(forecastReportList);
 
-        weatherReport.toJSON();
         return weatherReport;
     }
 
+    /**
+     * Method gets Array List of ForecastReport class entity, which used as attribute of WeatherReport Class.
+     *
+     * @param data - ForecastData class entity created from API response
+     * @return Array List of ForecastReport entities
+     */
     private ArrayList<ForecastReport> getForecastReportList(ForecastData data) {
         ArrayList<ForecastReport> forecastReportList = new ArrayList<>();
-        Map<String, ArrayList<MainDto>> forecastWeatherMap = getForecastWeatherMap(data);
+        Map<String, ArrayList<MainDto>> forecastWeatherMap = Helpers.getForecastWeatherMap(data);
 
         forecastWeatherMap.forEach((key, value) -> {
             ForecastReport forecastReport = new ForecastReport();
             forecastReport.setDate(key);
-            forecastReport.setWeather(getAverageForecastWeather(value));
+            forecastReport.setWeather(Helpers.getAverageForecastWeather(value));
             forecastReportList.add(forecastReport);
         });
 
         return forecastReportList;
-    }
-
-    public Weather getAverageForecastWeather(ArrayList<MainDto> mainDtoList) {
-        Weather averageWeather = new Weather();
-        averageWeather.setTemperature(mainDtoList.stream().mapToDouble(MainDto::getTemp).average().orElseThrow());
-        averageWeather.setHumidity((int) mainDtoList.stream().mapToDouble(MainDto::getHumidity).average().orElseThrow());
-        averageWeather.setPressure((int) mainDtoList.stream().mapToDouble(MainDto::getPressure).average().orElseThrow());
-        return averageWeather;
-    }
-
-    private Map<String, ArrayList<MainDto>> getForecastWeatherMap(ForecastData data) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Map<String, ArrayList<MainDto>> forecastWeatherMap = new LinkedHashMap<>();
-
-        String todayDate = dateFormat.format(new Date(System.currentTimeMillis()));
-
-        for (ListDto list : data.getList()) {
-            String forecastDate = dateFormat.format(new Date(list.getDt() * 1000L));
-            if (forecastWeatherMap.size() == 3) break;
-            if (!forecastDate.equals(todayDate)) {
-                if (!forecastWeatherMap.containsKey(forecastDate))
-                    forecastWeatherMap.put(forecastDate, new ArrayList<>());
-                forecastWeatherMap.get(forecastDate).add(list.getMain());
-            }
-        }
-        return forecastWeatherMap;
     }
 
     /**
@@ -104,7 +83,7 @@ public class YetAnotherWeatherSource {
      * @param data - CurrentWeatherData class entity created from API response
      * @return CurrentWeatherReport class entity
      */
-    private CurrentWeatherReport getCurrentWeather(CurrentWeatherData data) {
+    private CurrentWeatherReport getCurrentWeatherReport(CurrentWeatherData data) {
         CurrentWeatherReport currentWeatherReport = new CurrentWeatherReport();
 
         currentWeatherReport.setDate(data.getDt());
@@ -121,7 +100,7 @@ public class YetAnotherWeatherSource {
      * @param data - CurrentWeatherData class entity created from API response
      * @return WeatherReportDetails class entity
      */
-    private WeatherReportDetails getReportDetails(CurrentWeatherData data) {
+    private WeatherReportDetails getWeatherReportDetails(CurrentWeatherData data) {
         WeatherReportDetails weatherReportDetails = new WeatherReportDetails();
 
         weatherReportDetails.setCity(data.getName());

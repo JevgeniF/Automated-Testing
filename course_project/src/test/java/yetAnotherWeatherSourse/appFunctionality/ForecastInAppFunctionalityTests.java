@@ -6,6 +6,7 @@ import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
 import yetAnotherWeatherSource.api.dto.MainDto;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
+import yetAnotherWeatherSource.helpers.Helpers;
 import yetAnotherWeatherSource.model.Weather;
 import yetAnotherWeatherSource.model.WeatherReport;
 
@@ -19,6 +20,13 @@ import java.util.Date;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests for inApp Functionality implemented by use of Forecast API.
+ * 13 tests consists of:
+ * 3 tests for Forecast Report structure
+ * 4 tests for existence of items in Weather Report
+ * 6 tests for items format and content
+ */
 public class ForecastInAppFunctionalityTests {
     private static String city;
     private static YetAnotherWeatherSource yetAnotherWeatherSource;
@@ -115,27 +123,27 @@ public class ForecastInAppFunctionalityTests {
         assertThat(weatherReport.getForecastReport().get(0).getDate()).matches(tomorrow);
     }
 
-    @Test /* Checks if main app class calculates average temperature for each date in forecast properly.
+    @Test /* Checks if Helpers class calculates average temperature for each date in forecast properly.
           Test checks purely getAverageWeather method of YetAnotherWeatherSource class without data fetched from API. */
     public void inAppMethodCalculatesAverageTemperatureForEachDayInForecast() {
         ArrayList<MainDto> artificialMainDtoList = getArtificialMainDtoList();
-        Weather weather = yetAnotherWeatherSource.getAverageForecastWeather(artificialMainDtoList);
+        Weather weather = Helpers.getAverageForecastWeather(artificialMainDtoList);
         assertThat(weather.getTemperature()).isEqualTo(0.5);
     }
 
-    @Test /* Checks if main app class calculates average pressure for each date in forecast properly.
+    @Test /* Checks if Helpers class calculates average pressure for each date in forecast properly.
           Test checks purely getAverageWeather method of YetAnotherWeatherSource class without data fetched from API. */
     public void inAppMethodCalculatesAveragePressureForEachDayInForecast() {
         ArrayList<MainDto> artificialMainDtoList = getArtificialMainDtoList();
-        Weather weather = yetAnotherWeatherSource.getAverageForecastWeather(artificialMainDtoList);
+        Weather weather = Helpers.getAverageForecastWeather(artificialMainDtoList);
         assertThat(weather.getPressure()).isEqualTo(200);
     }
 
-    @Test /* Checks if main app class calculates average humidity for each date in forecast properly.
+    @Test /* Checks if Helpers class calculates average humidity for each date in forecast properly.
           Test checks purely getAverageWeather method of YetAnotherWeatherSource class without data fetched from API. */
     public void inAppMethodCalculatesAverageHumidityForEachDayInForecast() {
         ArrayList<MainDto> artificialMainDtoList = getArtificialMainDtoList();
-        Weather weather = yetAnotherWeatherSource.getAverageForecastWeather(artificialMainDtoList);
+        Weather weather = Helpers.getAverageForecastWeather(artificialMainDtoList);
         assertThat(weather.getHumidity()).isEqualTo(1100);
     }
 

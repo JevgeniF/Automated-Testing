@@ -11,7 +11,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 /**
- * Mock tests for integration of CurrentWeather API in app.
+ * Mock tests for integration of Forecast API in app.
  * Check if Weather Report has data, as from Weather API.
  * 3 tests.
  */
