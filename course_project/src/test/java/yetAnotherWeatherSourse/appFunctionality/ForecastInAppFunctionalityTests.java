@@ -87,6 +87,20 @@ public class ForecastInAppFunctionalityTests {
         assertEquals(weatherReport.getForecastReport().size(), 3);
     }
 
+    @Test //Checks if forecast days in Consecutive Ascending Order.
+    public void inAppDaysInForecastReportShouldBeConsecutiveAndInAscendingOrder() throws CityNotFoundException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String tomorrow = dateFormat.format(Date.from(Instant.now().plus(Duration.ofDays(1))));
+        String dayAfterTomorrow = dateFormat.format(Date.from(Instant.now().plus(Duration.ofDays(2))));
+        String dayAfterTomorrowPlusDay = dateFormat.format(Date.from(Instant.now().plus(Duration.ofDays(3))));
+
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+
+        assertThat(weatherReport.getForecastReport().get(0).getDate()).matches(tomorrow);
+        assertThat(weatherReport.getForecastReport().get(1).getDate()).matches(dayAfterTomorrow);
+        assertThat(weatherReport.getForecastReport().get(2).getDate()).matches(dayAfterTomorrowPlusDay);
+    }
+
     @Test //Checks if dates in forecast report "days" formatted like "yyyy-MM-dd"
     public void inAppDaysInForecastReportSectionHaveDatesInFormat_yyyy_MM_dd()
             throws CityNotFoundException {

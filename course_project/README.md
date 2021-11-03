@@ -88,15 +88,15 @@ Use the [OpenWeatherMap API](https://openweathermap.org/api):
 **Note**: Application reads input as string parameter and outputs result to stdout.
 
 ### ACCEPTANCE CRITERIA
-COMPLETED: City name can be provided as a string input
-COMPLETED: The output is a weather report with main details and current weather data
-COMPLETED: Main details part has city, coordinates and temperatureUnit properties
-COMPLETED: Coordinates are in the format lat, log. Example: "59.44,24.75"
-COMPLETED: Current weather part has date, temperature, humidity and pressure properties
-COMPLETED: Output is a JSON object
-COMPLETED: At least 3 unit tests exists
-COMPLETED: Mock integration test exists for OWM for the main details data
-COMPLETED: OWM integration is covered by integration tests for the main details data
+- COMPLETED: City name can be provided as a string input
+- COMPLETED: The output is a weather report with main details and current weather data
+- COMPLETED: Main details part has city, coordinates and temperatureUnit properties
+- COMPLETED: Coordinates are in the format lat, log. Example: "59.44,24.75"
+- COMPLETED: Current weather part has date, temperature, humidity and pressure properties
+- COMPLETED: Output is a JSON object
+- COMPLETED: At least 3 unit tests exists
+- COMPLETED: Mock integration test exists for OWM for the main details data
+- COMPLETED: OWM integration is covered by integration tests for the main details data
 
 ## 2. Forecast - 15p
 
@@ -105,14 +105,14 @@ COMPLETED: OWM integration is covered by integration tests for the main details 
 - part 1 acceptance criteria apply as well
 
 ### ACCEPTANCE CRITERIA
-COMPLETED: City name can be provided as a string input
-COMPLETED: The output is a weather report with main details and current weather data AND forecast report
-- Forecast report part has date, temperature, humidity and pressure for each day
-- Forecast calculates average of temperature, humidity and pressure
-- Forecast is in ascending order (2020-10-01, 2020-10-02, 2020-10-03)
-- At least 3 unit tests exists
-- Mock integration test exists for OWM for the forecast data
-- OWM integration is covered by integration tests for the forecast data
+- COMPLETED: City name can be provided as a string input
+- COMPLETED: The output is a weather report with main details and current weather data AND forecast report
+- COMPLETED: Forecast report part has date, temperature, humidity and pressure for each day
+- COMPLETED: Forecast calculates average of temperature, humidity and pressure
+- COMPLETED: Forecast is in ascending order (2020-10-01, 2020-10-02, 2020-10-03)
+- COMPLETED: At least 3 unit tests exists
+- COMPLETED: Mock integration test exists for OWM for the forecast data
+- COMPLETED: OWM integration is covered by integration tests for the forecast data
 
 ## 3. Read city name from file and produce a JSON file for given city - 15p
 
