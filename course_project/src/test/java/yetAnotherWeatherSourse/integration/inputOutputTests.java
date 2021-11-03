@@ -1,15 +1,14 @@
 package yetAnotherWeatherSourse.integration;
 
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
-import yetAnotherWeatherSource.exception.CityNotFoundException;
+import yetAnotherWeatherSource.exception.FileNotFoundException;
 import yetAnotherWeatherSource.exception.WrongInputFormatException;
 import yetAnotherWeatherSource.inOut.InOut;
 import yetAnotherWeatherSource.model.WeatherReport;
-
-import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -25,8 +24,8 @@ public class inputOutputTests {
     }
 
     @Test
-    public void appGeneratesWeatherReportForCityFromFileReader()
-            throws IOException, CityNotFoundException, WrongInputFormatException {
+    @SneakyThrows
+    public void appGeneratesWeatherReportForCityFromFileReader() {
         String city = InOut.getCityFromFile(INPUT_DATA_FOLDER + "city.txt");
 
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
@@ -47,7 +46,7 @@ public class inputOutputTests {
 
     @Test
     public void FileReaderThrowsFileNotFoundExceptionIfNoFileWithThisPathOrName() {
-        String exceptionErrorMessage = "File Not Found.";
+        String exceptionErrorMessage = "File not found.";
         Exception exception = assertThrows(FileNotFoundException.class, () ->
                 InOut.getCityFromFile(INPUT_DATA_FOLDER + "no_such_file.txt"));
 
