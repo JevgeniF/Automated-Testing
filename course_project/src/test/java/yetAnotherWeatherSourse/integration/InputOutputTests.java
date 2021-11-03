@@ -5,17 +5,22 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
+import yetAnotherWeatherSource.exception.CityNotFoundException;
 import yetAnotherWeatherSource.exception.FileInputMissingException;
 import yetAnotherWeatherSource.exception.FileNotFoundException;
 import yetAnotherWeatherSource.exception.WrongInputFormatException;
 import yetAnotherWeatherSource.inOut.InOut;
 import yetAnotherWeatherSource.model.WeatherReport;
 
+import java.io.File;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InputOutputTests {
-    private static final String INPUT_DATA_FOLDER = "./src/main/resources/test_data/Input/";
+    private static final String INPUT_DATA_FOLDER = "./src/main/resources/test_data/input/";
+    private static final String OUTPUT_DATA_FOLDER = "./src/main/resources/test_data/output/";
     private static YetAnotherWeatherSource yetAnotherWeatherSource;
 
     @BeforeAll
@@ -62,6 +67,17 @@ public class InputOutputTests {
                 InOut.getCityFromFile(" "));
 
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
+
+    }
+
+    @Test
+    public void FileWriterSavesJsonFile()
+            throws WrongInputFormatException, FileNotFoundException, FileInputMissingException, CityNotFoundException {
+        String city = InOut.getCityFromFile(INPUT_DATA_FOLDER + "city.txt");
+        WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
+        InOut.saveToJson(OUTPUT_DATA_FOLDER, weatherReport);
+        File outputFile = new File(OUTPUT_DATA_FOLDER + "Weather in Plymouth.json");
+        assertTrue(outputFile.exists() && outputFile.getName().endsWith(".json"));
 
     }
 }
