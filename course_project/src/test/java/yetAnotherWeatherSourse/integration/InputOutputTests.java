@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
+import yetAnotherWeatherSource.exception.FileInputMissingException;
 import yetAnotherWeatherSource.exception.FileNotFoundException;
 import yetAnotherWeatherSource.exception.WrongInputFormatException;
 import yetAnotherWeatherSource.inOut.InOut;
@@ -13,7 +14,7 @@ import yetAnotherWeatherSource.model.WeatherReport;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class inputOutputTests {
+public class InputOutputTests {
     private static final String INPUT_DATA_FOLDER = "./src/main/resources/test_data/Input/";
     private static YetAnotherWeatherSource yetAnotherWeatherSource;
 
@@ -58,7 +59,7 @@ public class inputOutputTests {
     public void FileReaderThrowsFileInputMissingExceptionIfFileNameIsNullOrEmptyString() {
         String exceptionErrorMessage = "No file specified for File Reader.";
         Exception exception = assertThrows(FileInputMissingException.class, () ->
-                InOut.getCityFromFile(INPUT_DATA_FOLDER + " "));
+                InOut.getCityFromFile(" "));
 
         assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
 
