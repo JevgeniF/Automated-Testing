@@ -2,9 +2,9 @@ package yetAnotherWeatherSource;
 
 import yetAnotherWeatherSource.api.WeatherApi;
 import yetAnotherWeatherSource.api.dto.MainDto;
-import yetAnotherWeatherSource.api.exception.CityNotFoundException;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 import yetAnotherWeatherSource.api.response.ForecastData;
+import yetAnotherWeatherSource.exception.CityNotFoundException;
 import yetAnotherWeatherSource.helpers.Helpers;
 import yetAnotherWeatherSource.model.CurrentWeatherReport;
 import yetAnotherWeatherSource.model.ForecastReport;

@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
-import yetAnotherWeatherSource.api.exception.CityNotFoundException;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
+import yetAnotherWeatherSource.exception.CityNotFoundException;
 import yetAnotherWeatherSource.model.WeatherReport;
 
 import java.text.SimpleDateFormat;

@@ -3,7 +3,7 @@ package yetAnotherWeatherSourse.mockIntegration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-import yetAnotherWeatherSource.api.exception.CityNotFoundException;
+import yetAnotherWeatherSource.exception.CityNotFoundException;
 import yetAnotherWeatherSource.model.WeatherReport;
 
 import static org.assertj.core.api.Assertions.assertThat;

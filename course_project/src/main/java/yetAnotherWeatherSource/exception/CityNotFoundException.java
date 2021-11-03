@@ -1,4 +1,4 @@
-package yetAnotherWeatherSource.api.exception;
+package yetAnotherWeatherSource.exception;
 
 /**
  * Exception class.

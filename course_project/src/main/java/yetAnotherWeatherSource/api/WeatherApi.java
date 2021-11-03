@@ -5,9 +5,9 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
-import yetAnotherWeatherSource.api.exception.CityNotFoundException;
 import yetAnotherWeatherSource.api.response.CurrentWeatherData;
 import yetAnotherWeatherSource.api.response.ForecastData;
+import yetAnotherWeatherSource.exception.CityNotFoundException;
 
 import static com.sun.jersey.api.client.Client.create;
 import static com.sun.jersey.api.json.JSONConfiguration.FEATURE_POJO_MAPPING;

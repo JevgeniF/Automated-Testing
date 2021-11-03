@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
 import yetAnotherWeatherSource.api.dto.MainDto;
-import yetAnotherWeatherSource.api.exception.CityNotFoundException;
+import yetAnotherWeatherSource.exception.CityNotFoundException;
 import yetAnotherWeatherSource.helpers.Helpers;
 import yetAnotherWeatherSource.model.Weather;
 import yetAnotherWeatherSource.model.WeatherReport;
