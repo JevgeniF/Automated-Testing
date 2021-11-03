@@ -52,7 +52,7 @@ public class WeatherApi {
      * Method receives response from Forecast API for city, provided as string.
      *
      * @param city Name of city
-     * @return response from API containing required forecast data
+     * @return response from API containing required to be forecast data
      */
     public static ClientResponse getForecastResponse(String city) {
         return client.resource(FORECAST_URL)

@@ -27,25 +27,25 @@ public class MockIntegrationTests {
     public void setUp() {
         city = "Haabneeme";
 
-        Integer currentDate = Math.toIntExact(System.currentTimeMillis() / 1000L);
+        Long currentDateInUnix = System.currentTimeMillis() / 1000L;
         CoordDto coordinates = new CoordDto(24.8211, 59.5114);
         MainDto currentWeather = new MainDto(8.74, 1010, 75);
 
         Date tomorrow = Date.from(Instant.now().plus(Duration.ofDays(1)));
-        int tomorrowInUnix = Math.toIntExact(tomorrow.getTime() / 1000);
+        Long tomorrowInUnix = tomorrow.getTime() / 1000;
         MainDto forecastWeather = new MainDto(5.56, 1007, 92);
 
         currentWeatherData = new CurrentWeatherData();
         currentWeatherData.setName(city);
         currentWeatherData.setCoord(coordinates);
-        currentWeatherData.setDt(currentDate);
+        currentWeatherData.setDt(currentDateInUnix);
         currentWeatherData.setMain(currentWeather);
 
         forecastData = new ForecastData();
 
         ArrayList<ListDto> listList = new ArrayList<>();
         ListDto list = new ListDto();
-        list.setDt(Math.toIntExact(tomorrowInUnix));
+        list.setDt(tomorrowInUnix);
         list.setMain(forecastWeather);
         listList.add(list);
 

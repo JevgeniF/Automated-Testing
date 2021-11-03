@@ -4,7 +4,7 @@ import lombok.Data;
 import yetAnotherWeatherSource.api.dto.CoordDto;
 
 /**
- * Class holds common weather report detalis used for attribute weatherReportDetails in WeatherReport class.
+ * Class holds common weather report details used for attribute weatherReportDetails in WeatherReport class.
  * Attributes:
  * city - name of city
  * coordinates - coordinates of city in format Lat,Lon

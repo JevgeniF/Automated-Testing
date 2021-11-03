@@ -25,7 +25,7 @@ public class CurrentWeatherReport {
      *
      * @param unixDate - date in UnixMills as Integer
      */
-    public void setDate(Integer unixDate) {
+    public void setDate(Long unixDate) {
         Date date = new Date(unixDate * 1000L);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 

@@ -63,30 +63,30 @@ public class YetAnotherWeatherSource {
         Map<String, ArrayList<MainDto>> forecastWeatherMap = getForecastWeatherMap(data);
 
         forecastWeatherMap.forEach((key, value) -> {
-           ForecastReport forecastReport = new ForecastReport();
-           forecastReport.setDate(key);
-           forecastReport.setForecastWeather(getAverageForecastWeather(value));
-           forecastReportList.add(forecastReport);
+            ForecastReport forecastReport = new ForecastReport();
+            forecastReport.setDate(key);
+            forecastReport.setWeather(getAverageForecastWeather(value));
+            forecastReportList.add(forecastReport);
         });
 
         return forecastReportList;
     }
 
-    public ForecastWeather getAverageForecastWeather(ArrayList<MainDto> mainDtoList) {
-        ForecastWeather averageForecastWeather = new ForecastWeather();
-        averageForecastWeather.setTemperature(mainDtoList.stream().mapToDouble(MainDto::getTemp).average().orElseThrow());
-        averageForecastWeather.setHumidity((int) mainDtoList.stream().mapToDouble(MainDto::getHumidity).average().orElseThrow());
-        averageForecastWeather.setPressure((int) mainDtoList.stream().mapToDouble(MainDto::getPressure).average().orElseThrow());
-        return averageForecastWeather;
+    public Weather getAverageForecastWeather(ArrayList<MainDto> mainDtoList) {
+        Weather averageWeather = new Weather();
+        averageWeather.setTemperature(mainDtoList.stream().mapToDouble(MainDto::getTemp).average().orElseThrow());
+        averageWeather.setHumidity((int) mainDtoList.stream().mapToDouble(MainDto::getHumidity).average().orElseThrow());
+        averageWeather.setPressure((int) mainDtoList.stream().mapToDouble(MainDto::getPressure).average().orElseThrow());
+        return averageWeather;
     }
 
     private Map<String, ArrayList<MainDto>> getForecastWeatherMap(ForecastData data) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Map<String,ArrayList<MainDto>> forecastWeatherMap = new LinkedHashMap<>();
+        Map<String, ArrayList<MainDto>> forecastWeatherMap = new LinkedHashMap<>();
 
         String todayDate = dateFormat.format(new Date(System.currentTimeMillis()));
 
-        for (ListDto list: data.getList()) {
+        for (ListDto list : data.getList()) {
             String forecastDate = dateFormat.format(new Date(list.getDt() * 1000L));
             if (forecastWeatherMap.size() == 3) break;
             if (!forecastDate.equals(todayDate)) {
@@ -97,6 +97,7 @@ public class YetAnotherWeatherSource {
         }
         return forecastWeatherMap;
     }
+
     /**
      * Method creates CurrentWeatherReport class entity, which used as attribute of Weather Report class.
      *

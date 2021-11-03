@@ -6,6 +6,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ListDto {
-    private Integer dt;
+    private Long dt;
     private MainDto main;
 }

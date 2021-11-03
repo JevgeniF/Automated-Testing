@@ -6,7 +6,7 @@ import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
 import yetAnotherWeatherSource.api.dto.MainDto;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
-import yetAnotherWeatherSource.model.ForecastWeather;
+import yetAnotherWeatherSource.model.Weather;
 import yetAnotherWeatherSource.model.WeatherReport;
 
 import java.text.SimpleDateFormat;
@@ -21,13 +21,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ForecastInAppFunctionalityTests {
     private static String city;
-    private static WeatherApi weatherApi;
     private static YetAnotherWeatherSource yetAnotherWeatherSource;
 
     @BeforeAll // initial setup for all tests
     static void setUp() {
         city = "Florence";
-        weatherApi = new WeatherApi();
+        WeatherApi weatherApi = new WeatherApi();
         yetAnotherWeatherSource = new YetAnotherWeatherSource(weatherApi);
     }
 
@@ -50,7 +49,7 @@ public class ForecastInAppFunctionalityTests {
     public void inAppForecastReportSectionShouldHaveMinOneDayWithWeatherForecast()
             throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getForecastReport().get(0).getForecastWeather()).isNotNull();
+        assertThat(weatherReport.getForecastReport().get(0).getWeather()).isNotNull();
     }
 
     //----------------------- ITEMS EXISTENCE TESTS -----------------------//
@@ -64,19 +63,19 @@ public class ForecastInAppFunctionalityTests {
     @Test //Checks if forecast report section "day" weather forecast has temperature
     public void inAppForecastReportDayShouldHaveWeatherForecastWithTemperature() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getForecastReport().get(0).getForecastWeather().getTemperature()).isNotNull();
+        assertThat(weatherReport.getForecastReport().get(0).getWeather().getTemperature()).isNotNull();
     }
 
     @Test //Checks if forecast report section "day" weather forecast has humidity
     public void inAppForecastReportDayShouldHaveWeatherForecastWithHumidity() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getForecastReport().get(0).getForecastWeather().getHumidity()).isNotNull();
+        assertThat(weatherReport.getForecastReport().get(0).getWeather().getHumidity()).isNotNull();
     }
 
     @Test //Checks if forecast report section "day" weather forecast has pressure
     public void inAppForecastReportDayShouldHaveWeatherForecastWithPressure() throws CityNotFoundException {
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
-        assertThat(weatherReport.getForecastReport().get(0).getForecastWeather().getPressure()).isNotNull();
+        assertThat(weatherReport.getForecastReport().get(0).getWeather().getPressure()).isNotNull();
     }
 
     //----------------------- ITEMS FORMAT AND CONTENT TESTS -----------------------//
@@ -120,24 +119,24 @@ public class ForecastInAppFunctionalityTests {
           Test checks purely getAverageWeather method of YetAnotherWeatherSource class without data fetched from API. */
     public void inAppMethodCalculatesAverageTemperatureForEachDayInForecast() {
         ArrayList<MainDto> artificialMainDtoList = getArtificialMainDtoList();
-        ForecastWeather forecastWeather = yetAnotherWeatherSource.getAverageForecastWeather(artificialMainDtoList);
-        assertThat(forecastWeather.getTemperature()).isEqualTo(0.5);
+        Weather weather = yetAnotherWeatherSource.getAverageForecastWeather(artificialMainDtoList);
+        assertThat(weather.getTemperature()).isEqualTo(0.5);
     }
 
     @Test /* Checks if main app class calculates average pressure for each date in forecast properly.
           Test checks purely getAverageWeather method of YetAnotherWeatherSource class without data fetched from API. */
     public void inAppMethodCalculatesAveragePressureForEachDayInForecast() {
         ArrayList<MainDto> artificialMainDtoList = getArtificialMainDtoList();
-        ForecastWeather forecastWeather = yetAnotherWeatherSource.getAverageForecastWeather(artificialMainDtoList);
-        assertThat(forecastWeather.getPressure()).isEqualTo(200);
+        Weather weather = yetAnotherWeatherSource.getAverageForecastWeather(artificialMainDtoList);
+        assertThat(weather.getPressure()).isEqualTo(200);
     }
 
     @Test /* Checks if main app class calculates average humidity for each date in forecast properly.
           Test checks purely getAverageWeather method of YetAnotherWeatherSource class without data fetched from API. */
     public void inAppMethodCalculatesAverageHumidityForEachDayInForecast() {
         ArrayList<MainDto> artificialMainDtoList = getArtificialMainDtoList();
-        ForecastWeather forecastWeather = yetAnotherWeatherSource.getAverageForecastWeather(artificialMainDtoList);
-        assertThat(forecastWeather.getHumidity()).isEqualTo(1100);
+        Weather weather = yetAnotherWeatherSource.getAverageForecastWeather(artificialMainDtoList);
+        assertThat(weather.getHumidity()).isEqualTo(1100);
     }
 
     //----------------------- HELPER METHODS -----------------------//

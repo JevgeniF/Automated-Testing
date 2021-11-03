@@ -18,6 +18,6 @@ import yetAnotherWeatherSource.api.dto.MainDto;
 public class CurrentWeatherData {
     private String name;
     private CoordDto coord;
-    private Integer dt;
+    private Long dt;
     private MainDto main;
 }

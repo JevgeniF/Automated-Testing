@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class ForecastReport {
     private String date;
-    private ForecastWeather forecastWeather;
+    private Weather weather;
 }
