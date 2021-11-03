@@ -126,4 +126,15 @@ public class InputOutputIntegrationTests {
 
     }
 
+    @Test
+    public void multipleLineFileReaderThrowsFileNotFoundExceptionIfForInputIfFileNotFound() {
+        String exceptionErrorMessage = "File not found.";
+
+        Exception exception = assertThrows(FileNotFoundException.class, () ->
+                InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "no_such_file.txt"));
+
+        assertThat(exception.getMessage()).isEqualTo(exceptionErrorMessage);
+
+    }
+
 }
