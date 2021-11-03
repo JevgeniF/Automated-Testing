@@ -1,10 +1,7 @@
 package yetAnotherWeatherSource.model;
 
 import lombok.Data;
-import org.codehaus.jackson.map.ObjectMapper;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -19,17 +16,4 @@ public class WeatherReport {
     private CurrentWeatherReport currentWeatherReport;
     private ArrayList<ForecastReport> forecastReport;
 
-    /**
-     * Method saves class entity as .json file
-     */
-    @SuppressWarnings("unused")
-    public void toJSON() {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(new File("./Weather in " + weatherReportDetails.getCity() + ".json"),
-                    this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
