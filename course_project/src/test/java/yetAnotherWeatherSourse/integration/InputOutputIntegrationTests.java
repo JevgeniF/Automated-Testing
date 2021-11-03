@@ -12,6 +12,7 @@ import yetAnotherWeatherSource.inOut.InOut;
 import yetAnotherWeatherSource.model.WeatherReport;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -101,6 +102,17 @@ public class InputOutputIntegrationTests {
         File outputFile = new File(OUTPUT_DATA_FOLDER + "Weather in Plymouth.json");
 
         assertTrue(outputFile.exists() && outputFile.getName().contains("Plymouth"));
+
+    }
+
+    @Test
+    @SneakyThrows
+    public void appGeneratesWeatherReportsForMultipleCitiesFromFileReader() {
+        ArrayList<String> cityList = InOut.getCityFromFile(INPUT_DATA_FOLDER + "cities.txt");
+
+        ArrayList<WeatherReport> weatherReportList = yetAnotherWeatherSource.getWeatherReportBatch(cityList);
+
+        assertThat(weatherReportList.size()).isEqualTo(13);
 
     }
 }
