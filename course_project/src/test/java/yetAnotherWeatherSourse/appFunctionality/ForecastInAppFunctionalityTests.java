@@ -4,12 +4,16 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
 import yetAnotherWeatherSource.api.WeatherApi;
+import yetAnotherWeatherSource.api.dto.MainDto;
 import yetAnotherWeatherSource.api.exception.CityNotFoundException;
+import yetAnotherWeatherSource.model.ForecastWeather;
 import yetAnotherWeatherSource.model.WeatherReport;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -89,5 +93,20 @@ public class ForecastInAppFunctionalityTests {
         String tomorrow = dateFormat.format(Date.from(Instant.now().plus(Duration.ofDays(1))));
         WeatherReport weatherReport = yetAnotherWeatherSource.getWeatherReport(city);
         assertThat(weatherReport.getForecastReport().get(0).getDate()).matches(tomorrow);
+    }
+
+    @Test /* Checks if main app class calculates average temperature for each date in forecast properly.
+          Test checks purely getAverageWeather method of YetAnotherWeatherSource class without data fetched from API. */
+    public void inAppMethodCalculatesAverageTemperatureForEachDayInForecast() {
+        ArrayList<MainDto> artificialMainDtoList = getArtificialMainDtoList();
+        ForecastWeather forecastWeather = yetAnotherWeatherSource.getAverageForecastWeather(artificialMainDtoList);
+        assertThat(forecastWeather.getTemperature()).isEqualTo(0.5);
+    }
+
+    private ArrayList<MainDto> getArtificialMainDtoList() {
+        return new ArrayList<>(Arrays.asList(
+                new MainDto(0.0, 100, 1000),
+                new MainDto(0.5, 200, 1100),
+                new MainDto(1.0, 300, 1300)));
     }
 }
