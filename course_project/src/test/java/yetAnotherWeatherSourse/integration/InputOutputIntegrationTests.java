@@ -108,7 +108,7 @@ public class InputOutputIntegrationTests {
     @Test
     @SneakyThrows
     public void appGeneratesWeatherReportsForMultipleCitiesFromFileReader() {
-        ArrayList<String> cityList = InOut.getCityFromFile(INPUT_DATA_FOLDER + "cities.txt");
+        ArrayList<String> cityList = InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "cities.txt");
 
         ArrayList<WeatherReport> weatherReportList = yetAnotherWeatherSource.getWeatherReportBatch(cityList);
 

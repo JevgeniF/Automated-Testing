@@ -79,4 +79,13 @@ public class YetAnotherWeatherSource {
 
         return forecastReportList;
     }
+
+    public ArrayList<WeatherReport> getWeatherReportBatch(ArrayList<String> cityList) throws CityNotFoundException {
+        ArrayList<WeatherReport> weatherReportList = new ArrayList<>();
+        for (String city : cityList) {
+            WeatherReport weatherReport = getWeatherReport(city);
+            weatherReportList.add(weatherReport);
+        }
+        return weatherReportList;
+    }
 }
