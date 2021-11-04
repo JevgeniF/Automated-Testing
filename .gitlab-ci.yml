@@ -3,17 +3,16 @@
 image: maven:latest
 
 stages:
-    - test
+    - apitest
 
-test_job:
+api-integration-tests:
     tags:
         - docker
-    stage: test
+    stage: apitest
     script:
         - cd course_project
-        - mvn package
-        - mvn verify
-        - echo "Test completed"
+        - mvn test -Papi-integration-tests
+        - echo "api integration tests completed"
 
     artifacts:
         when: always
