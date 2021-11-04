@@ -3,12 +3,22 @@
 image: maven:latest
 
 stages:
-    - fullTestingRound
+    - Build
+    - App Testing
+
+app-build:
+    tags:
+        - docker
+    stage: Build
+    script:
+        - cd course_project
+        - mvn clean compile -Dmaven.test.skip=true
+
 
 mock-integration-tests:
     tags:
         - docker
-    stage: fullTestingRound
+    stage: App Testing
     script:
         - cd course_project
         - mvn test -Pmock-integration-tests
@@ -23,7 +33,7 @@ mock-integration-tests:
 api-integration-tests:
     tags:
         - docker
-    stage: fullTestingRound
+    stage: App Testing
     script:
         - cd course_project
         - mvn test -Papi-integration-tests
@@ -38,7 +48,7 @@ api-integration-tests:
 app-functionality-tests:
     tags:
         - docker
-    stage: fullTestingRound
+    stage: App Testing
     script:
         - cd course_project
         - mvn test -Papp-functionality-tests
@@ -53,7 +63,7 @@ app-functionality-tests:
 io-integration-tests:
     tags:
         - docker
-    stage: fullTestingRound
+    stage: App Testing
     script:
         - cd course_project
         - mvn test -Pio-integration-tests
