@@ -3,16 +3,25 @@
 image: maven:latest
 
 stages:
-    - apitest
+    - test
 
 api-integration-tests:
     tags:
         - docker
-    stage: apitest
+    stage: test
     script:
         - cd course_project
         - mvn test -Papi-integration-tests
         - echo "api integration tests completed"
+
+app-functionality-tests:
+    tags:
+        - docker
+    stage: test
+    script:
+        - cd course_project
+        - mvn test -Papp-functionality-tests
+        - echo "app functionality tests completed"
 
     artifacts:
         when: always
