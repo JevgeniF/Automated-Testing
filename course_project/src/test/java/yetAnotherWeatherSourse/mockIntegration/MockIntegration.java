@@ -18,8 +18,8 @@ import java.util.Date;
 /**
  * SuperClass for Mock Integration Tests. Holds required attributes and initial setup used in all mock tests.
  */
-public class MockIntegrationTests {
-    @Mock
+public class MockIntegration {
+    @org.mockito.Mock
     static WeatherApi weatherApi;
     protected String city;
     protected CurrentWeatherData currentWeatherData;

@@ -2,6 +2,7 @@ package yetAnotherWeatherSourse.mockIntegration;
 
 import lombok.SneakyThrows;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import yetAnotherWeatherSource.model.WeatherReport;
@@ -16,7 +17,7 @@ import static org.mockito.Mockito.when;
  * 3 tests.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CurrentWeatherMockIntegrationTests extends MockIntegrationTests {
+public class CurrentWeatherMockIntegrationTests extends MockIntegration {
 
     @Test
     @SneakyThrows

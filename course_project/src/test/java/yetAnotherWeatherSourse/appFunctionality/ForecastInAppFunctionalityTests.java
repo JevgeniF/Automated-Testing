@@ -1,6 +1,7 @@
 package yetAnotherWeatherSourse.appFunctionality;
 
 import lombok.SneakyThrows;
+import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import yetAnotherWeatherSource.YetAnotherWeatherSource;
