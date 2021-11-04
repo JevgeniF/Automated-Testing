@@ -1,0 +1,22 @@
+#course_project pipeline base configuration
+
+image: maven:latest
+
+stages:
+    - test
+
+test_job:
+    tags:
+        - docker
+    stage: test
+    script:
+        - cd course_project
+        - mvn package
+        - mvn verify
+        - echo "Test completed"
+
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - course_project/target/surefire-reports/TEST-*.xml
