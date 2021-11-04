@@ -3,17 +3,61 @@
 image: maven:latest
 
 stages:
-    - test
+    - fullTestingRound
 
-test_job:
+mock-integration-tests:
     tags:
         - docker
-    stage: test
+    stage: fullTestingRound
     script:
         - cd course_project
-        - mvn package
-        - mvn verify
-        - echo "Test completed"
+        - mvn test -Pmock-integration-tests
+        - echo "api integration tests completed"
+    
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - course_project/target/surefire-reports/TEST-*.xml
+
+api-integration-tests:
+    tags:
+        - docker
+    stage: fullTestingRound
+    script:
+        - cd course_project
+        - mvn test -Papi-integration-tests
+        - echo "api integration tests completed"
+    
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - course_project/target/surefire-reports/TEST-*.xml
+
+app-functionality-tests:
+    tags:
+        - docker
+    stage: fullTestingRound
+    script:
+        - cd course_project
+        - mvn test -Papp-functionality-tests
+        - echo "app functionality tests completed"
+
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - course_project/target/surefire-reports/TEST-*.xml
+
+io-integration-tests:
+    tags:
+        - docker
+    stage: fullTestingRound
+    script:
+        - cd course_project
+        - mvn test -Pio-integration-tests
+        - echo "app functionality tests completed"
 
     artifacts:
         when: always
