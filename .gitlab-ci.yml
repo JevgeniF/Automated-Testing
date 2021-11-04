@@ -34,3 +34,18 @@ app-functionality-tests:
         reports:
             junit:
                 - course_project/target/surefire-reports/TEST-*.xml
+
+io-integration-tests:
+    tags:
+        - docker
+    stage: test
+    script:
+        - cd course_project
+        - mvn test -Pio-integration-tests
+        - echo "app functionality tests completed"
+
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - course_project/target/surefire-reports/TEST-*.xml
