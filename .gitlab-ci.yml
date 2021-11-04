@@ -13,6 +13,12 @@ api-integration-tests:
         - cd course_project
         - mvn test -Papi-integration-tests
         - echo "api integration tests completed"
+    
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - course_project/target/surefire-reports/TEST-*.xml
 
 app-functionality-tests:
     tags:
