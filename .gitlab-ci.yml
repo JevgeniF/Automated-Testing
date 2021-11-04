@@ -3,12 +3,29 @@
 image: maven:latest
 
 stages:
-    - test
+    - fullTestingRound
+
+mock-integration-tests:
+    tags:
+        - docker
+        - hipster
+    stage: fullTestingRound
+    script:
+        - cd course_project
+        - mvn test -Pmock-integration-tests
+        - echo "api integration tests completed"
+    
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - course_project/target/surefire-reports/TEST-*.xml
 
 api-integration-tests:
     tags:
         - docker
-    stage: test
+        - hipster
+    stage: fullTestingRound
     script:
         - cd course_project
         - mvn test -Papi-integration-tests
@@ -23,7 +40,8 @@ api-integration-tests:
 app-functionality-tests:
     tags:
         - docker
-    stage: test
+        - hipster
+    stage: fullTestingRound
     script:
         - cd course_project
         - mvn test -Papp-functionality-tests
@@ -38,7 +56,8 @@ app-functionality-tests:
 io-integration-tests:
     tags:
         - docker
-    stage: test
+        - hipster
+    stage: fullTestingRound
     script:
         - cd course_project
         - mvn test -Pio-integration-tests
