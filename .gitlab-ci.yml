@@ -5,6 +5,7 @@ image: maven:latest
 stages:
     - Build
     - App Testing
+    - Install
 
 app-build:
     tags:
@@ -74,3 +75,11 @@ io-integration-tests:
         reports:
             junit:
                 - course_project/target/surefire-reports/TEST-*.xml
+
+app-install:
+    tags:
+        - docker
+    stage: Install
+    script:
+        - cd course_project
+        - mvn install -Dmaven.test.skip=true
