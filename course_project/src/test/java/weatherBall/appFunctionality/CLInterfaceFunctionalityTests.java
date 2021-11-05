@@ -303,10 +303,33 @@ public class CLInterfaceFunctionalityTests {
 
     @Test
     @SneakyThrows
-    public void interfaceShowsHelpIfNoAttributeConsoleOrJson() {
+    public void interfaceShowsHelpIfAnotherAttributeInsteadConsoleOrJson() {
         System.setOut(printStream);
 
         CLInterface.main(new String[]{"-print", "Poltava"});
+
+        File consoleHelpFile = new File("src/main/java/weatherBall/console_help.txt");
+        StringBuilder help = new StringBuilder();
+
+        try {
+            Scanner scanner = new Scanner(consoleHelpFile);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                help.append(line).append("\n");
+            }
+        } catch (FileNotFoundException e) {
+            fail();
+        }
+
+        assertThat(outputStream.toString()).isEqualTo(help.toString());
+    }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShowsHelpIfNoAttributes() {
+        System.setOut(printStream);
+
+        CLInterface.main(new String[]{});
 
         File consoleHelpFile = new File("src/main/java/weatherBall/console_help.txt");
         StringBuilder help = new StringBuilder();
