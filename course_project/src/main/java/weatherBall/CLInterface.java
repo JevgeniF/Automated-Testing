@@ -84,6 +84,10 @@ public class CLInterface {
     }
 
     private static void jsonOut(String input, String jsonPath) {
+        if (input.trim().isEmpty()) {
+            System.out.println("Input not found.");
+            return;
+        }
         if (FilenameUtils.getExtension(input).isEmpty()) {
             try {
                 WeatherReport weatherReport = weatherBall.getWeatherReport(input);
@@ -103,8 +107,7 @@ public class CLInterface {
                 System.out.println("File is empty.");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            } catch (FileInputMissingException e) {
-                e.printStackTrace();
+            } catch (FileInputMissingException ignore) {
             }
         }
     }
