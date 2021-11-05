@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import weatherBall.CLInterface;
 import weatherBall.WeatherBall;
 import weatherBall.api.WeatherApi;
-import weatherBall.exception.FileInputMissingException;
 import weatherBall.inOut.InOut;
 import weatherBall.model.WeatherReport;
 
@@ -64,7 +63,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGiven() throws FileInputMissingException {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGiven() {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);
@@ -103,7 +102,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGivenWithFirstArgJson() throws FileInputMissingException {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGivenWithFirstArgJson() {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);
@@ -206,9 +205,9 @@ public class CLInterfaceFunctionalityTests {
 
     @Test
     @SneakyThrows
-    public void interfaceShowsErrorMessageWhenArgConsoleAndInputFileNotFound() {
-        String fileName = INPUT_DATA_FOLDER + "something_new.txt";
-        String errorMessage = "File not found.";
+    public void interfaceShowsErrorMessageWhenArgConsoleAndMissingInput() {
+        String fileName = "";
+        String errorMessage = "Input not found.";
 
         System.setOut(printStream);
         CLInterface.main(new String[]{"-console", fileName, OUTPUT_DATA_FOLDER});
