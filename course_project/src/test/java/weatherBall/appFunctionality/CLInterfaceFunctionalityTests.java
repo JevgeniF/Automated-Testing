@@ -64,7 +64,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGiven() throws weatherBall.exception.FileNotFoundException, FileInputMissingException {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGiven() throws FileInputMissingException {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);
@@ -103,7 +103,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGivenWithFirstArgJson() throws weatherBall.exception.FileNotFoundException, FileInputMissingException {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGivenWithFirstArgJson() throws FileInputMissingException {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);
@@ -196,6 +196,19 @@ public class CLInterfaceFunctionalityTests {
     public void interfaceShowsErrorMessageWhenArgConsoleAndInputFileIsEmpty() {
         String fileName = INPUT_DATA_FOLDER + "empty_file.txt";
         String errorMessage = "File is empty.";
+
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-console", fileName, OUTPUT_DATA_FOLDER});
+
+        assertThat(outputStream.toString().trim())
+                .isEqualTo(errorMessage);
+    }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShowsErrorMessageWhenArgConsoleAndInputFileNotFound() {
+        String fileName = INPUT_DATA_FOLDER + "something_new.txt";
+        String errorMessage = "File not found.";
 
         System.setOut(printStream);
         CLInterface.main(new String[]{"-console", fileName, OUTPUT_DATA_FOLDER});
