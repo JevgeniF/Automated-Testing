@@ -54,7 +54,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfArgsConsoleAndCityGiven() {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongCityGiven() {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);

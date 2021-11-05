@@ -16,5 +16,14 @@ public class CLInterface {
                 System.out.printf("%s city not found!", args[1]);
             }
         }
+
+        if (args[0].equals("-c") && args[1].equals("-console")) {
+            weatherApi.setUnits("Celsius");
+            try {
+                System.out.println(weatherBall.getWeatherReport(args[2]).toString());
+            } catch (CityNotFoundException e) {
+                System.out.printf("%s city not found!", args[2]);
+            }
+        }
     }
 }
