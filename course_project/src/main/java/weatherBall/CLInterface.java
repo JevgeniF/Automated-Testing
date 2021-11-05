@@ -12,7 +12,7 @@ public class CLInterface {
 
     private static WeatherBall weatherBall;
 
-    public static void main(String[] args) throws WrongInputFormatException, FileIsEmptyException, FileNotFoundException, FileInputMissingException {
+    public static void main(String[] args) {
         WeatherApi weatherApi = new WeatherApi();
         weatherBall = new WeatherBall(weatherApi);
 

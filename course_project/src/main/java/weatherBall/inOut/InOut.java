@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  */
 public class InOut {
 
-    static Logger ioLogger = (Logger) LoggerFactory.getLogger("I/O interface");
+    static final Logger ioLogger = (Logger) LoggerFactory.getLogger("I/O interface");
 
     public static ArrayList<String> getCitiesFromFile(String fileName)
             throws WrongInputFormatException, FileNotFoundException, FileInputMissingException, FileIsEmptyException {

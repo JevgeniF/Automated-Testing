@@ -34,7 +34,7 @@ public class WeatherApi {
     private static final String FORECAST_URL = BASE_URL + "/forecast";
     private static final String API_KEY = "8e648a10ee12b0e82dd59dab605e8db4";
     private static final Client client = getConfiguredClient();
-    static Logger apiLogger = (Logger) LoggerFactory.getLogger("api.weatherApi");
+    static final Logger apiLogger = (Logger) LoggerFactory.getLogger("api.weatherApi");
     private static String UNITS = "metric";
 
     public static ClientResponse getCurrentWeatherResponse(String city) {

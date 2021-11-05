@@ -25,7 +25,7 @@ import java.util.Map;
 @SuppressWarnings("ClassCanBeRecord")
 public class WeatherBall {
 
-    static Logger yawsLogger = (Logger) LoggerFactory.getLogger("weatherBall");
+    static final Logger wbLogger = (Logger) LoggerFactory.getLogger("weatherBall");
 
     private final WeatherApi weatherApi;
 
@@ -57,10 +57,10 @@ public class WeatherBall {
                 WeatherReport weatherReport = getWeatherReport(city);
                 weatherReportList.add(weatherReport);
             } catch (CityNotFoundException e) {
-                yawsLogger.error("Exception occurred when tried to get weather report for all cities:\n{}", new CityNotFoundException().getMessage());
+                wbLogger.error("Exception occurred when tried to get weather report for all cities:\n{}", new CityNotFoundException().getMessage());
             }
         }
-        yawsLogger.info("Overloaded method used to get Weather Report List");
+        wbLogger.info("Overloaded method used to get Weather Report List");
         return weatherReportList;
     }
 
