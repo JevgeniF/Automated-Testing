@@ -6,7 +6,9 @@ import weatherBall.exception.*;
 import weatherBall.inOut.InOut;
 import weatherBall.model.WeatherReport;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CLInterface {
 
@@ -47,6 +49,18 @@ public class CLInterface {
                     jsonOut(args[1], jsonPath);
                 } else if (args.length == 3) {
                     jsonOut(args[1], args[2]);
+                }
+            }
+            default -> {
+                File consoleHelpFile = new File("src/main/java/weatherBall/console_help.txt");
+
+                try {
+                    Scanner scanner = new Scanner(consoleHelpFile);
+                    while (scanner.hasNextLine()) {
+                        System.out.println(scanner.nextLine());
+                    }
+                } catch (java.io.FileNotFoundException e) {
+                    System.out.println("You are on your own...");
                 }
             }
         }
