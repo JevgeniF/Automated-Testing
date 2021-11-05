@@ -8,11 +8,14 @@ import org.junit.jupiter.api.Test;
 import weatherBall.CLInterface;
 import weatherBall.WeatherBall;
 import weatherBall.api.WeatherApi;
+import weatherBall.inOut.InOut;
+import weatherBall.model.WeatherReport;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -21,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class CLInterfaceFunctionalityTests {
 
+    private static final String INPUT_DATA_FOLDER = "./src/main/resources/test_data/input/";
     private static final String OUTPUT_DATA_FOLDER = "./src/main/resources/test_data/output/";
     public static WeatherBall weatherBall;
     private PrintStream printStream;
@@ -158,5 +162,22 @@ public class CLInterfaceFunctionalityTests {
         } catch (FileNotFoundException e) {
             fail();
         }
+    }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShouldOutputWeatherReportToConsoleIfArgsConsoleAndFileGiven() {
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-console", INPUT_DATA_FOLDER + "cities.txt"});
+
+        ArrayList<String> cityList = InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "cities.txt");
+        ArrayList<WeatherReport> weatherReportList = weatherBall.getWeatherReport(cityList);
+        StringBuilder reports = new StringBuilder();
+        for (WeatherReport weatherReport : weatherReportList) {
+            reports.append(weatherReport).append("\n");
+        }
+        assertThat(outputStream.toString().trim())
+                .isEqualTo(reports.toString());
+
     }
 }
