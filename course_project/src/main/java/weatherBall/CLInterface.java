@@ -25,7 +25,6 @@ public class CLInterface {
                         stdOut(args[2]);
                         break;
                 }
-            default:
                 stdOut(args[1]);
                 break;
             case "-json":
@@ -43,12 +42,11 @@ public class CLInterface {
     }
 
     private static void jsonOut(String city, String jsonPath) {
-        WeatherReport weatherReport = new WeatherReport();
         try {
-            weatherReport = weatherBall.getWeatherReport(city);
+            WeatherReport weatherReport = weatherBall.getWeatherReport(city);
+            InOut.saveToJson(jsonPath, weatherReport);
         } catch (CityNotFoundException e) {
             System.out.printf("%s city not found!", city);
         }
-        InOut.saveToJson(jsonPath, weatherReport);
     }
 }
