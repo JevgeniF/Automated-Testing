@@ -2,6 +2,8 @@ package weatherBall;
 
 import weatherBall.api.WeatherApi;
 import weatherBall.exception.CityNotFoundException;
+import weatherBall.inOut.InOut;
+import weatherBall.model.WeatherReport;
 
 public class CLInterface {
 
@@ -16,24 +18,37 @@ public class CLInterface {
                 switch (args[1]) {
                     case "-c":
                         WeatherApi.setUnits("metric");
-                        stdout(args[2]);
+                        stdOut(args[2]);
                         break;
                     case "-f":
                         WeatherApi.setUnits("imperial");
-                        stdout(args[2]);
-                        break;
-                    default:
-                        stdout(args[1]);
+                        stdOut(args[2]);
                         break;
                 }
+            default:
+                stdOut(args[1]);
+                break;
+            case "-json":
+                jsonOut(args[1], args[2]);
+                break;
         }
     }
 
-    private static void stdout(String inputAttribute) {
+    private static void stdOut(String city) {
         try {
-            System.out.println(weatherBall.getWeatherReport(inputAttribute).toString());
+            System.out.println(weatherBall.getWeatherReport(city).toString());
         } catch (CityNotFoundException e) {
-            System.out.printf("%s city not found!", inputAttribute);
+            System.out.printf("%s city not found!", city);
         }
+    }
+
+    private static void jsonOut(String city, String jsonPath) {
+        WeatherReport weatherReport = new WeatherReport();
+        try {
+            weatherReport = weatherBall.getWeatherReport(city);
+        } catch (CityNotFoundException e) {
+            System.out.printf("%s city not found!", city);
+        }
+        InOut.saveToJson(jsonPath, weatherReport);
     }
 }
