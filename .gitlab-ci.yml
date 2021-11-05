@@ -6,7 +6,7 @@ stages:
     - Build
     - App Testing
     - CL Interface Testing
-    - Install
+    - Package Assembly
 
 app-build:
     tags:
@@ -95,7 +95,7 @@ cl-interface-tests:
 app-install:
     tags:
         - docker
-    stage: Install
+    stage: Package Assembly
     script:
         - cd course_project
-        - mvn install -Dmaven.test.skip=true
+        - mvn clean compile assembly:single
