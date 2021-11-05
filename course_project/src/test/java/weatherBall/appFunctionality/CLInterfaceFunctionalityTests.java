@@ -109,4 +109,15 @@ public class CLInterfaceFunctionalityTests {
                 .isEqualTo(errorMessage);
 
     }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShouldSaveToJsonInDefaultFolderIfArgsJsonCityOnly() {
+        String cityAsString = "Alabama";
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-json", cityAsString});
+
+        File outputFile = new File("Weather in Alabama.json");
+        assertTrue(outputFile.exists() && outputFile.getName().contains("Alabama"));
+    }
 }
