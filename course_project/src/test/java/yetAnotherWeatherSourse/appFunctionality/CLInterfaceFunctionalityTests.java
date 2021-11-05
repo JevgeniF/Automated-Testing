@@ -46,7 +46,7 @@ public class CLInterfaceFunctionalityTests {
         System.setOut(printStream);
         CLInterface.main(new String[] {"-console", cityAsString});
 
-        assertThat(outputStream.toString())
+        assertThat(outputStream.toString().trim())
                 .isEqualTo(yetAnotherWeatherSource.getWeatherReport("Alabama").toString());
 
     }
