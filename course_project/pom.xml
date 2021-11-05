@@ -180,7 +180,7 @@
                         <version>3.0.0-M5</version>
                         <configuration>
                             <includes>
-                                <include>**/*CLInterfaceTests*</include>
+                                <include>**/*CLInterfaceFunctionalityTests*</include>
                             </includes>
                         </configuration>
                     </plugin>
