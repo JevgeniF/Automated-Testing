@@ -231,4 +231,17 @@ public class CLInterfaceFunctionalityTests {
 
         Assertions.assertThat(jsonFileCount).isEqualTo(13);
     }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShowsErrorMessageWhenArgJsonAndInputFileNotTxt() {
+        String fileName = INPUT_DATA_FOLDER + "wrong_format.pdf";
+        String errorMessage = "File has wrong format. Only txt allowed.";
+
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-console", fileName});
+
+        assertThat(outputStream.toString().trim())
+                .isEqualTo(errorMessage);
+    }
 }
