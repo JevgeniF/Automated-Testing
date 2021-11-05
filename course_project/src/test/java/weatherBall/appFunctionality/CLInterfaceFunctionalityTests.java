@@ -1,5 +1,6 @@
 package weatherBall.appFunctionality;
 
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,12 +8,12 @@ import org.junit.jupiter.api.Test;
 import weatherBall.CLInterface;
 import weatherBall.WeatherBall;
 import weatherBall.api.WeatherApi;
-import weatherBall.exception.CityNotFoundException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CLInterfaceFunctionalityTests {
 
@@ -41,7 +42,8 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputWeatherReportToConsoleIfArgsConsoleAndCityGiven() throws CityNotFoundException {
+    @SneakyThrows
+    public void interfaceShouldOutputWeatherReportToConsoleIfArgsConsoleAndCityGiven() {
         String cityAsString = "Alabama";
         System.setOut(printStream);
         CLInterface.main(new String[]{"-console", cityAsString});
@@ -52,7 +54,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfArgsConsoleAndCityGiven() throws CityNotFoundException {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfArgsConsoleAndCityGiven() {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);
@@ -60,6 +62,17 @@ public class CLInterfaceFunctionalityTests {
 
         assertThat(outputStream.toString().trim())
                 .isEqualTo(errorMessage);
+
+    }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShouldOutputWeatherReportWithCelsiusToConsoleIfArgsCConsoleAndCityGiven() {
+        String cityAsString = "Alabama";
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-c", "-console", cityAsString});
+
+        assertTrue(outputStream.toString().trim().contains("Celsius"));
 
     }
 
