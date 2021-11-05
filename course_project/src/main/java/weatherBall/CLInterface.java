@@ -106,7 +106,7 @@ public class CLInterface {
             } catch (FileIsEmptyException e) {
                 System.out.println("File is empty.");
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                System.out.println("File not found.");
             } catch (FileInputMissingException ignore) {
             }
         }
