@@ -100,7 +100,7 @@ public class CLInterface {
             } catch (WrongInputFormatException e) {
                 System.out.println("File has wrong format. Only txt allowed.");
             } catch (FileIsEmptyException e) {
-                e.printStackTrace();
+                System.out.println("File is empty.");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (FileInputMissingException e) {
