@@ -67,7 +67,7 @@ public class InOut {
                     weatherReport.getWeatherReportDetails().getCity() +
                     ".json";
 
-            if(new File(fileLocationPath, fileName).exists()) {
+            if (new File(fileLocationPath, fileName).exists()) {
                 ioLogger.info("Overwriting existing weather report: {}", fileName);
             }
 

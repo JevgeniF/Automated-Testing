@@ -1,52 +1,52 @@
 <configuration debug="false">
 
-<!--    STDOUT output disabled to not interfere with user interface. Uncomment next lines for debuggind.
+    <!--    STDOUT output disabled to not interfere with user interface. Uncomment next lines for debuggind.
 
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-        <withJansi>true</withJansi>
-        <encoder>
-            <pattern>%d{HH:mm:ss} %blue(%-5level) > %cyan(%class{15}) > %yellow(%method) - %msg%n</pattern>
-        </encoder>
-    </appender>
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>INFO</level>
+            </filter>
+            <withJansi>true</withJansi>
+            <encoder>
+                <pattern>%d{HH:mm:ss} %blue(%-5level) > %cyan(%class{15}) > %yellow(%method) - %msg%n</pattern>
+            </encoder>
+        </appender>
 
-    <root level="debug">
-        <appender-ref ref="STDOUT"/>
-    </root>
+        <root level="debug">
+            <appender-ref ref="STDOUT"/>
+        </root>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>ERROR</level>
-        </filter>
-        <withJansi>true</withJansi>
-        <encoder>
-            <pattern>%d{HH:mm:ss} %red(%-5level) > %cyan(%class{15}) > %yellow(%method) - %msg%n</pattern>
-        </encoder>
-    </appender>
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>ERROR</level>
+            </filter>
+            <withJansi>true</withJansi>
+            <encoder>
+                <pattern>%d{HH:mm:ss} %red(%-5level) > %cyan(%class{15}) > %yellow(%method) - %msg%n</pattern>
+            </encoder>
+        </appender>
 
-    <root level="debug">
-        <appender-ref ref="STDOUT"/>
-    </root>
+        <root level="debug">
+            <appender-ref ref="STDOUT"/>
+        </root>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>WARN</level>
-        </filter>
-        <withJansi>true</withJansi>
-        <encoder>
-            <pattern>%d{HH:mm:ss} %yellow(%-5level) > %cyan(%class{15}) > %yellow(%method) - %msg%n</pattern>
-        </encoder>
-    </appender>
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>WARN</level>
+            </filter>
+            <withJansi>true</withJansi>
+            <encoder>
+                <pattern>%d{HH:mm:ss} %yellow(%-5level) > %cyan(%class{15}) > %yellow(%method) - %msg%n</pattern>
+            </encoder>
+        </appender>
 
-    <root level="debug">
-        <appender-ref ref="STDOUT"/>
-    </root>
+        <root level="debug">
+            <appender-ref ref="STDOUT"/>
+        </root>
 
 
-    -->
+        -->
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>LogFile.log</file>
