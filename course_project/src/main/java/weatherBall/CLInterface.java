@@ -83,7 +83,7 @@ public class CLInterface {
         }
     }
 
-    private static void jsonOut(String input, String jsonPath) throws WrongInputFormatException, FileIsEmptyException, FileNotFoundException, FileInputMissingException {
+    private static void jsonOut(String input, String jsonPath) {
         if (FilenameUtils.getExtension(input).isEmpty()) {
             try {
                 WeatherReport weatherReport = weatherBall.getWeatherReport(input);
@@ -97,7 +97,15 @@ public class CLInterface {
                 ArrayList<WeatherReport> weatherReportList = weatherBall.getWeatherReport(cityList);
 
                 InOut.saveToJson(jsonPath, weatherReportList);
-            } catch (Exception ignore) {}
+            } catch (WrongInputFormatException e) {
+                System.out.println("File has wrong format. Only txt allowed.");
+            } catch (FileIsEmptyException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (FileInputMissingException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

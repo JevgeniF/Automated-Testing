@@ -239,7 +239,7 @@ public class CLInterfaceFunctionalityTests {
         String errorMessage = "File has wrong format. Only txt allowed.";
 
         System.setOut(printStream);
-        CLInterface.main(new String[]{"-console", fileName});
+        CLInterface.main(new String[]{"-json", fileName});
 
         assertThat(outputStream.toString().trim())
                 .isEqualTo(errorMessage);
