@@ -9,8 +9,6 @@ import weatherBall.CLInterface;
 import weatherBall.WeatherBall;
 import weatherBall.api.WeatherApi;
 import weatherBall.exception.FileInputMissingException;
-import weatherBall.exception.FileIsEmptyException;
-import weatherBall.exception.WrongInputFormatException;
 import weatherBall.inOut.InOut;
 import weatherBall.model.WeatherReport;
 
@@ -66,7 +64,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGiven() throws FileIsEmptyException, weatherBall.exception.FileNotFoundException, FileInputMissingException {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGiven() throws weatherBall.exception.FileNotFoundException, FileInputMissingException {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);
@@ -105,7 +103,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGivenWithFirstArgJson() throws FileIsEmptyException, weatherBall.exception.FileNotFoundException, FileInputMissingException {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGivenWithFirstArgJson() throws weatherBall.exception.FileNotFoundException, FileInputMissingException {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);
@@ -184,7 +182,20 @@ public class CLInterfaceFunctionalityTests {
     @SneakyThrows
     public void interfaceShowsErrorMessageWhenArgConsoleAndInputFileNotTxt() {
         String fileName = INPUT_DATA_FOLDER + "wrong_format.pdf";
-        String errorMessage = "File has wrong format. Only txt allowed";
+        String errorMessage = "File has wrong format. Only txt allowed.";
+
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-console", fileName, OUTPUT_DATA_FOLDER});
+
+        assertThat(outputStream.toString().trim())
+                .isEqualTo(errorMessage);
+    }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShowsErrorMessageWhenArgConsoleAndInputFileIsEmpty() {
+        String fileName = INPUT_DATA_FOLDER + "empty_file.txt";
+        String errorMessage = "File is empty.";
 
         System.setOut(printStream);
         CLInterface.main(new String[]{"-console", fileName, OUTPUT_DATA_FOLDER});
