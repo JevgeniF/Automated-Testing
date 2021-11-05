@@ -12,11 +12,12 @@ public class CLInterface {
 
     private static WeatherBall weatherBall;
 
-    public static void main(String[] args) throws WrongInputFormatException, FileIsEmptyException, FileNotFoundException, FileInputMissingException {
+    public static void main(String[] args) throws FileIsEmptyException, FileNotFoundException, FileInputMissingException {
         WeatherApi weatherApi = new WeatherApi();
         weatherBall = new WeatherBall(weatherApi);
 
         String jsonPath = "";
+
         switch (args[0]) {
             case "-console" -> {
                 switch (args[1]) {
@@ -51,7 +52,7 @@ public class CLInterface {
         }
     }
 
-    private static void stdOut(String input) throws WrongInputFormatException, FileIsEmptyException, FileNotFoundException, FileInputMissingException {
+    private static void stdOut(String input) throws FileIsEmptyException, FileNotFoundException, FileInputMissingException {
         if (FilenameUtils.getExtension(input).isEmpty()) {
             try {
                 System.out.println(weatherBall.getWeatherReport(input).toString());
@@ -59,10 +60,15 @@ public class CLInterface {
                 System.out.printf("%s city not found!", input);
             }
         } else {
-            ArrayList<String> cityList = InOut.getCitiesFromFile(input);
-            ArrayList<WeatherReport> weatherReportList = weatherBall.getWeatherReport(cityList);
-            for (WeatherReport weatherReport : weatherReportList) {
-                System.out.println(weatherReport.toString());
+            try {
+                ArrayList<String> cityList = InOut.getCitiesFromFile(input);
+                ArrayList<WeatherReport> weatherReportList = weatherBall.getWeatherReport(cityList);
+
+                for (WeatherReport weatherReport : weatherReportList) {
+                    System.out.println(weatherReport.toString());
+                }
+            } catch (WrongInputFormatException e) {
+                System.out.println("File has wrong format. Only txt allowed");
             }
         }
 

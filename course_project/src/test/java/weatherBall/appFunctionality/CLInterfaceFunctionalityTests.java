@@ -66,7 +66,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGiven() throws WrongInputFormatException, FileIsEmptyException, weatherBall.exception.FileNotFoundException, FileInputMissingException {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGiven() throws FileIsEmptyException, weatherBall.exception.FileNotFoundException, FileInputMissingException {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);
@@ -105,7 +105,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGivenWithFirstArgJson() throws WrongInputFormatException, FileIsEmptyException, weatherBall.exception.FileNotFoundException, FileInputMissingException {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGivenWithFirstArgJson() throws FileIsEmptyException, weatherBall.exception.FileNotFoundException, FileInputMissingException {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);
@@ -187,7 +187,7 @@ public class CLInterfaceFunctionalityTests {
         String errorMessage = "File has wrong format. Only txt allowed";
 
         System.setOut(printStream);
-        CLInterface.main(new String[]{"-json", fileName, OUTPUT_DATA_FOLDER});
+        CLInterface.main(new String[]{"-console", fileName, OUTPUT_DATA_FOLDER});
 
         assertThat(outputStream.toString().trim())
                 .isEqualTo(errorMessage);
