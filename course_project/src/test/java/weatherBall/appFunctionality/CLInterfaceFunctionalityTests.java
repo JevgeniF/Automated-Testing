@@ -27,10 +27,10 @@ public class CLInterfaceFunctionalityTests {
     private static final String INPUT_DATA_FOLDER = "./src/main/resources/test_data/input/";
     private static final String OUTPUT_DATA_FOLDER = "./src/main/resources/test_data/output/";
     public static WeatherBall weatherBall;
+    String cityAsString = "Alabama";
     private PrintStream printStream;
     private PrintStream oldPrintStream;
     private ByteArrayOutputStream outputStream;
-    String cityAsString = "Alabama";
 
     @BeforeAll
     static void setUp() {
