@@ -21,11 +21,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class CLInterfaceFunctionalityTests {
 
+    private static final String OUTPUT_DATA_FOLDER = "./src/main/resources/test_data/output/";
     public static WeatherBall weatherBall;
     private PrintStream printStream;
     private PrintStream oldPrintStream;
     private ByteArrayOutputStream outputStream;
-    private static final String OUTPUT_DATA_FOLDER = "./src/main/resources/test_data/output/";
 
     @BeforeAll
     static void setUp() {
@@ -135,8 +135,8 @@ public class CLInterfaceFunctionalityTests {
             if (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 assertTrue(line.contains("Celsius"));
-                }
-            } catch (FileNotFoundException e) {
+            }
+        } catch (FileNotFoundException e) {
             fail();
         }
     }

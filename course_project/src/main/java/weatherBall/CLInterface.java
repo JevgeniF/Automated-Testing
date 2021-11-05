@@ -32,19 +32,11 @@ public class CLInterface {
                 switch (args[1]) {
                     case "-c" -> {
                         WeatherApi.setUnits("metric");
-                        if (args.length == 3) {
-                            jsonOut(args[2], jsonPath);
-                        } else {
-                            jsonOut(args[2], args[3]);
-                        }
+                        jsonOut(args[2], args.length == 3 ? jsonPath : args[3]);
                     }
                     case "-f" -> {
                         WeatherApi.setUnits("imperial");
-                        if (args.length == 3) {
-                            jsonOut(args[2], jsonPath);
-                        } else {
-                            jsonOut(args[2], args[3]);
-                        }
+                        jsonOut(args[2], args.length == 3 ? jsonPath : args[3]);
                     }
                 }
                 if (args.length == 2) {
