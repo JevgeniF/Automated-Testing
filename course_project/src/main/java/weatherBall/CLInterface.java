@@ -5,25 +5,35 @@ import weatherBall.exception.CityNotFoundException;
 
 public class CLInterface {
 
+    private static WeatherBall weatherBall;
+
     public static void main(String[] args) {
         WeatherApi weatherApi = new WeatherApi();
-        WeatherBall weatherBall = new WeatherBall(weatherApi);
+        weatherBall = new WeatherBall(weatherApi);
 
-        if (args[0].equals("-console")) {
-            try {
-                System.out.println(weatherBall.getWeatherReport(args[1]).toString());
-            } catch (CityNotFoundException e) {
-                System.out.printf("%s city not found!", args[1]);
-            }
+        switch (args[0]) {
+            case "-console":
+                switch (args[1]) {
+                    case "-c":
+                        WeatherApi.setUnits("metric");
+                        stdout(args[2]);
+                        break;
+                    case "-f":
+                        WeatherApi.setUnits("imperial");
+                        stdout(args[2]);
+                        break;
+                    default:
+                        stdout(args[1]);
+                        break;
+                }
         }
+    }
 
-        if (args[1].equals("-console")) {
-            if (args[0].equals("-f")) { WeatherApi.setUnits("imperial"); }
-            try {
-                System.out.println(weatherBall.getWeatherReport(args[2]).toString());
-            } catch (CityNotFoundException e) {
-                System.out.printf("%s city not found!", args[2]);
-            }
+    private static void stdout(String inputAttribute) {
+        try {
+            System.out.println(weatherBall.getWeatherReport(inputAttribute).toString());
+        } catch (CityNotFoundException e) {
+            System.out.printf("%s city not found!", inputAttribute);
         }
     }
 }

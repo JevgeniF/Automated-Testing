@@ -70,7 +70,7 @@ public class CLInterfaceFunctionalityTests {
     public void interfaceShouldOutputWeatherReportWithCelsiusToConsoleIfArgsCConsoleAndCityGiven() {
         String cityAsString = "Alabama";
         System.setOut(printStream);
-        CLInterface.main(new String[]{"-c", "-console", cityAsString});
+        CLInterface.main(new String[]{"-console", "-c", cityAsString});
 
         assertTrue(outputStream.toString().trim().contains("Celsius"));
 
@@ -81,7 +81,7 @@ public class CLInterfaceFunctionalityTests {
     public void interfaceShouldOutputWeatherReportWithFahrenheitToConsoleIfArgsFConsoleAndCityGiven() {
         String cityAsString = "Alabama";
         System.setOut(printStream);
-        CLInterface.main(new String[]{"-f", "-console", cityAsString});
+        CLInterface.main(new String[]{"-console", "-f", cityAsString});
         assertTrue(outputStream.toString().trim().contains("Fahrenheit"));
     }
 
