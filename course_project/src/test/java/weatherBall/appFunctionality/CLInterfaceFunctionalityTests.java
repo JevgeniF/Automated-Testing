@@ -11,10 +11,13 @@ import weatherBall.api.WeatherApi;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.Scanner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class CLInterfaceFunctionalityTests {
 
@@ -69,7 +72,7 @@ public class CLInterfaceFunctionalityTests {
 
     @Test
     @SneakyThrows
-    public void interfaceShouldOutputWeatherReportWithCelsiusToConsoleIfArgsCConsoleAndCityGiven() {
+    public void interfaceShouldOutputWeatherReportWithCelsiusToConsoleIfArgsConsoleCAndCityGiven() {
         String cityAsString = "Alabama";
         System.setOut(printStream);
         CLInterface.main(new String[]{"-console", "-c", cityAsString});
@@ -80,7 +83,7 @@ public class CLInterfaceFunctionalityTests {
 
     @Test
     @SneakyThrows
-    public void interfaceShouldOutputWeatherReportWithFahrenheitToConsoleIfArgsFConsoleAndCityGiven() {
+    public void interfaceShouldOutputWeatherReportWithFahrenheitToConsoleIfArgsConsoleFAndCityGiven() {
         String cityAsString = "Alabama";
         System.setOut(printStream);
         CLInterface.main(new String[]{"-console", "-f", cityAsString});
@@ -91,7 +94,6 @@ public class CLInterfaceFunctionalityTests {
     @SneakyThrows
     public void interfaceShouldSaveToJsonIfArgsJsonCityAndOutputPathGiven() {
         String cityAsString = "Alabama";
-        System.setOut(printStream);
         CLInterface.main(new String[]{"-json", cityAsString, OUTPUT_DATA_FOLDER});
 
         File outputFile = new File(OUTPUT_DATA_FOLDER + "Weather in Alabama.json");
@@ -112,12 +114,35 @@ public class CLInterfaceFunctionalityTests {
 
     @Test
     @SneakyThrows
-    public void interfaceShouldSaveToJsonInDefaultFolderIfArgsJsonCityOnly() {
+    public void interfaceShouldSaveToJsonInDefaultFolderIfArgsHasNoPath() {
         String cityAsString = "Alabama";
-        System.setOut(printStream);
         CLInterface.main(new String[]{"-json", cityAsString});
 
         File outputFile = new File("Weather in Alabama.json");
         assertTrue(outputFile.exists() && outputFile.getName().contains("Alabama"));
+    }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShouldSaveJsonWithCelsiusIfArgsConsoleFAndCityGiven() {
+        String cityAsString = "Alabama";
+        CLInterface.main(new String[]{"-json", "-c", cityAsString, OUTPUT_DATA_FOLDER});
+
+        File outputFile = new File(OUTPUT_DATA_FOLDER + "Weather in Alabama.json");
+
+        try {
+            Scanner scanner = new Scanner(outputFile);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                assertTrue(line.contains("Celsius"));
+                break;
+                }
+            } catch (FileNotFoundException e) {
+            fail();
+        }
+        assertTrue(outputFile.exists() && outputFile.getName().contains("Alabama"));
+
+        assertTrue(outputStream.toString().trim().contains("Celsius"));
+
     }
 }
