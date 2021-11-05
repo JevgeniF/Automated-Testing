@@ -33,6 +33,7 @@ public class CLInterfaceFunctionalityTests {
     private PrintStream printStream;
     private PrintStream oldPrintStream;
     private ByteArrayOutputStream outputStream;
+    String cityAsString = "Alabama";
 
     @BeforeAll
     static void setUp() {
@@ -55,8 +56,7 @@ public class CLInterfaceFunctionalityTests {
 
     @Test
     @SneakyThrows
-    public void interfaceShouldOutputWeatherReportToConsoleIfArgsConsoleAndCityGiven() {
-        String cityAsString = "Alabama";
+    public void interfaceShouldOutputWeatherReportToConsoleIfArgsConsoleAndInputGiven() {
         System.setOut(printStream);
         CLInterface.main(new String[]{"-console", cityAsString});
 
@@ -66,7 +66,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongCityGiven() throws WrongInputFormatException, FileIsEmptyException, weatherBall.exception.FileNotFoundException, FileInputMissingException {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGiven() throws WrongInputFormatException, FileIsEmptyException, weatherBall.exception.FileNotFoundException, FileInputMissingException {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);
@@ -79,8 +79,7 @@ public class CLInterfaceFunctionalityTests {
 
     @Test
     @SneakyThrows
-    public void interfaceShouldOutputWeatherReportWithCelsiusToConsoleIfArgsConsoleCAndCityGiven() {
-        String cityAsString = "Alabama";
+    public void interfaceShouldOutputWeatherReportWithCelsiusToConsoleIfArgsConsoleCAndInputGiven() {
         System.setOut(printStream);
         CLInterface.main(new String[]{"-console", "-c", cityAsString});
 
@@ -90,8 +89,7 @@ public class CLInterfaceFunctionalityTests {
 
     @Test
     @SneakyThrows
-    public void interfaceShouldOutputWeatherReportWithFahrenheitToConsoleIfArgsConsoleFAndCityGiven() {
-        String cityAsString = "Alabama";
+    public void interfaceShouldOutputWeatherReportWithFahrenheitToConsoleIfArgsConsoleFAndInputGiven() {
         System.setOut(printStream);
         CLInterface.main(new String[]{"-console", "-f", cityAsString});
         assertTrue(outputStream.toString().trim().contains("Fahrenheit"));
@@ -99,8 +97,7 @@ public class CLInterfaceFunctionalityTests {
 
     @Test
     @SneakyThrows
-    public void interfaceShouldSaveToJsonIfArgsJsonCityAndOutputPathGiven() {
-        String cityAsString = "Alabama";
+    public void interfaceShouldSaveToJsonIfArgsJsonInputAndOutputPathGiven() {
         CLInterface.main(new String[]{"-json", cityAsString, OUTPUT_DATA_FOLDER});
 
         File outputFile = new File(OUTPUT_DATA_FOLDER + "Weather in Alabama.json");
@@ -108,7 +105,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongCityGivenWithFirstArgJson() throws WrongInputFormatException, FileIsEmptyException, weatherBall.exception.FileNotFoundException, FileInputMissingException {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGivenWithFirstArgJson() throws WrongInputFormatException, FileIsEmptyException, weatherBall.exception.FileNotFoundException, FileInputMissingException {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);
@@ -122,7 +119,6 @@ public class CLInterfaceFunctionalityTests {
     @Test
     @SneakyThrows
     public void interfaceShouldSaveToJsonInDefaultFolderIfArgsHasNoPath() {
-        String cityAsString = "Alabama";
         CLInterface.main(new String[]{"-json", cityAsString});
 
         File outputFile = new File("Weather in Alabama.json");
@@ -132,7 +128,6 @@ public class CLInterfaceFunctionalityTests {
     @Test
     @SneakyThrows
     public void interfaceShouldSaveJsonWithCelsiusIfArgsConsoleCAndCityGiven() {
-        String cityAsString = "Alabama";
         CLInterface.main(new String[]{"-json", "-c", cityAsString, OUTPUT_DATA_FOLDER});
 
         File outputFile = new File(OUTPUT_DATA_FOLDER + "Weather in Alabama.json");
@@ -151,7 +146,6 @@ public class CLInterfaceFunctionalityTests {
     @Test
     @SneakyThrows
     public void interfaceShouldSaveJsonWithFahrenheitIfArgsConsoleFAndCityGiven() {
-        String cityAsString = "Alabama";
         CLInterface.main(new String[]{"-json", "-c", cityAsString, OUTPUT_DATA_FOLDER});
 
         File outputFile = new File(OUTPUT_DATA_FOLDER + "Weather in Alabama.json");
@@ -169,11 +163,13 @@ public class CLInterfaceFunctionalityTests {
 
     @Test
     @SneakyThrows
-    public void interfaceShouldOutputWeatherReportToConsoleIfArgsConsoleAndFileGiven() {
-        System.setOut(printStream);
-        CLInterface.main(new String[]{"-console", INPUT_DATA_FOLDER + "cities.txt"});
+    public void interfaceShouldOutputWeatherReportToConsoleIfArgsConsoleAndInputFileGiven() {
+        String fileName = INPUT_DATA_FOLDER + "cities.txt";
 
-        ArrayList<String> cityList = InOut.getCitiesFromFile(INPUT_DATA_FOLDER + "cities.txt");
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-console", fileName});
+
+        ArrayList<String> cityList = InOut.getCitiesFromFile(fileName);
         ArrayList<WeatherReport> weatherReportList = weatherBall.getWeatherReport(cityList);
         StringBuilder reports = new StringBuilder();
         for (WeatherReport weatherReport : weatherReportList) {
@@ -182,5 +178,18 @@ public class CLInterfaceFunctionalityTests {
         assertThat(outputStream.toString())
                 .isEqualTo(reports.toString());
 
+    }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShowsErrorMessageWhenArgConsoleAndInputFileNotTxt() {
+        String fileName = INPUT_DATA_FOLDER + "wrong_format.pdf";
+        String errorMessage = "File has wrong format. Only txt allowed";
+
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-json", fileName, OUTPUT_DATA_FOLDER});
+
+        assertThat(outputStream.toString().trim())
+                .isEqualTo(errorMessage);
     }
 }
