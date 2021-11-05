@@ -38,6 +38,14 @@ public class CLInterface {
                             jsonOut(args[2], args[3]);
                         }
                     }
+                    case "-f" -> {
+                        WeatherApi.setUnits("imperial");
+                        if (args.length == 3) {
+                            jsonOut(args[2], jsonPath);
+                        } else {
+                            jsonOut(args[2], args[3]);
+                        }
+                    }
                 }
                 if (args.length == 2) {
                     jsonOut(args[1], jsonPath);
