@@ -208,6 +208,19 @@ public class CLInterfaceFunctionalityTests {
 
     @Test
     @SneakyThrows
+    public void interfaceShowsErrorMessageWhenArgConsoleAndInputFileNotFound() {
+        String fileName = INPUT_DATA_FOLDER + "something_new.txt";
+        String errorMessage = "File not found.";
+
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-console", fileName, OUTPUT_DATA_FOLDER});
+
+        assertThat(outputStream.toString().trim())
+                .isEqualTo(errorMessage);
+    }
+
+    @Test
+    @SneakyThrows
     public void interfaceShowsErrorMessageWhenArgConsoleAndMissingInput() {
         String fileName = "";
         String errorMessage = "Input not found.";
@@ -263,6 +276,19 @@ public class CLInterfaceFunctionalityTests {
     public void interfaceShowsErrorMessageWhenArgJsonAndMissingInput() {
         String fileName = "";
         String errorMessage = "Input not found.";
+
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-json", fileName});
+
+        assertThat(outputStream.toString().trim())
+                .isEqualTo(errorMessage);
+    }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShowsErrorMessageWhenArgJsonAndInputFileNotFound() {
+        String fileName = INPUT_DATA_FOLDER + "something_new.txt";
+        String errorMessage = "File not found.";
 
         System.setOut(printStream);
         CLInterface.main(new String[]{"-json", fileName});
