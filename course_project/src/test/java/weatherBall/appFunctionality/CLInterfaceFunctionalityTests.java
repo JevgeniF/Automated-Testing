@@ -257,4 +257,17 @@ public class CLInterfaceFunctionalityTests {
         assertThat(outputStream.toString().trim())
                 .isEqualTo(errorMessage);
     }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShowsErrorMessageWhenArgJsonAndMissingInput() {
+        String fileName = "";
+        String errorMessage = "Input not found.";
+
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-json", fileName});
+
+        assertThat(outputStream.toString().trim())
+                .isEqualTo(errorMessage);
+    }
 }
