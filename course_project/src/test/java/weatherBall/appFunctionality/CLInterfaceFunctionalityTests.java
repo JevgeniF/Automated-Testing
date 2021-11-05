@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Tests for Command Line Interface Functionality.
- * 20 tests.
+ * 21 tests.
  */
 public class CLInterfaceFunctionalityTests {
 
@@ -43,6 +43,10 @@ public class CLInterfaceFunctionalityTests {
     static void setUp() {
         WeatherApi weatherApi = new WeatherApi();
         weatherBall = new WeatherBall(weatherApi);
+        File outputDirectory = new File(OUTPUT_DATA_FOLDER);
+        File batchDirectory = new File(OUTPUT_DATA_FOLDER + "/batch");
+        outputDirectory.mkdir();
+        batchDirectory.mkdir();
     }
 
     @BeforeEach

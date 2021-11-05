@@ -33,6 +33,12 @@ public class InputOutputIntegrationTests {
     public static void setUp() {
         WeatherApi weatherApi = new WeatherApi();
         weatherBall = new WeatherBall(weatherApi);
+        File outputDirectory = new File(OUTPUT_DATA_FOLDER);
+        File batchDirectory = new File(OUTPUT_DATA_FOLDER + "/batch");
+        File batchErrDirectory = new File("./src/main/resources/test_data/output/batch_error");
+        outputDirectory.mkdir();
+        batchDirectory.mkdir();
+        batchErrDirectory.mkdir();
     }
 
     @Test
