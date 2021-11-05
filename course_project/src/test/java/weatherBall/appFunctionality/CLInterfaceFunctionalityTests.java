@@ -50,4 +50,17 @@ public class CLInterfaceFunctionalityTests {
                 .isEqualTo(weatherBall.getWeatherReport("Alabama").toString());
 
     }
+
+    @Test
+    public void interfaceShouldOutputCityNotFoundToConsoleIfArgsConsoleAndCityGiven() throws CityNotFoundException {
+        String cityAsString = "Muhosransk";
+        String errorMessage = String.format("%s city not found!", cityAsString);
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-console", cityAsString});
+
+        assertThat(outputStream.toString().trim())
+                .isEqualTo(errorMessage);
+
+    }
+
 }
