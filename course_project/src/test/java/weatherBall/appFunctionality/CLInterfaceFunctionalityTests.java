@@ -24,6 +24,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Tests for Command Line Interface Functionality.
+ * 20 tests.
+ */
 public class CLInterfaceFunctionalityTests {
 
     private static final String INPUT_DATA_FOLDER = "./src/main/resources/test_data/input/";

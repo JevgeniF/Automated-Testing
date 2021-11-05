@@ -10,6 +10,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Command Line Interface. Adds functionality to app for easier interaction with user.
+ */
 public class CLInterface {
 
     private static WeatherBall weatherBall;
