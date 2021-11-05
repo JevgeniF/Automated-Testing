@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import weatherBall.CLInterface;
 import weatherBall.WeatherBall;
 import weatherBall.api.WeatherApi;
+import weatherBall.exception.FileInputMissingException;
+import weatherBall.exception.FileIsEmptyException;
+import weatherBall.exception.WrongInputFormatException;
 import weatherBall.inOut.InOut;
 import weatherBall.model.WeatherReport;
 
@@ -63,7 +66,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongCityGiven() {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongCityGiven() throws WrongInputFormatException, FileIsEmptyException, weatherBall.exception.FileNotFoundException, FileInputMissingException {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);
@@ -105,7 +108,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
-    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongCityGivenWithFirstArgJson() {
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongCityGivenWithFirstArgJson() throws WrongInputFormatException, FileIsEmptyException, weatherBall.exception.FileNotFoundException, FileInputMissingException {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
         System.setOut(printStream);
@@ -176,7 +179,7 @@ public class CLInterfaceFunctionalityTests {
         for (WeatherReport weatherReport : weatherReportList) {
             reports.append(weatherReport).append("\n");
         }
-        assertThat(outputStream.toString().trim())
+        assertThat(outputStream.toString())
                 .isEqualTo(reports.toString());
 
     }

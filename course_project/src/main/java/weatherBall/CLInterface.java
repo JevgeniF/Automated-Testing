@@ -1,15 +1,18 @@
 package weatherBall;
 
+import org.apache.commons.io.FilenameUtils;
 import weatherBall.api.WeatherApi;
-import weatherBall.exception.CityNotFoundException;
+import weatherBall.exception.*;
 import weatherBall.inOut.InOut;
 import weatherBall.model.WeatherReport;
+
+import java.util.ArrayList;
 
 public class CLInterface {
 
     private static WeatherBall weatherBall;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws WrongInputFormatException, FileIsEmptyException, FileNotFoundException, FileInputMissingException {
         WeatherApi weatherApi = new WeatherApi();
         weatherBall = new WeatherBall(weatherApi);
 
@@ -48,12 +51,22 @@ public class CLInterface {
         }
     }
 
-    private static void stdOut(String city) {
-        try {
-            System.out.println(weatherBall.getWeatherReport(city).toString());
-        } catch (CityNotFoundException e) {
-            System.out.printf("%s city not found!", city);
+    private static void stdOut(String input) throws WrongInputFormatException, FileIsEmptyException, FileNotFoundException, FileInputMissingException {
+        if (FilenameUtils.getExtension(input).isEmpty()) {
+            try {
+                System.out.println(weatherBall.getWeatherReport(input).toString());
+            } catch (CityNotFoundException e) {
+                System.out.printf("%s city not found!", input);
+            }
+        } else {
+            ArrayList<String> cityList = InOut.getCitiesFromFile(input);
+            ArrayList<WeatherReport> weatherReportList = weatherBall.getWeatherReport(cityList);
+            for (WeatherReport weatherReport : weatherReportList) {
+                System.out.println(weatherReport.toString());
+            }
         }
+
+
     }
 
     private static void jsonOut(String city, String jsonPath) {
