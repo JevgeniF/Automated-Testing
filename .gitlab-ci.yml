@@ -5,6 +5,7 @@ image: maven:latest
 stages:
     - Build
     - App Testing
+    - CL Interface Testing
     - Install
 
 app-build:
@@ -23,7 +24,7 @@ mock-integration-tests:
     script:
         - cd course_project
         - mvn test -Pmock-integration-tests
-        - echo "api integration tests completed"
+        - echo "mock integration tests completed"
     
     artifacts:
         when: always
@@ -68,7 +69,22 @@ io-integration-tests:
     script:
         - cd course_project
         - mvn test -Pio-integration-tests
-        - echo "app functionality tests completed"
+        - echo "input-output tests completed"
+
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - course_project/target/surefire-reports/TEST-*.xml
+
+cl-interface-tests:
+    tags:
+        - docker
+    stage: CL Interface Testing
+    script:
+        - cd course_project
+        - mvn test -Pcl-interface-tests
+        - echo "cl interface tests completed"
 
     artifacts:
         when: always
