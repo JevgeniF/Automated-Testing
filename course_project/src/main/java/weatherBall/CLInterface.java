@@ -12,7 +12,7 @@ public class CLInterface {
 
     private static WeatherBall weatherBall;
 
-    public static void main(String[] args) throws FileNotFoundException, FileInputMissingException {
+    public static void main(String[] args) throws FileInputMissingException {
         WeatherApi weatherApi = new WeatherApi();
         weatherBall = new WeatherBall(weatherApi);
 
@@ -52,7 +52,7 @@ public class CLInterface {
         }
     }
 
-    private static void stdOut(String input) throws FileNotFoundException, FileInputMissingException {
+    private static void stdOut(String input) throws FileInputMissingException {
         if (FilenameUtils.getExtension(input).isEmpty()) {
             try {
                 System.out.println(weatherBall.getWeatherReport(input).toString());
@@ -71,6 +71,8 @@ public class CLInterface {
                 System.out.println("File has wrong format. Only txt allowed.");
             } catch (FileIsEmptyException e) {
                 System.out.println("File is empty.");
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found.");
             }
         }
 
