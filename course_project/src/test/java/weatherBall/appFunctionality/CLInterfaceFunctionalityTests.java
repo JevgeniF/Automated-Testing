@@ -97,4 +97,16 @@ public class CLInterfaceFunctionalityTests {
         File outputFile = new File(OUTPUT_DATA_FOLDER + "Weather in Alabama.json");
         assertTrue(outputFile.exists() && outputFile.getName().contains("Alabama"));
     }
+
+    @Test
+    public void interfaceShouldOutputCityNotFoundToConsoleIfWrongCityGivenWithFirstArgJson() {
+        String cityAsString = "Muhosransk";
+        String errorMessage = String.format("%s city not found!", cityAsString);
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-json", cityAsString, OUTPUT_DATA_FOLDER});
+
+        assertThat(outputStream.toString().trim())
+                .isEqualTo(errorMessage);
+
+    }
 }
