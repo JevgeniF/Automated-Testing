@@ -8,33 +8,43 @@ import weatherBall.model.WeatherReport;
 public class CLInterface {
 
     private static WeatherBall weatherBall;
-    private static String jsonPath = "";
 
     public static void main(String[] args) {
         WeatherApi weatherApi = new WeatherApi();
         weatherBall = new WeatherBall(weatherApi);
 
+        String jsonPath = "";
         switch (args[0]) {
-            case "-console":
+            case "-console" -> {
                 switch (args[1]) {
-                    case "-c":
+                    case "-c" -> {
                         WeatherApi.setUnits("metric");
                         stdOut(args[2]);
-                        break;
-                    case "-f":
+                    }
+                    case "-f" -> {
                         WeatherApi.setUnits("imperial");
                         stdOut(args[2]);
-                        break;
+                    }
                 }
                 stdOut(args[1]);
-                break;
-            case "-json":
+            }
+            case "-json" -> {
+                switch (args[1]) {
+                    case "-c" -> {
+                        WeatherApi.setUnits("metric");
+                        if (args.length == 3) {
+                            jsonOut(args[2], jsonPath);
+                        } else {
+                            jsonOut(args[2], args[3]);
+                        }
+                    }
+                }
                 if (args.length == 2) {
                     jsonOut(args[1], jsonPath);
-                } else {
+                } else if (args.length == 3) {
                     jsonOut(args[1], args[2]);
                 }
-                break;
+            }
         }
     }
 
