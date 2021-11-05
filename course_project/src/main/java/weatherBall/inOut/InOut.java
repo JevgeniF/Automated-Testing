@@ -63,6 +63,14 @@ public class InOut {
     public static void saveToJson(String fileLocationPath, WeatherReport weatherReport) {
         ObjectMapper mapper = new ObjectMapper();
         try {
+            String fileName = "Weather in " +
+                    weatherReport.getWeatherReportDetails().getCity() +
+                    ".json";
+
+            if(new File(fileLocationPath, fileName).exists()) {
+                ioLogger.info("Overwriting existing weather report: {}", fileName);
+            }
+
             mapper.writeValue(new File(fileLocationPath + "Weather in " +
                             weatherReport.getWeatherReportDetails().getCity() +
                             ".json"),
