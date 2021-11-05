@@ -25,4 +25,11 @@ public class WeatherReportDetails {
             if (apiUnits.equals("imperial")) this.temperatureUnit = "Fahrenheit";
         }
     }
+
+    public String toString() {
+        return "------- Weather Report Details -------\n" +
+                "\t\t\tcity: " + this.city + "\n" +
+                "coordinates: " + this.coordinates + "\n" +
+                "temperatureUnit: " + this.temperatureUnit + "\n";
+    }
 }

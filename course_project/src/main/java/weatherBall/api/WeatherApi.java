@@ -29,12 +29,12 @@ import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
  */
 public class WeatherApi {
 
+    static final Logger apiLogger = (Logger) LoggerFactory.getLogger("api.weatherApi");
     private static final String BASE_URL = "https://api.openweathermap.org/data/2.5";
     private static final String CURRENT_WEATHER_URL = BASE_URL + "/weather";
     private static final String FORECAST_URL = BASE_URL + "/forecast";
     private static final String API_KEY = "8e648a10ee12b0e82dd59dab605e8db4";
     private static final Client client = getConfiguredClient();
-    static final Logger apiLogger = (Logger) LoggerFactory.getLogger("api.weatherApi");
     private static String UNITS = "metric";
 
     public static ClientResponse getCurrentWeatherResponse(String city) {

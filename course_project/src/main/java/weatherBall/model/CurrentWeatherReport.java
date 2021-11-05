@@ -27,9 +27,16 @@ public class CurrentWeatherReport {
         this.date = dateFormat.format(date);
     }
 
-
     // Setter method for attribute temperature, rounds parameter temperature to every half of unit.
     public void setTemperature(Double temperature) {
         this.temperature = Math.round(temperature * 2) / 2.0;
+    }
+
+    public String toString() {
+        return "------ Current Weather Report --------\n" +
+                "\t\t  date: " + this.date + "\n" +
+                "temperature: " + this.temperature + "\n" +
+                "humidity: " + this.humidity + "\n" +
+                "pressure: " + this.pressure + "\n";
     }
 }

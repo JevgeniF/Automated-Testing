@@ -19,4 +19,10 @@ public class Weather {
     public void setTemperature(Double temperature) {
         this.temperature = Math.round(temperature * 2) / 2.0;
     }
+
+    public String toString() {
+        return "temperature: " + this.temperature + "\n" +
+                "humidity: " + this.humidity + "\n" +
+                "pressure: " + this.pressure + "\n";
+    }
 }

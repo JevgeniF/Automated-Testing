@@ -12,4 +12,9 @@ import lombok.Data;
 public class ForecastReport {
     private String date;
     private Weather weather;
+
+    public String toString() {
+        return "\t\t  date: " + this.date + "\n" +
+                this.weather + "\n";
+    }
 }

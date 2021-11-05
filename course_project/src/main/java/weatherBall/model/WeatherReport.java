@@ -16,4 +16,11 @@ public class WeatherReport {
     private CurrentWeatherReport currentWeatherReport;
     private ArrayList<ForecastReport> forecastReport;
 
+    public String toString() {
+        return "=========== WEATHER REPORT ===========\n" +
+                this.weatherReportDetails.toString() +
+                this.currentWeatherReport.toString() +
+                "---------- Forecast Report -----------\n" +
+                this.forecastReport.toString();
+    }
 }
