@@ -10,6 +10,7 @@ import weatherBall.WeatherBall;
 import weatherBall.api.WeatherApi;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.PrintStream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -21,6 +22,7 @@ public class CLInterfaceFunctionalityTests {
     private PrintStream printStream;
     private PrintStream oldPrintStream;
     private ByteArrayOutputStream outputStream;
+    private static final String OUTPUT_DATA_FOLDER = "./src/main/resources/test_data/output/";
 
     @BeforeAll
     static void setUp() {
@@ -85,4 +87,14 @@ public class CLInterfaceFunctionalityTests {
         assertTrue(outputStream.toString().trim().contains("Fahrenheit"));
     }
 
+    @Test
+    @SneakyThrows
+    public void interfaceShouldSaveToJsonIfArgsJsonCityAndOutputPathGiven() {
+        String cityAsString = "Alabama";
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-json", cityAsString, OUTPUT_DATA_FOLDER});
+
+        File outputFile = new File(OUTPUT_DATA_FOLDER + "Weather in Alabama.json");
+        assertTrue(outputFile.exists() && outputFile.getName().contains("Alabama"));
+    }
 }
