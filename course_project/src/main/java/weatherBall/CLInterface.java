@@ -6,9 +6,7 @@ import weatherBall.exception.*;
 import weatherBall.inOut.InOut;
 import weatherBall.model.WeatherReport;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Command Line Interface. Adds functionality to app for easier interaction with user.
@@ -22,19 +20,11 @@ public class CLInterface {
         weatherBall = new WeatherBall(weatherApi);
 
 
-        File consoleHelpFile = new File("src/main/java/weatherBall/console_help.txt");
+        String consoleHelp = Help.help;
 
-        if(args.length == 0) {
-            try {
-                Scanner scanner = new Scanner(consoleHelpFile);
-                while (scanner.hasNextLine()) {
-                    System.out.println(scanner.nextLine());
-                }
-            } catch (java.io.FileNotFoundException e) {
-                System.out.println("You are on your own...");
-            }
+        if (args.length == 0) {
+            System.out.println(consoleHelp);
         } else {
-
             String jsonPath = "";
 
             switch (args[0]) {
@@ -68,16 +58,7 @@ public class CLInterface {
                         jsonOut(args[1], args[2]);
                     }
                 }
-                default -> {
-                    try {
-                        Scanner scanner = new Scanner(consoleHelpFile);
-                        while (scanner.hasNextLine()) {
-                            System.out.println(scanner.nextLine());
-                        }
-                    } catch (java.io.FileNotFoundException e) {
-                        System.out.println("You are on your own...");
-                    }
-                }
+                default -> System.out.println(consoleHelp);
             }
         }
     }

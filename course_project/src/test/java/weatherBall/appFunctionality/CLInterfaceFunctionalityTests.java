@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import weatherBall.CLInterface;
+import weatherBall.Help;
 import weatherBall.WeatherBall;
 import weatherBall.api.WeatherApi;
 import weatherBall.inOut.InOut;
@@ -308,20 +309,7 @@ public class CLInterfaceFunctionalityTests {
 
         CLInterface.main(new String[]{"-print", "Poltava"});
 
-        File consoleHelpFile = new File("src/main/java/weatherBall/console_help.txt");
-        StringBuilder help = new StringBuilder();
-
-        try {
-            Scanner scanner = new Scanner(consoleHelpFile);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                help.append(line).append("\n");
-            }
-        } catch (FileNotFoundException e) {
-            fail();
-        }
-
-        assertThat(outputStream.toString()).isEqualTo(help.toString());
+        assertThat(outputStream.toString().trim()).isEqualTo(Help.help);
     }
 
     @Test
@@ -331,19 +319,6 @@ public class CLInterfaceFunctionalityTests {
 
         CLInterface.main(new String[]{});
 
-        File consoleHelpFile = new File("src/main/java/weatherBall/console_help.txt");
-        StringBuilder help = new StringBuilder();
-
-        try {
-            Scanner scanner = new Scanner(consoleHelpFile);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                help.append(line).append("\n");
-            }
-        } catch (FileNotFoundException e) {
-            fail();
-        }
-
-        assertThat(outputStream.toString()).isEqualTo(help.toString());
+        assertThat(outputStream.toString().trim()).isEqualTo(Help.help);
     }
 }
