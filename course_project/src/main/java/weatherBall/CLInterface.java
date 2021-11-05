@@ -12,7 +12,7 @@ public class CLInterface {
 
     private static WeatherBall weatherBall;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws WrongInputFormatException, FileIsEmptyException, FileNotFoundException, FileInputMissingException {
         WeatherApi weatherApi = new WeatherApi();
         weatherBall = new WeatherBall(weatherApi);
 
@@ -83,12 +83,21 @@ public class CLInterface {
         }
     }
 
-    private static void jsonOut(String input, String jsonPath) {
-        try {
-            WeatherReport weatherReport = weatherBall.getWeatherReport(input);
-            InOut.saveToJson(jsonPath, weatherReport);
-        } catch (CityNotFoundException e) {
-            System.out.printf("%s city not found!", input);
+    private static void jsonOut(String input, String jsonPath) throws WrongInputFormatException, FileIsEmptyException, FileNotFoundException, FileInputMissingException {
+        if (FilenameUtils.getExtension(input).isEmpty()) {
+            try {
+                WeatherReport weatherReport = weatherBall.getWeatherReport(input);
+                InOut.saveToJson(jsonPath, weatherReport);
+            } catch (CityNotFoundException e) {
+                System.out.printf("%s city not found!", input);
+            }
+        } else {
+            try {
+                ArrayList<String> cityList = InOut.getCitiesFromFile(input);
+                ArrayList<WeatherReport> weatherReportList = weatherBall.getWeatherReport(cityList);
+
+                InOut.saveToJson(jsonPath, weatherReportList);
+            } catch (Exception ignore) {}
         }
     }
 }
