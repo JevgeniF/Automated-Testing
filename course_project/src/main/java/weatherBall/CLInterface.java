@@ -8,6 +8,7 @@ import weatherBall.model.WeatherReport;
 public class CLInterface {
 
     private static WeatherBall weatherBall;
+    private static String jsonPath = "";
 
     public static void main(String[] args) {
         WeatherApi weatherApi = new WeatherApi();
@@ -28,7 +29,11 @@ public class CLInterface {
                 stdOut(args[1]);
                 break;
             case "-json":
-                jsonOut(args[1], args[2]);
+                if (args.length == 2) {
+                    jsonOut(args[1], jsonPath);
+                } else {
+                    jsonOut(args[1], args[2]);
+                }
                 break;
         }
     }
