@@ -1,6 +1,7 @@
 package weatherBall.appFunctionality;
 
 import lombok.SneakyThrows;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -63,6 +65,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
+    @SneakyThrows
     public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGiven() {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
@@ -102,6 +105,7 @@ public class CLInterfaceFunctionalityTests {
     }
 
     @Test
+    @SneakyThrows
     public void interfaceShouldOutputCityNotFoundToConsoleIfWrongInputGivenWithFirstArgJson() {
         String cityAsString = "Muhosransk";
         String errorMessage = String.format("%s city not found!", cityAsString);
@@ -174,7 +178,6 @@ public class CLInterfaceFunctionalityTests {
         }
         assertThat(outputStream.toString())
                 .isEqualTo(reports.toString());
-
     }
 
     @Test
@@ -184,7 +187,7 @@ public class CLInterfaceFunctionalityTests {
         String errorMessage = "File has wrong format. Only txt allowed.";
 
         System.setOut(printStream);
-        CLInterface.main(new String[]{"-console", fileName, OUTPUT_DATA_FOLDER});
+        CLInterface.main(new String[]{"-console", fileName});
 
         assertThat(outputStream.toString().trim())
                 .isEqualTo(errorMessage);
@@ -197,7 +200,7 @@ public class CLInterfaceFunctionalityTests {
         String errorMessage = "File is empty.";
 
         System.setOut(printStream);
-        CLInterface.main(new String[]{"-console", fileName, OUTPUT_DATA_FOLDER});
+        CLInterface.main(new String[]{"-console", fileName});
 
         assertThat(outputStream.toString().trim())
                 .isEqualTo(errorMessage);
@@ -210,9 +213,22 @@ public class CLInterfaceFunctionalityTests {
         String errorMessage = "Input not found.";
 
         System.setOut(printStream);
-        CLInterface.main(new String[]{"-console", fileName, OUTPUT_DATA_FOLDER});
+        CLInterface.main(new String[]{"-console", fileName});
 
         assertThat(outputStream.toString().trim())
                 .isEqualTo(errorMessage);
+    }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShouldSaveWeatherReportsToJsonIfArgsJsonAndInputFileGiven() {
+        String fileName = INPUT_DATA_FOLDER + "cities.txt";
+
+        CLInterface.main(new String[]{"-json", fileName, OUTPUT_DATA_FOLDER + "batch/"});
+
+        int jsonFileCount = Objects.requireNonNull(new File(OUTPUT_DATA_FOLDER + "batch/")
+                .listFiles(file -> !file.isHidden())).length;
+
+        Assertions.assertThat(jsonFileCount).isEqualTo(13);
     }
 }
