@@ -17,8 +17,8 @@ public class CLInterface {
             }
         }
 
-        if (args[0].equals("-c") && args[1].equals("-console")) {
-            weatherApi.setUnits("Celsius");
+        if (args[1].equals("-console")) {
+            if (args[0].equals("-f")) { WeatherApi.setUnits("imperial"); }
             try {
                 System.out.println(weatherBall.getWeatherReport(args[2]).toString());
             } catch (CityNotFoundException e) {

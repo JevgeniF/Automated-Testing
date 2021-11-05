@@ -82,9 +82,7 @@ public class CLInterfaceFunctionalityTests {
         String cityAsString = "Alabama";
         System.setOut(printStream);
         CLInterface.main(new String[]{"-f", "-console", cityAsString});
-
-        assertTrue(outputStream.toString().trim().contains("Celsius"));
-
+        assertTrue(outputStream.toString().trim().contains("Fahrenheit"));
     }
 
 }
