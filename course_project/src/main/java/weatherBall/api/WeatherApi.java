@@ -75,7 +75,7 @@ public class WeatherApi {
 
         if (response.getStatus() == HTTP_NOT_FOUND) {
 
-            apiLogger.error("Error occurred on sending current weather request to API: {}", HTTP_NOT_FOUND);
+            apiLogger.warn("Error occurred on sending current weather request to API: {}", HTTP_NOT_FOUND);
             throw new CityNotFoundException();
         }
         return response.getEntity(CurrentWeatherData.class);
@@ -85,7 +85,7 @@ public class WeatherApi {
         ClientResponse response = getForecastResponse(city);
 
         if (response.getStatus() == HTTP_NOT_FOUND) {
-            apiLogger.error("Error occurred on sending forecast request to API: {}", HTTP_NOT_FOUND);
+            apiLogger.warn("Error occurred on sending forecast request to API: {}", HTTP_NOT_FOUND);
 
             throw new CityNotFoundException();
         }
