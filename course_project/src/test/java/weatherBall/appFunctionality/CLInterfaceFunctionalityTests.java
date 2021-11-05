@@ -244,4 +244,17 @@ public class CLInterfaceFunctionalityTests {
         assertThat(outputStream.toString().trim())
                 .isEqualTo(errorMessage);
     }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShowsErrorMessageWhenArgJsonAndInputFileIsEmpty() {
+        String fileName = INPUT_DATA_FOLDER + "empty_file.txt";
+        String errorMessage = "File is empty.";
+
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-json", fileName});
+
+        assertThat(outputStream.toString().trim())
+                .isEqualTo(errorMessage);
+    }
 }
