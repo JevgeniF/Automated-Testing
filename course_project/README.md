@@ -26,6 +26,7 @@ The project build with _Apache Maven Framework_ with _Java 16_ prerequisites.
 _Logback_ logger implemented for logging info, errors and warnings.
 Testing consists of mock-integration, integration and functionality tests. All tests divided into groups and can be run individually with _surefire_ plugin.
 _Maven assembly_ plugin responds for jar with dependencies assembly.
+> Project was coded, tested and assembled on Unix(MacOs) and not tested for compatibility with other systems.
 
 # How to Build and Run Application
 _Prerequisites. The client must have Maven installed._
