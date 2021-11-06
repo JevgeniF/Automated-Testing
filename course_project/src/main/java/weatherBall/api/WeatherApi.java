@@ -64,10 +64,8 @@ public class WeatherApi {
         return UNITS;
     }
 
-    @SuppressWarnings("unused")
     public static void setUnits(String measurementSystem) {
         UNITS = measurementSystem;
-        apiLogger.info("API UNIT setting changed now: {}", measurementSystem);
     }
 
     public CurrentWeatherData getCurrentWeatherData(String city) throws CityNotFoundException {

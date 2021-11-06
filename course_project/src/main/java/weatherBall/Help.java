@@ -7,13 +7,13 @@ public class Help {
 
                     WeatherBall generates Weather Forecasts with Current Weather and Next 3 Days Weather using OpenWeatherMap API.
 
-                    To get weather report input in console:
-                        java -jar [weather ball package name] [outputFormat] [not necessary:units] [input] [not necessary:outputFolder]
+                    To get weather report, input in console:
+                        java -jar [WeatherBall package name].jar [outputMode] [not necessary:units] [input] [not necessary:outputFolder]
 
                     with attributes. App accepts up to 4 attributes in a row.
                     Not necessary attributes may be skipped.
 
-                    [outputFormat] may have the following parameters:
+                    [outputMode] may have the following parameters:
                         -console        Displays weather reports on the console.
                         -json           Saves weather reports to JSON file (Separately for each city).
 
@@ -29,7 +29,7 @@ public class Help {
                                         !!! In case of file input, cities with wrong names will be skipped. !!!
 
                     [not necessary:outputFolder] may have the following parameters
-                        filePath        Changes location, where JSON file(s) will be saved.
+                        path        Changes location, where JSON file(s) will be saved.
                                         !!! If skipped. Saves JSON file(s) to app folder.
 
                     Examples of proper startup from console:
