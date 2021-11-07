@@ -186,7 +186,7 @@ public class CLInterfaceFunctionalityTests {
             reports.append(weatherReport).append("\n");
         }
         assertThat(outputStream.toString())
-                .isEqualTo(reports.toString());
+                .contains(reports.toString());
     }
 
     @Test
@@ -249,9 +249,9 @@ public class CLInterfaceFunctionalityTests {
         CLInterface.main(new String[]{"-json", fileName, OUTPUT_DATA_FOLDER + "batch/"});
 
         int jsonFileCount = Objects.requireNonNull(new File(OUTPUT_DATA_FOLDER + "batch/")
-                .listFiles(file -> !file.isHidden())).length;
+                .listFiles(file -> file.getName().endsWith(".json"))).length;
 
-        Assertions.assertThat(jsonFileCount).isEqualTo(13);
+        Assertions.assertThat(jsonFileCount).isEqualTo(3);
     }
 
     @Test

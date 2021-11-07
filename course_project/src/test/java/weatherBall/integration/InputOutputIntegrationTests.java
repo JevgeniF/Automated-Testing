@@ -58,7 +58,7 @@ public class InputOutputIntegrationTests {
 
         ArrayList<WeatherReport> weatherReportList = weatherBall.getWeatherReport(cityList);
 
-        assertThat(weatherReportList.size()).isEqualTo(13);
+        assertThat(weatherReportList.size()).isEqualTo(3);
     }
 
     @Test
@@ -71,9 +71,9 @@ public class InputOutputIntegrationTests {
         InOut.saveToJson(OUTPUT_DATA_FOLDER + "batch_error/", weatherReportList);
 
         int jsonFileCount = Objects.requireNonNull(new File(OUTPUT_DATA_FOLDER + "batch_error/")
-                .listFiles(file -> !file.isHidden())).length;
+                .listFiles(file -> file.getName().endsWith(".json"))).length;
 
-        assertThat(jsonFileCount).isEqualTo(13);
+        assertThat(jsonFileCount).isEqualTo(3);
     }
 
     @Test
@@ -155,9 +155,9 @@ public class InputOutputIntegrationTests {
         InOut.saveToJson(OUTPUT_DATA_FOLDER + "batch/", weatherReportList);
 
         int jsonFileCount = Objects.requireNonNull(new File(OUTPUT_DATA_FOLDER + "batch/")
-                .listFiles(file -> !file.isHidden())).length;
+                .listFiles(file -> file.getName().endsWith(".json"))).length;
 
-        assertThat(jsonFileCount).isEqualTo(13);
+        assertThat(jsonFileCount).isEqualTo(3);
 
     }
 
