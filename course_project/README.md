@@ -22,11 +22,11 @@ The report consists of the following data:
     - ```average pressure``` - atmosphere pressure average per day
 
 ## Short Technical Preview
-The project build with _Apache Maven Framework_ with _Java 16_ prerequisites.
+The project build with _Apache Maven Framework v 3.8.3_ and requires _Java 16_ to run.
 _Logback_ logger implemented for logging info, errors and warnings.
 Testing consists of mock-integration, integration and functionality tests. All tests divided into groups and can be run individually with _surefire_ plugin.
 _Maven assembly_ plugin responds for jar with dependencies assembly.
-> Project was coded on Unix(MacOs). Code and assembled program tested on Windows 11 and Mac OS 12.1
+> Project was coded on Unix(MacOs). Code and assembled program tested for compatibility on Windows 11, Mac OS 12.1 and Ubuntu 20.04.3 LTS using (Windows Subsystem for Linux)
 
 # How to Build and Run Application
 _Prerequisites. The client must have Maven installed._
@@ -215,7 +215,6 @@ To assembly usable jar package file (with all libraries), run the following comm
 mvn clean compile assembly:single 
 ```
 The usable jar file called like `WeatherBall-[version]-[build].jar` will be generated in `target` directory.
-> The usability on Linux machines was not tested yet.
 # User Manual
 > You can always find console help / manual by run .jar file without attributes.
 - To start work with app, you need assembled before WeatherBall JAR file.
