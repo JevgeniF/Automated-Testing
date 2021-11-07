@@ -185,7 +185,7 @@ public class CLInterfaceFunctionalityTests {
         for (WeatherReport weatherReport : weatherReportList) {
             reports.append(weatherReport).append("\n");
         }
-        assertThat(outputStream.toString())
+        assertThat(outputStream.toString().replaceAll("\\r", ""))
                 .contains(reports.toString());
     }
 
