@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Tests for Command Line Interface Functionality.
- * 21 tests.
+ * 22 tests.
  */
 public class CLInterfaceFunctionalityTests {
 
@@ -223,6 +223,19 @@ public class CLInterfaceFunctionalityTests {
 
         System.setOut(printStream);
         CLInterface.main(new String[]{"-console", fileName, OUTPUT_DATA_FOLDER});
+
+        assertThat(outputStream.toString().trim())
+                .isEqualTo(errorMessage);
+    }
+
+    @Test
+    @SneakyThrows
+    public void interfaceShowsErrorMessageWhenArgJsonAndOutputFolderNotFound() {
+        String city = "Houston";
+        String errorMessage = "Output folder does not exists.";
+
+        System.setOut(printStream);
+        CLInterface.main(new String[]{"-json", city, OUTPUT_DATA_FOLDER + "newFolder/"});
 
         assertThat(outputStream.toString().trim())
                 .isEqualTo(errorMessage);

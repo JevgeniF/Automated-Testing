@@ -105,6 +105,8 @@ public class CLInterface {
                 InOut.saveToJson(jsonPath, weatherReport);
             } catch (CityNotFoundException e) {
                 System.out.printf("%s city not found!", input);
+            } catch (OutputFolderNotFoundException e) {
+                System.out.println("Output folder does not exists.");
             }
         } else {
             try {
@@ -118,8 +120,9 @@ public class CLInterface {
                 System.out.println("File is empty.");
             } catch (FileNotFoundException e) {
                 System.out.println("File not found.");
-            } catch (FileInputMissingException ignore) {
-            }
+            } catch (OutputFolderNotFoundException e) {
+            System.out.println("Output folder does not exists.");
+            } catch (FileInputMissingException ignore) {}
         }
     }
 }

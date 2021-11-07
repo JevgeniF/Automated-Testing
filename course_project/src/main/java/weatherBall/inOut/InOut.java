@@ -7,6 +7,7 @@ import weatherBall.exception.FileInputMissingException;
 import weatherBall.exception.FileIsEmptyException;
 import weatherBall.exception.FileNotFoundException;
 import weatherBall.exception.WrongInputFormatException;
+import weatherBall.exception.OutputFolderNotFoundException;
 import weatherBall.model.WeatherReport;
 
 import java.io.File;
@@ -60,7 +61,8 @@ public class InOut {
         return cityList;
     }
 
-    public static void saveToJson(String fileLocationPath, WeatherReport weatherReport) {
+    public static void saveToJson(String fileLocationPath, WeatherReport weatherReport)
+            throws OutputFolderNotFoundException {
         ObjectMapper mapper = new ObjectMapper();
         try {
             String fileName = "Weather in " +
@@ -76,12 +78,15 @@ public class InOut {
                             ".json"),
                     weatherReport);
         } catch (IOException e) {
-            ioLogger.error("IOException occurred when tried to save .json files:\n{}", e.getMessage());
+            ioLogger.error("OutputFolderNotFoundException occurred when tried to save .json files");
+
+            throw new OutputFolderNotFoundException();
         }
     }
 
     //overloaded method for batch save
-    public static void saveToJson(String fileLocationPath, ArrayList<WeatherReport> weatherReportList) {
+    public static void saveToJson(String fileLocationPath, ArrayList<WeatherReport> weatherReportList)
+            throws OutputFolderNotFoundException {
         for (WeatherReport weatherReport : weatherReportList) {
             saveToJson(fileLocationPath, weatherReport);
         }
