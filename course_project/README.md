@@ -26,7 +26,7 @@ The project build with _Apache Maven Framework_ with _Java 16_ prerequisites.
 _Logback_ logger implemented for logging info, errors and warnings.
 Testing consists of mock-integration, integration and functionality tests. All tests divided into groups and can be run individually with _surefire_ plugin.
 _Maven assembly_ plugin responds for jar with dependencies assembly.
-> Project was coded, tested and assembled on Unix(MacOs) and not tested for compatibility with other systems.
+> Project was coded on Unix(MacOs). Code and assembled program tested on Windows 11 and Mac OS 12.1
 
 # How to Build and Run Application
 _Prerequisites. The client must have Maven installed._
@@ -215,7 +215,7 @@ To assembly usable jar package file (with all libraries), run the following comm
 mvn clean compile assembly:single 
 ```
 The usable jar file called like `WeatherBall-[version]-[build].jar` will be generated in `target` directory.
-> The usability on Windows and Linux machines was not tested yet. For better user experience on MacOs , suggest to rename file with simple name and move it into user $HOME folder, or setup environment path for the app. Otherwise it is required to mention full path for the file to use it.
+> The usability on Linux machines was not tested yet.
 # User Manual
 > You can always find console help / manual by run .jar file without attributes.
 - To start work with app, you need assembled before WeatherBall JAR file.
