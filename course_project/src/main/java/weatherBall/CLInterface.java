@@ -27,38 +27,42 @@ public class CLInterface {
         } else {
             String jsonPath = "";
 
-            switch (args[0]) {
-                case "-console" -> {
-                    switch (args[1]) {
-                        case "-c" -> {
-                            WeatherApi.setUnits("metric");
-                            stdOut(args[2]);
-                        }
-                        case "-f" -> {
-                            WeatherApi.setUnits("imperial");
-                            stdOut(args[2]);
-                        }
-                    }
-                    stdOut(args[1]);
+            if (args[0].equals("-console")) {
+                switch (args[1]) {
+                    case "-c":
+                        WeatherApi.setUnits("metric");
+                        stdOut(args[2]);
+                        break;
+                    case "-f":
+                        WeatherApi.setUnits("imperial");
+                        stdOut(args[2]);
+                        break;
+                    default:
+                        stdOut(args[1]);
+                        break;
                 }
-                case "-json" -> {
-                    switch (args[1]) {
-                        case "-c" -> {
-                            WeatherApi.setUnits("metric");
-                            jsonOut(args[2], args.length == 3 ? jsonPath : args[3]);
+            } else if (args[0].equals("-json")) {
+                switch (args[1]) {
+                    case "-c":
+                        WeatherApi.setUnits("metric");
+                        jsonOut(args[2], args.length == 3 ? jsonPath : args[3]);
+                        break;
+                    case "-f":
+                        WeatherApi.setUnits("imperial");
+                        jsonOut(args[2], args.length == 3 ? jsonPath : args[3]);
+                        break;
+                    default:
+                        if (args.length == 2) {
+                            jsonOut(args[1], jsonPath);
+                            break;
+                        } else if (args.length == 3) {
+                            jsonOut(args[1], args[2]);
+                            break;
                         }
-                        case "-f" -> {
-                            WeatherApi.setUnits("imperial");
-                            jsonOut(args[2], args.length == 3 ? jsonPath : args[3]);
-                        }
-                    }
-                    if (args.length == 2) {
-                        jsonOut(args[1], jsonPath);
-                    } else if (args.length == 3) {
-                        jsonOut(args[1], args[2]);
-                    }
                 }
-                default -> System.out.println(consoleHelp);
+            } else {
+
+                System.out.println(consoleHelp);
             }
         }
     }
