@@ -15,7 +15,9 @@ public class Weather {
     private Integer humidity;
     private Integer pressure;
 
-    // Setter method for attribute temperature, rounds parameter temperature to every half of unit.
+    /* Setter method for attribute temperature, rounds parameter temperature to every half of unit, as this is
+    aesthetically more beautiful. More exact data does not give any preferences for final user.
+     */
     public void setTemperature(Double temperature) {
         this.temperature = Math.round(temperature * 2) / 2.0;
     }
