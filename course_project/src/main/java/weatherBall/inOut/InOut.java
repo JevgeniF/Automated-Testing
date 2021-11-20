@@ -27,19 +27,8 @@ public class InOut {
     public static ArrayList<String> getCitiesFromFile(String fileName)
             throws WrongInputFormatException, FileNotFoundException, FileInputMissingException, FileIsEmptyException {
 
-        if (fileName.trim().isEmpty()) {
-            ioLogger.error("Exception occurred when tried to get cities form input file:\n{}",
-                    new FileInputMissingException().getMessage());
-
-            throw new FileInputMissingException();
-        }
-
-        if (!fileName.endsWith(".txt")) {
-            ioLogger.error("Exception occurred when tried to get cities form input file:\n{}",
-                    new WrongInputFormatException().getMessage());
-
-            throw new WrongInputFormatException();
-        }
+        checkIfInputFileMissing(fileName);
+        checkIfInputFileFormatIsTxt(fileName);
 
         ArrayList<String> cityList = new ArrayList<>();
         try (Stream<String> stream = Files.lines(Path.of(fileName))) {
@@ -51,12 +40,7 @@ public class InOut {
             throw new FileNotFoundException();
         }
 
-        if (cityList.isEmpty()) {
-            ioLogger.error("Exception occurred when tried to get cities form input file:\n{}",
-                    new FileIsEmptyException().getMessage());
-
-            throw new FileIsEmptyException();
-        }
+        checkIfInputFileWasEmpty(cityList);
 
         return cityList;
     }
@@ -69,9 +53,7 @@ public class InOut {
                     weatherReport.getWeatherReportDetails().getCity() +
                     ".json";
 
-            if (new File(fileLocationPath, fileName).exists()) {
-                ioLogger.info("Overwriting existing weather report: {}", fileName);
-            }
+            informWhenOverwritingFiles(fileLocationPath, fileName);
 
             mapper.writeValue(new File(fileLocationPath + "Weather in " +
                             weatherReport.getWeatherReportDetails().getCity() +
@@ -92,5 +74,38 @@ public class InOut {
         }
 
         ioLogger.info("Overloaded method used to save Json files");
+    }
+
+    private static void checkIfInputFileWasEmpty(ArrayList<String> cityList) throws FileIsEmptyException {
+        if (cityList.isEmpty()) {
+            ioLogger.error("Exception occurred when tried to get cities form input file:\n{}",
+                    new FileIsEmptyException().getMessage());
+
+            throw new FileIsEmptyException();
+        }
+    }
+
+    private static void checkIfInputFileFormatIsTxt(String fileName) throws WrongInputFormatException {
+        if (!fileName.endsWith(".txt")) {
+            ioLogger.error("Exception occurred when tried to get cities form input file:\n{}",
+                    new WrongInputFormatException().getMessage());
+
+            throw new WrongInputFormatException();
+        }
+    }
+
+    private static void checkIfInputFileMissing(String fileName) throws FileInputMissingException {
+        if (fileName.trim().isEmpty()) {
+            ioLogger.error("Exception occurred when tried to get cities form input file:\n{}",
+                    new FileInputMissingException().getMessage());
+
+            throw new FileInputMissingException();
+        }
+    }
+
+    private static void informWhenOverwritingFiles(String fileLocationPath, String fileName) {
+        if (new File(fileLocationPath, fileName).exists()) {
+            ioLogger.info("Overwriting existing weather report: {}", fileName);
+        }
     }
 }
