@@ -16,6 +16,8 @@ import java.util.Map;
  */
 public class Helpers {
 
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     public static Weather getAverageForecastWeather(ArrayList<MainDto> mainDtoList) {
         Weather averageWeather = new Weather();
         averageWeather.setTemperature(mainDtoList.stream().mapToDouble(MainDto::getTemp).average().orElseThrow());
@@ -24,21 +26,51 @@ public class Helpers {
         return averageWeather;
     }
 
+
     public static Map<String, ArrayList<MainDto>> getForecastWeatherMap(ForecastData data) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
         Map<String, ArrayList<MainDto>> forecastWeatherMap = new LinkedHashMap<>();
+        String currentDate = formattedCurrentDate();
 
-        String todayDate = dateFormat.format(new Date(System.currentTimeMillis()));
+        formatThreeDaysForecastWeatherMap(data, forecastWeatherMap, currentDate);
 
+        return forecastWeatherMap;
+    }
+
+    private static void formatThreeDaysForecastWeatherMap(ForecastData data,
+                                                          Map<String, ArrayList<MainDto>> forecastWeatherMap,
+                                                          String currentDate) {
         for (ListDto list : data.getList()) {
-            String forecastDate = dateFormat.format(new Date(list.getDt() * 1000L));
-            if (forecastWeatherMap.size() == 3) break;
-            if (!forecastDate.equals(todayDate)) {
-                if (!forecastWeatherMap.containsKey(forecastDate))
-                    forecastWeatherMap.put(forecastDate, new ArrayList<>());
-                forecastWeatherMap.get(forecastDate).add(list.getMain());
+            String forecastDate = formattedForecastDate(list.getDt());
+            if (isForecastWeatherMapIsFull(forecastWeatherMap)) break;
+            if (isForecastDateNotCurrentDate(forecastDate, currentDate)) {
+                addDateAndForecastToForecastWeatherMap(forecastWeatherMap, forecastDate, list);
             }
         }
-        return forecastWeatherMap;
+
+    }
+
+    private static void addDateAndForecastToForecastWeatherMap(Map<String, ArrayList<MainDto>> forecastWeatherMap,
+                                                               String forecastDate, ListDto forecastsList) {
+        if (!forecastWeatherMap.containsKey(forecastDate)) {
+            forecastWeatherMap.put(forecastDate, new ArrayList<>());
+            forecastWeatherMap.get(forecastDate).add(forecastsList.getMain());
+        }
+    }
+
+    private static String formattedCurrentDate() {
+        return dateFormat.format(new Date(System.currentTimeMillis()));
+    }
+
+    private static String formattedForecastDate(Long date) {
+        return dateFormat.format(new Date(date * 1000L));
+    }
+
+    private static boolean isForecastWeatherMapIsFull(Map<String, ArrayList<MainDto>> forecastWeatherMap) {
+        return forecastWeatherMap.size() == 3;
+    }
+
+    private static boolean isForecastDateNotCurrentDate(String forecastDate, String currentDate) {
+        return !forecastDate.equals(currentDate);
     }
 }
