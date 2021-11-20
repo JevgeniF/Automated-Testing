@@ -29,9 +29,9 @@ public class CurrentWeatherIntegrationTests {
 
     @Test
     public void apiShouldReturnHttpOkWhenCityNameIsGivenAndCityExistsInApi() {
-        int RequestStatus = WeatherApi.getCurrentWeatherResponse(city).getStatus();
+        int requestStatus = WeatherApi.getCurrentWeatherResponse(city).getStatus();
 
-        assertThat(RequestStatus).isEqualTo(HTTP_OK);
+        assertThat(requestStatus).isEqualTo(HTTP_OK);
     }
 
     @Test
