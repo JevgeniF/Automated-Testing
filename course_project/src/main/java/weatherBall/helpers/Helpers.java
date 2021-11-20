@@ -47,7 +47,6 @@ public class Helpers {
                 addDateAndForecastToForecastWeatherMap(forecastWeatherMap, forecastDate, list);
             }
         }
-
     }
 
     private static void addDateAndForecastToForecastWeatherMap(Map<String, ArrayList<MainDto>> forecastWeatherMap,

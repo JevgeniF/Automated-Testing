@@ -43,7 +43,7 @@ mvn clean compile -Dmaven.test.skip=true
 ```
 ## Project testing
 - Project tested by junit tests divided into  5 profiles:
-    - ```mock-integration-tests``` - test API integration scenarios in case, if no connection with real API. Use _Mockito_ library to mock _Weahter API_
+    - ```mock-integration-tests``` - test API integration scenarios in case, if no connection with real API. Use _Mockito_ library to mock _Weather API_
     - ```api-integration-tests``` - test integration of real OpenWeatherMap API, like getting data from API
     - ```app-functionality-tests``` - test main functionality of application, like generation of weather reports from API data
     - ```io-integration-tests``` - test integration of input/output, like receiving city names from files and saving weather reports as JSON files.
