@@ -1,0 +1,101 @@
+#course_project pipeline base configuration
+
+image: maven:latest
+
+stages:
+    - Build
+    - App Testing
+    - CL Interface Testing
+    - Package Assembly
+
+app-build:
+    tags:
+        - docker
+    stage: Build
+    script:
+        - cd course_project
+        - mvn clean compile -Dmaven.test.skip=true
+
+
+mock-integration-tests:
+    tags:
+        - docker
+    stage: App Testing
+    script:
+        - cd course_project
+        - mvn test -Pmock-integration-tests
+        - echo "mock integration tests completed"
+    
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - course_project/target/surefire-reports/TEST-*.xml
+
+api-integration-tests:
+    tags:
+        - docker
+    stage: App Testing
+    script:
+        - cd course_project
+        - mvn test -Papi-integration-tests
+        - echo "api integration tests completed"
+    
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - course_project/target/surefire-reports/TEST-*.xml
+
+app-functionality-tests:
+    tags:
+        - docker
+    stage: App Testing
+    script:
+        - cd course_project
+        - mvn test -Papp-functionality-tests
+        - echo "app functionality tests completed"
+
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - course_project/target/surefire-reports/TEST-*.xml
+
+io-integration-tests:
+    tags:
+        - docker
+    stage: App Testing
+    script:
+        - cd course_project
+        - mvn test -Pio-integration-tests
+        - echo "input-output tests completed"
+
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - course_project/target/surefire-reports/TEST-*.xml
+
+cl-interface-tests:
+    tags:
+        - docker
+    stage: CL Interface Testing
+    script:
+        - cd course_project
+        - mvn test -Pcl-interface-tests
+        - echo "cl interface tests completed"
+
+    artifacts:
+        when: always
+        reports:
+            junit:
+                - course_project/target/surefire-reports/TEST-*.xml
+
+app-install:
+    tags:
+        - docker
+    stage: Package Assembly
+    script:
+        - cd course_project
+        - mvn clean compile assembly:single
